@@ -1,0 +1,121 @@
+---
+const response = await fetch('https://ww2.wg-algersdorf.org/graphql', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    query: `
+      query GetImageByUrl {
+            mediaItem(id: "hero-blob-wg", idType: SLUG) {
+                sourceUrl
+                altText
+                mediumSource: sourceUrl(size: MEDIUM)
+            }
+	    }
+    `,
+  }),
+});
+
+const { data } = await response.json();
+---
+
+<div id="hero">
+    <div class="hero-section-1">
+        <div class="hero-h1">Wohngemeinschaft</div>
+        <div class="hero-h2">Algersdorf</div>
+    </div>
+    <div class="hero-section-2">
+        <div class="hero-space"></div>
+        <div class="hero-img">
+            <img src=`${data.mediaItem.sourceUrl}` alt=`${data.mediaItem.altText}` srcset="">
+        </div>
+        <div class="hero-links">
+            <a href="">Community living</a>
+            <a href="">Gain back independence</a>
+            <a href="">Trust the process</a>
+        </div>
+        
+    </div>
+        
+</div>
+
+<style>
+    #hero{
+        display: grid;
+        grid-template-columns: 45vw 1fr;
+
+        height: 85vh;
+        width: 100vw;
+        background-color: #A38D75;
+
+        border-bottom-left-radius: 10%;
+    }
+
+    .hero-section-1, .hero-section-2{
+        height: 100%;
+        width: 100%;
+    }
+
+    .hero-section-1{
+        display: flex;
+        flex-direction: column;
+        background-color: #38322B;
+        border-radius: 0 10% 10% 10%;
+
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    .hero-h1{
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 300;
+        font-size: 30px;
+    }
+
+    .hero-h2{
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 700;
+        font-size: 70px;
+    }
+
+    .hero-section-2{
+        display: grid;
+        grid-template-rows: 5% 80% 15%;
+
+        padding-left: 20px;
+        background-color: #A38D75;
+
+        border-bottom-right-radius: 10%;
+    }
+
+    .hero-section-2 a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .hero-links{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        font-size: large;
+    }
+
+    .hero-img img{
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+
+        object-position: right center;
+        padding-right: -1px;
+    }
+
+
+   
+
+/* Media queries */
+
+	@media screen and (max-width: 640px) {
+		
+	} 
+</style>

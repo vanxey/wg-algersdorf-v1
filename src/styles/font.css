@@ -65,3 +65,14 @@
     font-display: swap;
     src: url('fonts/Inter/Inter-Italic-VariableFont_opsz-wght.ttf') format('truetype');
     }
+
+/* ALEXANDRIA */
+
+    @font-face {
+    font-family: "Alexandria";
+    font-optical-sizing: auto;
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('fonts/Alexandria/Alexandria-VariableFont_wght.ttf') format('truetype');
+    }
