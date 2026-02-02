@@ -30,6 +30,10 @@ const { data } = await response.json();
         <a href="/angebot">Angebot</a>
         <a href="/kontakt">Kontakt</a>
     </nav>
+
+    <div id="burger-menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path fill="#000000" fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/></svg>
+    </div>
 </div>
 
 <style>
@@ -47,6 +51,19 @@ const { data } = await response.json();
         background-color: white;
         font-family: 'Inter';
         font-weight: 700;
+    }
+
+    #burger-menu{
+        display: none;
+        justify-content: end;
+        align-items: center;
+
+        height: 100%;
+    }
+
+    #burger-menu svg{
+        height: 70%;
+        width: 70%;
     }
 
     #logo-container{
@@ -91,42 +108,15 @@ const { data } = await response.json();
         border-color: #A38D75;
     }
 
+/* Media queries */
 
+	@media screen and (max-width: 640px) {
+		nav{
+            display: none;
+        }
 
-	/* @media screen and (max-height: 368px) {
-		#news {
-			display: none;
-		}
-	}
-
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
-
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
-
-		#links {
-			flex-wrap: wrap;
-		}
-
-		#links a.button {
-			padding: 14px 18px;
-		}
-
-		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
-		}
-
-		h1 {
-			line-height: 1.5;
-		}
-	} */
+        #burger-menu{
+            display: flex;
+        }
+	} 
 </style>
