@@ -1,0 +1,67 @@
+ /* PT SANS */
+    @font-face {
+	font-family: "PT Sans";
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+    src: url('fonts/PT_Sans/PTSans-Regular.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Sans";
+	font-weight: 700;
+	font-style: normal;
+    font-display: swap;
+    src: url('fonts/PT_Sans/PTSans-Bold.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Sans";
+	font-weight: 400;
+	font-style: italic;
+    font-display: swap;
+    src: url('fonts/PT_Sans/PTSans-Italic.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Sans";
+	font-weight: 700;
+	font-style: italic;
+    font-display: swap;
+    src: url('fonts/PT_Sans/PTSans-BoldItalic.ttf') format('truetype');
+	}
+/* PT SANS CAPTION */
+	@font-face {
+	font-family: "PT Sans Caption";
+	font-weight: 400;
+	font-style: normal;
+    font-display: swap;
+    src: url('fonts/PT_Sans_Caption/PTSansCaption-Regular.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Sans Caption";
+	font-weight: 700;
+	font-style: normal;
+    font-display: swap;
+    src: url('fonts/PT_Sans_Caption/PTSansCaption-Bold.ttf') format('truetype');
+	}
+
+/* INTER */
+    @font-face {
+    font-family: "Inter";
+    font-optical-sizing: auto;
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('fonts/Inter/Inter-VariableFont_opsz-wght.ttf') format('truetype');
+    }
+
+    @font-face {
+    font-family: "Inter";
+    font-optical-sizing: auto;
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+    src: url('fonts/Inter/Inter-Italic-VariableFont_opsz-wght.ttf') format('truetype');
+    }
