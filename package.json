@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@storyblok/astro": "^7.3.8",
     "astro": "^5.16.16"
+  },
+  "devDependencies": {
+    "vite-plugin-mkcert": "^1.17.9"
   }
 }
