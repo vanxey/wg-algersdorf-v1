@@ -2,10 +2,12 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro"
 
+const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi()
-const { data } = await storyblokApi.get("cdn/stories/home", {
+const storyPath = slug === undefined ? 'home' : slug;
+
+const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
   version: "draft",
 });
 

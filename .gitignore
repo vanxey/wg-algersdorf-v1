@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Local SSL certificates
+localhost.pem
+localhost-key.pem

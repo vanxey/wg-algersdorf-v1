@@ -1,51 +1,37 @@
 ---
 import Button from "./ui/Button.astro";
-const response = await fetch('https://ww2.wg-algersdorf.org/graphql', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    query: `
-      query GetImageByUrl {
-            mediaItem(id: "hero-blob-wg", idType: SLUG) {
-                sourceUrl
-                altText
-                mediumSource: sourceUrl(size: MEDIUM)
-            }
-	    }
-    `,
-  }),
-});
+import { storyblokEditable } from '@storyblok/astro';
 
-const { data } = await response.json();
+const { blok } = Astro.props;
 ---
 
-<div id="hero">
+<section {...storyblokEditable(blok)} id="hero">
     <div class="hero-section-1">
-        <div class="hero-h1">Wohngemeinschaft</div>
-        <div class="hero-h2">Algersdorf</div>
-        <Button href="" variant="primary">Mehr erfahren...</Button>
+        <div class="hero-h1">{blok.title_1}</div>
+        <div class="hero-h2">{blok.title_2}</div>
+        <Button href="" variant="primary">{blok.button_text}</Button>
     </div>
     <div class="hero-section-2">
         <div class="hero-space"></div>
         <div class="hero-img">
-            <img src=`${data.mediaItem.sourceUrl}` alt=`${data.mediaItem.altText}` srcset="">
+            {blok.image && <img src={blok.image} alt={blok.image.alt} />}
         </div>
         <div class="hero-links">
-            <a href="">Community living</a>
-            <a href="">Gain back independence</a>
-            <a href="">Trust the process</a>
+            <a href=`${blok.link_1.cached_url}`>{blok.link_1_text}</a>
+            <a href=`${blok.link_2.cached_url}`>{blok.link_2_text}</a>
+            <a href=`${blok.link_3.cached_url}`>{blok.link_3_text}</a>
         </div>
         
     </div>
         
-</div>
+</section>
 
 <style>
     #hero{
         display: grid;
-        grid-template-columns: 45vw 1fr;
+        grid-template-columns: 40vw 1fr;
 
-        height: 85vh;
+        height: 90vh;
         width: 100vw;
         background-color: #A38D75;
 
@@ -61,7 +47,7 @@ const { data } = await response.json();
         display: flex;
         flex-direction: column;
         background-color: #38322B;
-        border-radius: 0 10% 10% 10%;
+        border-radius: 0 30px 30px 30px;
 
         align-items: center;
         justify-content: center;
@@ -83,12 +69,12 @@ const { data } = await response.json();
 
     .hero-section-2{
         display: grid;
-        grid-template-rows: 5% 80% 15%;
+        grid-template-rows: 5% 80% auto;
 
         padding-left: 20px;
         background-color: #A38D75;
 
-        border-bottom-right-radius: 10%;
+        border-radius: 0 0 0 30px;
     }
 
     .hero-section-2 a{

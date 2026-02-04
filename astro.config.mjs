@@ -18,8 +18,9 @@ export default defineConfig({
         region: 'eu',
       },
       components: {
-        page: "/storyblok/Page",
-        hero: "/components/Hero", 
+        page: "storyblok/Page.astro",
+        hero: "components/Hero.astro", 
+        textArea: "components/TextArea.astro"
       },
     }),
   ],

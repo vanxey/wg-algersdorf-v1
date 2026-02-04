@@ -1,3 +1,4 @@
+COPY THIS INTO Page.astro
 ---
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
@@ -6,10 +7,14 @@ const { blok } = Astro.props;
 ---
 
 <main {...storyblokEditable(blok)}>
+  <div style="background: #000; color: #0f0; padding: 10px; font-family: monospace;">
+    Page component is LOADED. <br />
+    Number of items in body: {blok.body?.length || 0}
+  </div>
+
   {
     blok.body?.map((nestedBlok) => {
       return <StoryblokComponent blok={nestedBlok} />;
     })
   }
 </main>
-
