@@ -20,7 +20,8 @@ export default defineConfig({
       components: {
         page: "storyblok/Page.astro",
         hero: "components/Hero.astro", 
-        textArea: "components/TextArea.astro"
+        textArea: "components/TextArea.astro",
+        sliderArea: "components/SliderArea.astro",
       },
     }),
   ],

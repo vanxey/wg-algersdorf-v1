@@ -9,5 +9,11 @@ const { href, variant = 'primary' } = Astro.props;
 <style>
   .button { padding: 10px 50px; border-radius: 30px; text-decoration: none; }
   .primary { background-color: #A38D75; color: white; border: 1px solid #A38D75;}
+  .primary:hover { background-color: white; color: #A38D75; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
+
   .secondary { background-color: transparent; color: #A38D75; border: 1px solid #A38D75;}
+  .secondary:hover { background-color: #A38D75; color: white; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
+
+  .tertiary { background-color: transparent; color: white; border: 1px solid white;}
+  .tertiary:hover { background-color: white; color: #38322B; border: 1px solid white; cursor: pointer; transition: 0.5s;}
 </style>
