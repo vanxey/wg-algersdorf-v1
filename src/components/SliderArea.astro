@@ -1,5 +1,6 @@
 ---
 import Button from "./ui/Button.astro";
+import Tag from "./ui/Tag.astro";
 import { storyblokEditable } from "@storyblok/astro";
 
 const { blok } = Astro.props;
@@ -7,7 +8,7 @@ const { blok } = Astro.props;
 
 <section {...storyblokEditable(blok)} id="slider-area">
     <div id="slider-tag">
-        <div class="tag-wrapper">{blok.category_text}</div>
+        <Tag variant="primary">{blok.category_text}</Tag>
     </div>
     <div id="slider-heading">
         <div class="heading">{blok.heading}</div>
@@ -63,7 +64,7 @@ const { blok } = Astro.props;
         display: flex;
     }
 
-    .tag-wrapper{
+    /* .tag-wrapper{
         font-family: "PT Sans", sans-serif;
         font-style: italic;
         font-size: small;
@@ -71,7 +72,7 @@ const { blok } = Astro.props;
         background-color: white;
         color: #38322B;
         padding-inline: 5px;
-    }
+    } */
 
     #slider-heading{
         display: flex;

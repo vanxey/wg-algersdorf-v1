@@ -1,0 +1,17 @@
+---
+const { variant = 'primary' } = Astro.props;
+---
+<div class=`tag-wrapper ${variant}`>
+    <slot/>
+</div>
+
+<style>
+     .tag-wrapper{
+        font-family: "PT Sans", sans-serif;
+        font-style: italic;
+        font-size: small;
+        padding-inline: 5px;
+    }
+    .primary{background-color: white; color: #38322B;}
+    .secondary{background-color: #38322B; color: white;}
+</style>
