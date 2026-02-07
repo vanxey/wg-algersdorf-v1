@@ -1,0 +1,81 @@
+---
+import Button from "./ui/Button.astro"
+import Tag from "./ui/Tag.astro"
+import { storyblokEditable } from "@storyblok/astro"
+import { renderRichText } from "@storyblok/astro"
+
+const { blok } = Astro.props
+
+const renderedContent = renderRichText(blok.text_1)
+---
+
+<section id="about-area" {...storyblokEditable(blok)}>
+    <div class="about-row">
+        <div class="about-content">
+            <div class="about-heading">{blok.heading_1}</div>
+            <div class="about-text" set:html={renderedContent}/>
+        </div>
+        <div class="img-container">{blok.img_1 && 
+                <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}</div>
+    </div>
+    
+</section>
+
+<style>
+    #about-area{
+        display: flex;
+        height: auto;
+        width: 100%;
+
+        padding-inline: 10%;
+        /* padding-top: 10px; */
+        padding-bottom: 10%;
+    }
+
+    .about-row{
+        display: grid;
+        grid-template-columns: 55% 1fr;
+        height: fit-content;
+        width: 100%;
+
+        align-items: center;
+    }
+
+    .about-content{
+        display: flex;
+        flex-direction: column;
+        padding-right: 40px;
+    }
+
+    .about-heading{
+        font-family: "PT Sans Caption", sans-serif;
+        font-size: x-large;
+        width: 70%;
+    }
+
+    .about-text{
+        display: flex;
+        font-size: medium;
+    }
+
+    .img-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        /* height: 100%; */
+        aspect-ratio: 3/2;
+        overflow: hidden;
+        position: relative;
+
+        border-radius: 20px;
+    }
+
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+</style>

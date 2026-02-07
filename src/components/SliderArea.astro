@@ -1,9 +1,12 @@
 ---
+// import { render } from "astro/dist/runtime/server";
 import Button from "./ui/Button.astro";
 import Tag from "./ui/Tag.astro";
 import { storyblokEditable } from "@storyblok/astro";
+// import { renderRichText } from "@storyblok/astro";
 
 const { blok } = Astro.props;
+// const renderedContent = renderRichText(blok.img_3_description)
 ---
 
 <section {...storyblokEditable(blok)} id="slider-area">
@@ -63,16 +66,6 @@ const { blok } = Astro.props;
     #slider-tag{
         display: flex;
     }
-
-    /* .tag-wrapper{
-        font-family: "PT Sans", sans-serif;
-        font-style: italic;
-        font-size: small;
-
-        background-color: white;
-        color: #38322B;
-        padding-inline: 5px;
-    } */
 
     #slider-heading{
         display: flex;
