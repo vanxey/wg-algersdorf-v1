@@ -64,6 +64,24 @@
     src: url('fonts/PT_Serif_Caption/PTSerifCaption-Italic.ttf') format('truetype');
 	}
 
+    /* PT SANS NARROW */
+	@font-face {
+	font-family: "PT Sans Narrow";
+	font-weight: 400;
+	font-style: normal;
+    font-display: swap;
+    src: url('fonts/PT_Sans_Narrow/PTSansNarrow-Regular.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Sans Narrow";
+	font-weight: 400;
+	font-style: italic;
+    font-display: swap;
+    src: url('fonts/PT_Sans_Narrow/PTSansNarrow-Bold.ttf') format('truetype');
+	}
+
+
 /* INTER */
     @font-face {
     font-family: "Inter";

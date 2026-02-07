@@ -1,0 +1,88 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+---
+
+<div id="widget-container" {...storyblokEditable(blok)}>
+    <div class="content">
+        <div class="heading-1">{blok.heading_1}</div>
+        {blok.heading_2 && <div class="heading-2">{blok.heading_2}</div>}
+        <a href={blok.link_url?.cached_url} class="widget-link">
+            <div class="widget-link-button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#000000" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7L14.6 7H7q-.425 0-.713-.288T6 6q0-.425.288-.713T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17q-.425 0-.713-.288T16 16V8.4Z"/></svg></div>
+            <div class="widget-link-text">{blok.link_text || "Mehr erfahren"}</div>
+        </a>
+    </div>
+
+    <div class="image">
+        <img src={blok.img_1?.filename} alt={blok.img_1?.alt} />
+    </div>
+</div>
+
+<style>
+    #widget-container{
+        display: grid;
+        grid-template-columns: 1fr 30%;
+        height: 150px;
+        width: 100%;
+
+        background-color: #38322B;
+        font-family: "PT Sans Caption", sans-serif;
+        font-size: 1.5em;
+        font-weight: 600;
+        color: white;
+
+        overflow: hidden;
+        border-radius: 30px;
+        /* padding: 20px 0px 0px 20px; */
+    }
+
+    .heading-1{
+
+    }
+
+    .heading-2{
+        color: beige;
+    }
+
+    .widget-link{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        padding-top: 20px;
+    }
+
+    .widget-link-button{
+        display: flex;
+        background-color: white;
+        color: black;
+        height: fit-content;
+        width: auto;
+        border-radius: 100%;
+        padding: 5px;
+    }
+
+    .widget-link-text{
+        display: flex;
+        align-items: center;
+        font-size: medium;
+        font-weight: 200;
+    }
+
+    .content{
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .image{
+        height: 100%;
+        width: 100%;
+    }
+    
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
