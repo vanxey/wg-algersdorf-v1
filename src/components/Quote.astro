@@ -1,0 +1,60 @@
+---
+import { renderRichText, storyblokEditable } from "@storyblok/astro"
+
+const { blok } = Astro.props
+const renderedContent = renderRichText(blok.quote)
+---
+
+<section id="quote-area" {...storyblokEditable(blok)}>
+    <div class="quote-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 717 627"><path fill="#fff" d="m306 106l-26-40C100 187 0 334 0 455c0 117 86 172 159 172c92 0 157-78 157-160c0-69-44-128-103-150c-17-6-33-11-33-40c0-37 27-92 126-171zm397 0l-26-40C499 187 397 334 397 455c0 117 88 172 161 172c93 0 159-78 159-160c0-69-45-128-106-150c-17-6-32-11-32-40c0-37 28-92 124-171z"/></svg>
+    </div>
+    <div class:list={["quote-text"]} set:html={renderedContent}/>
+    <div class="quote-img">
+        {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
+    </div>
+    <div class="quote-author">{blok.author_name}</div>
+</section>
+<style>
+    #quote-area{
+        display: grid;
+        grid-template-rows: auto 1fr 20% 10%;
+        width: 100vw;
+        height: 90vh;
+        background-color: #A38D75;
+
+        align-items: center;
+        justify-items: center;
+        padding: 10% 30%;
+        text-align: center;
+        color: white;
+        gap: 5%;
+    }
+
+    .quote-text :global(*){
+        font-family: "PT Sans Caption", sans-serif;
+        font-size: 1.2em;
+        color: white !important;
+
+    }
+
+    .quote-img{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+    }
+
+    img{
+        border-radius: 100%;
+        border: 2px white solid;
+        object-fit: fill;
+        /* box-shadow: 0px 2px 10px 0px #ffffff; */
+    }
+
+    .quote-author{
+        font-family: "PT Sans", sans-serif;
+        font-style: italic;
+        font-size: medium;
+    }
+</style>

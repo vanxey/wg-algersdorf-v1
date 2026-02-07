@@ -47,6 +47,23 @@
     src: url('fonts/PT_Sans_Caption/PTSansCaption-Bold.ttf') format('truetype');
 	}
 
+/* PT SERIF CAPTION */
+	@font-face {
+	font-family: "PT Serif Caption";
+	font-weight: 400;
+	font-style: normal;
+    font-display: swap;
+    src: url('fonts/PT_Serif_Caption/PTSerifCaption-Regular.ttf') format('truetype');
+	}
+
+	@font-face {
+	font-family: "PT Serif Caption";
+	font-weight: 400;
+	font-style: italic;
+    font-display: swap;
+    src: url('fonts/PT_Serif_Caption/PTSerifCaption-Italic.ttf') format('truetype');
+	}
+
 /* INTER */
     @font-face {
     font-family: "Inter";
