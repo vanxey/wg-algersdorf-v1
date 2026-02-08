@@ -9,20 +9,205 @@ const { blok } = Astro.props
 const renderedContent = renderRichText(blok.text_1)
 ---
 
+
+<!-- <section id="about-area" {...storyblokEditable(blok)}>
+    <div class="about-row">
+        <div class="about-content">
+            <div class="about-heading">{blok.heading_1}</div>
+            <div class="about-text" set:html={renderedContent}/>
+        </div>
+        <div class="img-container">
+                {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
+        </div>
+    </div>
+</section> -->
+
 <section id="about-area" {...storyblokEditable(blok)}>
     <div class="about-row">
         <div class="img-container">{blok.img_1 && 
                 <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
         </div>
         <div class="about-content">
-            <div class="about-heading">{blok.heading_1}</div>
-            <div class="about-text" set:html={renderedContent}/>
+                <!-- <div class="about-tag"><Tag variant="secondary">{blok.category_text}</Tag></div> -->
+                <div class="about-heading">{blok.heading_1}</div>
+                <div class="about-text" set:html={renderedContent}/>
         </div>
     </div>
-    
 </section>
 
+<!-- Optimized styles -->
 <style>
+    #about-area {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+
+        /* Fluid padding: 10% on desktop, 5% on mobile */
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        /* padding-top: 60px;
+        padding-bottom: 60px; */
+    }
+
+    .about-row {
+        display: grid;
+        /* Default for mobile: one column */
+        grid-template-columns: 1fr;
+        gap: 40px;
+        height: fit-content;
+        width: 100%;
+        align-items: center;
+    }
+
+    /* Desktop View */
+    @media screen and (min-width: 1024px) {
+        .about-row {
+            grid-template-columns: 55% 1fr;
+        }
+    }
+
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        /* Remove the right padding on mobile so text can use full width */
+        padding-right: 0;
+        order: 1;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .about-content {
+            padding-right: 40px;
+            order: 2;
+        }
+    }
+
+    .about-tag {
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+    .about-heading {
+        font-family: "PT Sans Caption", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsive scaling */
+        width: 100%; /* Full width on mobile */
+        line-height: 1.2;
+        color: #38322B;
+        margin-bottom: 20px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .about-heading {
+            width: 80%; /* Slight restriction for better line length on desktop */
+        }
+    }
+
+    .about-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        display: block; /* Flex can cause weird issues with multiple <p> tags */
+    }
+
+    /* Target the injected Storyblok Rich Text paragraphs */
+    .about-text :global(p) {
+        margin-bottom: 1.2rem;
+    }
+
+    .img-container {
+        width: 100%;
+        /* Force a nice shape on mobile since there is no side-content to pull height */
+        /* aspect-ratio: 4 / 3;  */
+        aspect-ratio: 2 / 1;
+        overflow: hidden;
+        position: relative;
+        border-radius: 30px; /* Slightly smaller radius on mobile looks better */
+        box-shadow: 0px 4px 16px 2px #adadad;
+        order: 2;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .img-container {
+            aspect-ratio: auto; /* Let it be driven by content height again */
+            align-self: stretch; /* Match the height of the text column */
+            border-radius: 50px;
+            order: 1;
+        }
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>
+<!-- <style>
+    #about-area {
+        width: 100%;
+        padding-inline: clamp(1rem, 8vw, 10%);
+        padding-block: 0px 5% 5% 5%;
+    }
+
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Spacing between Heading, Image, and Text on mobile */
+    }
+
+    .about-heading {
+        font-family: "PT Sans Caption", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        color: #38322B;
+        line-height: 1.1;
+        margin-bottom: 20px;
+    }
+
+    .img-container {
+        width: 100%;
+        /* aspect-ratio: 4 / 3; */
+        aspect-ratio: 2.5 / 1;
+        overflow: hidden;
+        border-radius: 30px;
+        box-shadow: 0px 4px 16px 2px #adadad;
+    }
+
+    /* DESKTOP VIEW */
+    @media screen and (min-width: 1024px) {
+        .about-content {
+            display: grid;
+            /* Column 1 is 55% (Image), Column 2 is the rest (Text) */
+            grid-template-columns: 55% 1fr; 
+            grid-template-rows: 1fr 1fr;
+            gap: 0 40px; /* 40px horizontal gap */
+            align-items: center;
+        }
+
+        .about-heading {
+            grid-column: 2; /* Move heading to right column */
+            grid-row: 1;
+            width: 80%;
+        }
+
+        .img-container {
+            grid-column: 1; /* Move image to left column */
+            grid-row: 1 / span 2; /* Stretch image to cover both rows */
+            aspect-ratio: auto;
+            border-radius: 50px;
+            align-self: stretch;
+        }
+
+        .about-text {
+            grid-column: 2; /* Move text to right column */
+            grid-row: 2;
+        }
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+</style> -->
+<!-- <style>
     #about-area{
         display: flex;
         height: auto;
@@ -80,4 +265,4 @@ const renderedContent = renderRichText(blok.text_1)
         object-fit: cover;
         object-position: center;
     }
-</style>
+</style> -->

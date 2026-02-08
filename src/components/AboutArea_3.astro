@@ -24,8 +24,130 @@ const renderedContent2 = renderRichText(blok.text_2)
     <!-- <div class="about-row2"><div class="about-text" set:html={renderedContent2}/></div> -->
     
 </section>
+<!-- Optimized styles -->
+ <style>
+    /* 1. Main Section Container */
+    #about-area {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
 
-<style>
+        /* Unified responsive padding */
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    /* 2. Responsive Grid Structure */
+    .about-row {
+        display: grid;
+        /* Mobile Default: One column */
+        grid-template-columns: 1fr;
+        /* Mobile vertical spacing between all elements */
+        gap: 40px; 
+        width: 100%;
+        align-items: center;
+    }
+
+    /* Desktop View Override (MacBook Pro 14 optimization) */
+    @media screen and (min-width: 1024px) {
+        .about-row {
+            /* Consistent 55% / 1fr split */
+            grid-template-columns: 55% 1fr;
+            /* Synchronized gap with Areas 1 & 2 */
+            column-gap: 40px;
+            align-items: stretch;
+            /* gap: 0; */
+        }
+    }
+
+    /* 3. Reordering Logic (The Sandwich) */
+    .about-content {
+        /* This allows children to behave as direct grid items on mobile */
+        display: flex; 
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    @media screen and (min-width: 1024px) {
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            /* On desktop, keep all text items grouped in the left column */
+        }
+    }
+
+    /* 4. Typography & Order */
+
+    .about-heading {
+        font-family: "PT Sans Caption", sans-serif;
+        /* Exact same scale as Areas 1 & 2 */
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        line-height: 1.1;
+        color: #38322B;
+        order: 1; /* Top on mobile */
+    }
+
+    .about-subheading {
+        font-family: "PT Sans", sans-serif;
+        font-size: 1.1rem;
+        font-style: italic;
+        color: #38322B;
+        opacity: 0.8;
+        padding-top: 5px;
+        order: 2; /* Below heading on mobile */
+        margin: 1.2rem 0px 1.2rem;
+    }
+
+    .img-container {
+        display: flex;
+        width: 100%;
+        /* Mobile: Consistent aspect ratio */
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        border-radius: 30px;
+        box-shadow: 0px 4px 16px 2px #adadad;
+        
+        order: 3; /* IMAGE UNDER SUBHEADING ON MOBILE */
+    }
+
+    @media screen and (min-width: 1024px) {
+        .img-container {
+            order: unset; /* Placed in the 2nd column on desktop */
+            aspect-ratio: auto;
+            align-self: stretch;
+            border-radius: 50px;
+
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .about-text {
+        display: block; 
+        font-family: "PT Sans", sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #38322B;
+        
+        order: 4; /* Body text at the bottom on mobile */
+    }
+
+    /* Reset global paragraph margins for injected Rich Text */
+    .about-text :global(p) {
+        margin-bottom: 1.2rem;
+    }
+
+    /* 5. Image Fit */
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+</style>
+<!-- <style>
     #about-area{
         display: flex;
         flex-direction: column;
@@ -97,4 +219,4 @@ const renderedContent2 = renderRichText(blok.text_2)
         object-fit: cover;
         object-position: top;
     }
-</style>
+</style> -->

@@ -49,7 +49,133 @@ const { blok } = Astro.props;
     <div id="slider-indicator">oo</div>
 </section>
 
-<style>
+<!-- Optimized style -->
+ <style>
+    #slider-area {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        /* Changed to min-height for safety */
+        min-height: 100vh; 
+        width: 100%;
+        background-color: #38322B;
+        color: white;
+
+        /* Responsive padding */
+        padding: 60px clamp(1rem, 5vw, 10%);
+        overflow-x: hidden; /* Prevent the whole section from sliding */
+    }
+
+    #slider-heading {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        #slider-heading {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    .heading {
+        font-family: "PT Sans", sans-serif;
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        font-weight: 400;
+    }
+
+    #slider-content {
+        display: grid;
+        gap: 30px;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        padding-top: 10px;
+    }
+
+    /* Mobile Slider Logic */
+    @media (max-width: 1024px) {
+        #slider-content {
+            display: flex; /* Switch to flex for scrolling */
+            overflow-x: auto; /* Enable horizontal scroll */
+            scroll-snap-type: x mandatory; /* Snap effect for "slides" */
+            padding-bottom: 20px; /* Space for scrollbar */
+            gap: 20px;
+            /* Allow it to go outside the parent padding for a 'full-bleed' look */
+            margin-inline: -5vw; 
+            padding-inline: 5vw;
+        }
+
+        /* Hide scrollbar for Chrome/Safari */
+        #slider-content::-webkit-scrollbar {
+            display: none;
+        }
+        
+        #slider-content {
+            -ms-overflow-style: none;  /* IE/Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    }
+
+    .slider-column {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        min-width: 280px; /* Ensures slides don't shrink too small on mobile */
+        scroll-snap-align: start;
+    }
+
+    @media (min-width: 1024px) {
+        .slider-column {
+            min-width: 0; /* Reset for desktop grid */
+        }
+    }
+
+    .img-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 20px;
+        background-color: #4a443d; /* Placeholder */
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .img-text-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding-inline: 10px;
+    }
+
+    .img-title {
+        font-family: "PT Sans Caption", sans-serif;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .img-description {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        line-height: 1.4;
+    }
+
+    #slider-indicator {
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        padding-top: 20px;
+    }
+</style>
+<!-- <style>
     #slider-area{
         display: flex;
         flex-direction: column;
@@ -134,4 +260,4 @@ const { blok } = Astro.props;
         display: flex;
         justify-content: center;
     }
-</style>
+</style> -->

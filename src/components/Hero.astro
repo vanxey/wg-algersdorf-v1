@@ -26,7 +26,112 @@ const { blok } = Astro.props;
         
 </section>
 
-<style>
+<!-- Optimized styles -->
+ <style>
+    #hero {
+        display: grid;
+        /* Desktop Default */
+        grid-template-columns: 40vw 1fr;
+        height: auto; /* Changed from 90vh to allow growth on mobile */
+        min-height: 90vh;
+        width: 100%; /* Avoid 100vw to prevent horizontal scrollbars */
+        background-color: #A38D75;
+        border-bottom-left-radius: 80px; /* Use px for consistency */
+        overflow: hidden;
+    }
+
+    .hero-section-1 {
+        display: flex;
+        flex-direction: column;
+        background-color: #38322B;
+        border-radius: 0 0 30px 0; /* Adjusted for stacking logic */
+        align-items: center;
+        justify-content: center;
+        color: white;
+        padding: 60px 20px; /* Added padding for mobile breathing room */
+        text-align: center;
+    }
+
+    .hero-h1 {
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 300;
+        font-size: clamp(18px, 2vw, 30px); /* Scales between 18px and 30px */
+    }
+
+    .hero-h2 {
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 700;
+        font-size: clamp(40px, 5vw, 70px); /* Scales between 40px and 70px */
+        padding-bottom: 20px;
+        line-height: 1.1;
+    }
+
+    .hero-section-2 {
+        display: grid;
+        grid-template-rows: 20px 1fr auto;
+        padding: 20px;
+        background-color: #A38D75;
+    }
+
+    .hero-links {
+        display: flex;
+        flex-wrap: wrap; /* Allows links to wrap on tiny screens */
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 15px;
+        font-size: 1.1rem;
+        padding-top: 20px;
+    }
+
+    .hero-section-2 a {
+        text-decoration: none;
+        color: white;
+        white-space: nowrap;
+    }
+
+    .hero-img img {
+        height: auto;
+        max-height: 60vh;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    /* --- RESPONSIVENESS --- */
+
+    /* Tablets and Small Laptops */
+    @media screen and (max-width: 1100px) {
+        #hero {
+            grid-template-columns: 50vw 1fr; /* Give more space to text */
+        }
+    }
+
+    /* Mobile (Stacking) */
+    @media screen and (max-width: 768px) {
+        #hero {
+            grid-template-columns: 1fr; /* Stacked */
+            border-bottom-left-radius: 40px;
+        }
+
+        .hero-section-1 {
+            border-radius: 0 0 40px 40px; /* Round the bottom of the dark section */
+            order: 1; /* Keep text at top */
+        }
+
+        .hero-section-2 {
+            order: 2; /* Image below text */
+            grid-template-rows: auto;
+            gap: 20px;
+        }
+
+        .hero-links {
+            justify-content: center;
+            flex-direction: column; /* Stack links on mobile for better touch targets */
+            text-align: center;
+        }
+    }
+</style>
+<!-- <style>
     #hero{
         display: grid;
         grid-template-columns: 40vw 1fr;
@@ -107,4 +212,4 @@ const { blok } = Astro.props;
 	@media screen and (max-width: 640px) {
 		
 	} 
-</style>
+</style> -->
