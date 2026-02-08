@@ -9,7 +9,7 @@ const { blok } = Astro.props;
 // const renderedContent = renderRichText(blok.img_3_description)
 ---
 
-<section {...storyblokEditable(blok)} id="slider-area">
+<!-- <section {...storyblokEditable(blok)} id="slider-area">
     <div id="slider-tag">
         <Tag variant="primary">{blok.category_text}</Tag>
     </div>
@@ -47,10 +47,213 @@ const { blok } = Astro.props;
         </div>
     </div>
     <div id="slider-indicator">oo</div>
+</section> -->
+<section {...storyblokEditable(blok)} id="slider-area">
+    <div id="slider-tag">
+        <div class="tag-wrapper">
+            <Tag variant="primary">{blok.category_text}</Tag>
+        </div>
+    </div>
+    <div id="slider-heading">
+        <div class="heading">{blok.heading}</div>
+        <Button variant="tertiary">{blok.button_text}</Button>
+    </div>
+    
+    <div id="slider-content">
+        <div class="slider-column">
+            <div class="img-container">{blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_1_title}</div>
+                <div class="img-description">{blok.img_1_description}</div>
+            </div>
+        </div>
+        <div class="slider-column">
+            <div class="img-container">{blok.img_2 && <img src={blok.img_2.filename} alt={blok.img_2.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_2_title}</div>
+                <div class="img-description">{blok.img_2_description}</div>
+            </div>
+        </div>
+        <div class="slider-column">
+            <div class="img-container">{blok.img_3 && <img src={blok.img_3.filename} alt={blok.img_3.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_3_title}</div>
+                <div class="img-description">{blok.img_3_description}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slider-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
 </section>
 
 <!-- Optimized style -->
- <style>
+<style>
+    /* 1. MAIN CONTAINER */
+    #slider-area {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        width: 100%;
+        background-color: #38322B;
+        color: white;
+        /* Padding: Top, Right, Bottom, Left */
+        padding: 60px 0 60px 0; 
+        overflow: hidden; /* CRITICAL: Clips the 'ghost' margin */
+    }
+
+    /* 2. TAG & HEADING (Needs internal padding now) */
+    #slider-tag, #slider-heading {
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+    }
+
+    .tag-wrapper {
+        width: max-content;
+    }
+
+    #slider-heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+     @media screen and (min-width: 1024px) {
+        #slider-heading {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .heading {
+        font-family: "PT Sans", sans-serif;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        font-weight: 400;
+    }
+
+    /* 3. SLIDER CONTENT */
+    #slider-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        width: 100%;
+        padding-inline: clamp(1.25rem, 8vw, 10%); /* Match heading padding */
+    }
+
+    @media (max-width: 1024px) {
+        #slider-content {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding-inline: 10%; /* Center the slides on mobile */
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        #slider-content::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    /* 4. INDIVIDUAL SLIDES */
+    .slider-column {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        scroll-snap-align: center; /* Snap to middle for better mobile feel */
+        flex-shrink: 0; /* Prevents slides from squishing */
+        width: 100%;
+    }
+
+    @media (max-width: 1024px) {
+        .slider-column {
+            /* Adjust this to make pictures smaller/larger on mobile */
+            width: 60vw; 
+        }
+    }
+
+    .img-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 20px;
+        background-color: #4a443d;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .img-text-wrapper {
+        padding-inline: 5px;
+    }
+
+    .img-title {
+        font-family: "PT Sans Caption", sans-serif;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    /* 5. INDICATORS (3 Dots) */
+    #slider-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: white;
+        transform: scale(1.3);
+    }
+
+    @media (min-width: 1024px) {
+        #slider-indicator {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const slider = document.getElementById('slider-content');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider && dots.length > 0) {
+        slider.addEventListener('scroll', () => {
+            const scrollLeft = slider.scrollLeft;
+            // Select the first slide and get its width
+            const firstSlide = slider.querySelector('.slider-column') as HTMLElement;
+            
+            if (firstSlide) {
+                const slideWidth = firstSlide.clientWidth + 20; // width + gap
+                const index = Math.round(scrollLeft / slideWidth);
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+        });
+    }
+</script>
+ <!-- <style>
     #slider-area {
         display: flex;
         flex-direction: column;
@@ -174,7 +377,7 @@ const { blok } = Astro.props;
         margin-top: auto;
         padding-top: 20px;
     }
-</style>
+</style> -->
 <!-- <style>
     #slider-area{
         display: flex;

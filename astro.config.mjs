@@ -23,6 +23,7 @@ export default defineConfig({
         hero: "components/Hero.astro", 
         textArea: "components/TextArea.astro",
         sliderArea: "components/SliderArea.astro",
+        sliderArea_v2: "components/SliderArea_v2.astro",
         aboutArea1: "components/AboutArea_1.astro",
         aboutArea2: "components/AboutArea_2.astro",
         aboutArea3: "components/AboutArea_3.astro",
