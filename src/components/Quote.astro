@@ -23,28 +23,31 @@ const renderedContent = renderRichText(blok.quote)
         grid-template-rows: auto auto auto auto;
         
         width: 100%; /* Avoid 100vw to prevent horizontal scrollbars */
-        min-height: 80vh;
+        min-height: 50vh;
         height: auto;
         
         background-color: #A38D75;
         color: white;
         
         /* Responsive padding: 5% on mobile, up to 30% on big screens */
-        padding: 80px clamp(1.5rem, 15vw, 30%);
+        /* padding: 80px clamp(1.5rem, 15vw, 30%); */
+        padding: 40px clamp(1.5rem, 15vw, 30%);
         
         align-items: center;
         justify-items: center;
         text-align: center;
-        gap: 30px; /* Using fixed gap is often more predictable than percentages */
+        gap: 20px;
     }
 
     .quote-svg svg {
-        width: clamp(30px, 5vw, 50px);
+        width: clamp(20px, 3vw, 35px);
         height: auto;
+        /* opacity: 0.8; */
     }
 
     .quote-text :global(*) {
-        font-family: "PT Sans Caption", sans-serif;
+        font-family: "PT Sans", sans-serif;
+        font-style: italic;
         /* Fluid font size: scales between 1.1rem and 1.8rem */
         font-size: clamp(1.1rem, 3vw, 1.8rem);
         color: white !important;
