@@ -34,6 +34,8 @@ const renderedContent = renderRichText(blok.text_1)
         padding-inline: clamp(1.25rem, 8vw, 10%);
         padding-top: 60px;
         padding-bottom: 60px;
+        background-color: #FDFBF7;
+        color: #38322B;
     }
 
     .about-row {
@@ -97,6 +99,10 @@ const renderedContent = renderRichText(blok.text_1)
         margin-bottom: 1.2rem;
     }
 
+     .about-text :global(span) {
+        color: var(--primary-color) !important;
+    }
+
     .img-container {
         width: 100%;
         /* Force a nice shape on mobile since there is no side-content to pull height */
@@ -104,7 +110,7 @@ const renderedContent = renderRichText(blok.text_1)
         aspect-ratio: 2 / 1;
         overflow: hidden;
         position: relative;
-        border-radius: 30px; /* Slightly smaller radius on mobile looks better */
+        border-radius: 30px; 
         box-shadow: 0px 4px 16px 2px #adadad;
     }
 
@@ -112,7 +118,7 @@ const renderedContent = renderRichText(blok.text_1)
         .img-container {
             aspect-ratio: auto; /* Let it be driven by content height again */
             align-self: stretch; /* Match the height of the text column */
-            border-radius: 50px;
+            border-radius: 20px;
         }
     }
 

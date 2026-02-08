@@ -9,19 +9,6 @@ const { blok } = Astro.props
 const renderedContent = renderRichText(blok.text_1)
 ---
 
-
-<!-- <section id="about-area" {...storyblokEditable(blok)}>
-    <div class="about-row">
-        <div class="about-content">
-            <div class="about-heading">{blok.heading_1}</div>
-            <div class="about-text" set:html={renderedContent}/>
-        </div>
-        <div class="img-container">
-                {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
-        </div>
-    </div>
-</section> -->
-
 <section id="about-area" {...storyblokEditable(blok)}>
     <div class="about-row">
         <div class="img-container">{blok.img_1 && 
@@ -45,8 +32,10 @@ const renderedContent = renderRichText(blok.text_1)
 
         /* Fluid padding: 10% on desktop, 5% on mobile */
         padding-inline: clamp(1.25rem, 8vw, 10%);
-        /* padding-top: 60px;
-        padding-bottom: 60px; */
+        background-color: #F2EEE9;
+        color: #38322B;
+        padding-top: 60px;
+        padding-bottom: 60px;
     }
 
     .about-row {
@@ -62,7 +51,7 @@ const renderedContent = renderRichText(blok.text_1)
     /* Desktop View */
     @media screen and (min-width: 1024px) {
         .about-row {
-            grid-template-columns: 55% 1fr;
+            grid-template-columns: 1fr 55%;
         }
     }
 
@@ -76,7 +65,7 @@ const renderedContent = renderRichText(blok.text_1)
 
     @media screen and (min-width: 1024px) {
         .about-content {
-            padding-right: 40px;
+            /* padding-right: 40px; */
             order: 2;
         }
     }
@@ -112,6 +101,10 @@ const renderedContent = renderRichText(blok.text_1)
         margin-bottom: 1.2rem;
     }
 
+     .about-text :global(span) {
+        color: var(--primary-color) !important;
+    }
+
     .img-container {
         width: 100%;
         /* Force a nice shape on mobile since there is no side-content to pull height */
@@ -119,7 +112,7 @@ const renderedContent = renderRichText(blok.text_1)
         aspect-ratio: 2 / 1;
         overflow: hidden;
         position: relative;
-        border-radius: 30px; /* Slightly smaller radius on mobile looks better */
+        border-radius: 30px;
         box-shadow: 0px 4px 16px 2px #adadad;
         order: 2;
     }
@@ -128,7 +121,7 @@ const renderedContent = renderRichText(blok.text_1)
         .img-container {
             aspect-ratio: auto; /* Let it be driven by content height again */
             align-self: stretch; /* Match the height of the text column */
-            border-radius: 50px;
+            border-radius: 20px;
             order: 1;
         }
     }
@@ -140,73 +133,6 @@ const renderedContent = renderRichText(blok.text_1)
         object-position: center;
     }
 </style>
-<!-- <style>
-    #about-area {
-        width: 100%;
-        padding-inline: clamp(1rem, 8vw, 10%);
-        padding-block: 0px 5% 5% 5%;
-    }
-
-    .about-content {
-        display: flex;
-        flex-direction: column;
-        gap: 20px; /* Spacing between Heading, Image, and Text on mobile */
-    }
-
-    .about-heading {
-        font-family: "PT Sans Caption", sans-serif;
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
-        color: #38322B;
-        line-height: 1.1;
-        margin-bottom: 20px;
-    }
-
-    .img-container {
-        width: 100%;
-        /* aspect-ratio: 4 / 3; */
-        aspect-ratio: 2.5 / 1;
-        overflow: hidden;
-        border-radius: 30px;
-        box-shadow: 0px 4px 16px 2px #adadad;
-    }
-
-    /* DESKTOP VIEW */
-    @media screen and (min-width: 1024px) {
-        .about-content {
-            display: grid;
-            /* Column 1 is 55% (Image), Column 2 is the rest (Text) */
-            grid-template-columns: 55% 1fr; 
-            grid-template-rows: 1fr 1fr;
-            gap: 0 40px; /* 40px horizontal gap */
-            align-items: center;
-        }
-
-        .about-heading {
-            grid-column: 2; /* Move heading to right column */
-            grid-row: 1;
-            width: 80%;
-        }
-
-        .img-container {
-            grid-column: 1; /* Move image to left column */
-            grid-row: 1 / span 2; /* Stretch image to cover both rows */
-            aspect-ratio: auto;
-            border-radius: 50px;
-            align-self: stretch;
-        }
-
-        .about-text {
-            grid-column: 2; /* Move text to right column */
-            grid-row: 2;
-        }
-    }
-
-    img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-</style> -->
 <!-- <style>
     #about-area{
         display: flex;
