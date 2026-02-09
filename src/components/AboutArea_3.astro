@@ -90,6 +90,20 @@ const renderedContent2 = renderRichText(blok.text_2)
         line-height: 1.1;
         /* color: #38322B; */
         order: 1; /* Top on mobile */
+
+        /* --- NEW STRIPE LOGIC --- */
+        display: flex;
+        align-items: stretch; /* Forces stripe to match text height */
+        gap: 20px;            /* Space between stripe and text */
+    }
+
+    .about-heading::before {
+        content: "";
+        display: inline-block;
+        width: 10px;          /* 10px wide as requested */
+        background-color: currentColor; /* Matches text color automatically */
+        flex-shrink: 0;       /* Prevents stripe from squishing */
+        border-radius: 2px;   /* Optional: slightly rounded corners for a modern look */
     }
 
     .about-subheading {
