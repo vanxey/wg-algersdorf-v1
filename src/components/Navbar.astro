@@ -50,238 +50,120 @@ const { blok } = Astro.props
         display: flex;
         align-items: center;
         justify-content: space-between;
-        column-gap: 50px;
         padding: 0 50px;
         height: 88px;
         width: 100%;
         background-color: white;
         font-family: 'Inter', sans-serif;
         font-weight: 700;
-        position: sticky; /* Keep it at the top while scrolling */
+        
+        position: sticky;
         top: 0;
-        z-index: 1000;
+        /* Highest level safety */
+        z-index: 1000; 
+        overflow: visible; 
+        border-bottom: 1px solid #f0f0f0;
     }
 
-    #burger-menu {
-        display: none;
-        cursor: pointer;
-        padding: 5px;
-        transition: transform 0.2s ease;
-    }
-
-    #burger-menu:active {
-        transform: scale(0.9);
-    }
-
-    #burger-menu svg {
-        height: 40px;
-        width: 40px;
-    }
-
-    #logo-container{
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-
-    #logo{
+    #logo {
         display: flex;
         height: 70px;
         width: 70px;
-        /* background-color: #A38D75; */
-        background-color: transparent;
     }
 
+    /* Desktop Navigation */
     nav {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: end;
         column-gap: 30px;
-        height: 100%;
+        height: 100%; /* Works for desktop */
     }
 
     nav a {
         text-decoration: none;
         color: black;
-        border-bottom: 5px solid transparent;
-        transition: all 0.3s ease;
         position: relative;
+        transition: color 0.3s ease;
     }
 
-    /* nav a:hover {
-        border-color: #A38D75;
-    } */
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -5px; left: 50%;
-            background: #A38D75;
-            transition: 0.3s;
-            transform: translateX(-50%);
-        }
-        nav a:hover::after { width: 100%; }
-        nav a:hover { color: #A38D75; }
+    /* Desktop Underline */
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0; height: 2px;
+        bottom: -5px; left: 50%;
+        background: #A38D75;
+        transition: 0.3s;
+        transform: translateX(-50%);
+    }
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: #A38D75; }
 
-    /* --- MOBILE STYLES --- */
+    #burger-menu { display: none; cursor: pointer; }
+    #burger-menu svg { height: 40px; width: 40px; }
+
+    /* --- MOBILE VIEW --- */
     @media screen and (max-width: 640px) {
-        #navbar {
-            padding: 0 20px;
-        }
-
-        #burger-menu {
-            display: flex;
-        }
+        #navbar { padding: 0 20px; }
+        
+        #burger-menu { display: flex; }
 
         nav {
             position: absolute;
-            top: 88px;
+            /* 100% of the #navbar height (88px) */
+            top: 100%; 
             left: 0;
             width: 100%;
             background-color: white;
             flex-direction: column;
-            gap: 0;
             
-            /* Animation Setup */
+            /* FIX 1: Reset height so it can grow larger than 88px */
+            height: auto; 
+            padding: 0;
+            
+            /* FIX 2: Layering */
+            z-index: 999; 
+            
+            /* Animation Logic */
             overflow: hidden;
             max-height: 0; 
             opacity: 0;
-            transition: max-height 0.4s ease-out, opacity 0.3s ease;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-            pointer-events: none; /* Prevent clicking when hidden */
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            pointer-events: none;
         }
 
         nav.active {
-            max-height: 400px; /* Adjust based on your content height */
+            /* FIX 3: Ensure this is large enough for all links */
+            max-height: 600px; 
             opacity: 1;
             pointer-events: auto;
         }
 
         nav a {
+            /* FIX 4: Ensure links take up full width and show properly */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            text-align: center;
-            padding: 20px 0;
+            height: 70px; /* Each link gets its own height */
+            padding: 0;
             border-bottom: 1px solid #f0f0f0;
-            /* Slide in effect for links */
-            transform: translateY(-10px);
-            transition: transform 0.4s ease;
+            background-color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         nav.active a {
-            transform: translateY(0);
+            opacity: 1;
         }
 
+        nav a::after { display: none !important; }
+        
         nav a:last-child {
             border-bottom: none;
         }
-    } 
+    }
 </style>
-<!-- ---
-import { storyblokEditable } from "@storyblok/astro"
-
-const { blok } = Astro.props
----
-
-<div id="navbar" {...storyblokEditable(blok)}>
-    <div id="logo-container">
-        <div id="logo">
-            <img src="src/assets/wg-logo-2.png" alt="logo" height="auto" width="auto"/>
-        </div>
-    </div>
-    <nav>
-        <a href="home">Home</a>
-        <a href="/wg">Die WG</a>
-        <a href="/angebot">Angebot</a>
-        <a href="/kontakt">Kontakt</a>
-    </nav>
-
-    <div id="burger-menu">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000"><path fill="#000000" fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"/></svg>
-    </div>
-</div>
-
-<style>
-    #navbar{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        column-gap: 50px;
-
-        padding: 0px 50px 0px 50px;
-
-        height: 88px;
-        width: 100%;
-
-        background-color: white;
-        font-family: 'Inter';
-        font-weight: 700;
-    }
-
-    #burger-menu{
-        display: none;
-        justify-content: end;
-        align-items: center;
-
-        height: 100%;
-    }
-
-    #burger-menu svg{
-        height: 70%;
-        width: 70%;
-    }
-
-    #logo-container{
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-
-    #logo{
-        display: flex;
-        height: 70px;
-        width: 70px;
-        /* background-color: #A38D75; */
-        background-color: transparent;
-    }
-
-    nav{
-        display: flex;
-
-        flex-direction: row;
-        align-items: center;
-        justify-content: end;
-        column-gap: 30px;
-
-        height: 100%;
-        width: auto;
-    }
-
-    nav a{
-        display: flex;
-        align-items: center;
-        height: 30%;
-
-        text-decoration: none;
-        color: black;
-        border-width: 0 0 5px 0;
-        border-style: solid;
-        border-color: transparent;
-    }
-
-    nav a:hover{
-        border-color: #A38D75;
-    }
-
-/* Media queries */
-
-	@media screen and (max-width: 640px) {
-		nav{
-            display: none;
-        }
-
-        #burger-menu{
-            display: flex;
-        }
-	} 
-</style> -->
