@@ -3,213 +3,477 @@ import Button from "./ui/Button.astro";
 import { storyblokEditable } from '@storyblok/astro';
 
 const { blok } = Astro.props;
+// Use the mobile image if available, otherwise fallback to the main image
+const mobileImgUrl = blok.image_mobile || blok.image;
 ---
 
 <section {...storyblokEditable(blok)} id="hero">
     <div class="hero-section-1">
         <div class="hero-h1">{blok.title_1}</div>
         <div class="hero-h2">{blok.title_2}</div>
-        <Button href="" variant="primary">{blok.button_text}</Button>
+        <div class="btn-desktop"><Button href="" variant="primary">{blok.button_text}</Button></div>
     </div>
+    
     <div class="hero-section-2">
-        <div class="hero-space"></div>
         <div class="hero-img">
-            {blok.image && <img src={blok.image} alt={blok.image.alt} />}
+            <picture>
+                <source media="(max-width: 1099px)" srcset={blok.image} />
+                <img src={blok.image} alt="Hero Image" />
+            </picture>
         </div>
+
+        <div class="hero-img-mobile">
+            <picture>
+                <source media="(max-width: 1099px)" srcset={blok.image_mobile} />
+                <img src={blok.image} alt="Hero Image" />
+            </picture>
+        </div>
+
         <div class="hero-links">
-            <a href=`${blok.link_1.cached_url}`>{blok.link_1_text}</a>
-            <a href=`${blok.link_2.cached_url}`>{blok.link_2_text}</a>
-            <a href=`${blok.link_3.cached_url}`>{blok.link_3_text}</a>
+            <a href={blok.link_1.cached_url}>{blok.link_1_text}</a>
+            <a href={blok.link_2.cached_url}>{blok.link_2_text}</a>
+            <a href={blok.link_3.cached_url}>{blok.link_3_text}</a>
         </div>
-        
     </div>
-        
 </section>
 
-<!-- Optimized styles -->
- <style>
+<style define:vars={{ mobileImgUrl: `url(${mobileImgUrl})` }}>
+    /* --- MAIN CONTAINER --- */
     #hero {
-        display: grid;
-        /* Desktop Default */
-        grid-template-columns: 40vw 1fr;
-        height: auto; /* Changed from 90vh to allow growth on mobile */
-        min-height: 90vh;
-        width: 100%; /* Avoid 100vw to prevent horizontal scrollbars */
-        background-color: #A38D75;
-        border-bottom-left-radius: 80px; /* Use px for consistency */
-        overflow: hidden;
+        display: flex;
+        flex-direction: row; 
+        width: 100%;
+        min-height: 50vh;
+        background-color: transparent; 
+        overflow: hidden; 
     }
 
+    /* --- SECTION 1 (DARK BOX) --- */
     .hero-section-1 {
         display: flex;
         flex-direction: column;
-        background-color: #38322B;
-        border-radius: 0 0 30px 0; /* Adjusted for stacking logic */
+
+        color: white;
+        padding-inline: 20px;
+
+        text-align: center;
         align-items: center;
         justify-content: center;
-        color: white;
-        padding: 60px 20px; /* Added padding for mobile breathing room */
-        text-align: center;
+
+        border-bottom-left-radius: 40px;
+        width: 100%;
+        gap: 10px;
+        /* Ensure background looks good when triggered */
+        background-size: cover;
+        background-position: center;
+        background-color: #38322B;
     }
 
     .hero-h1 {
         font-family: 'Alexandria', sans-serif;
         font-weight: 300;
-        font-size: clamp(18px, 2vw, 30px); /* Scales between 18px and 30px */
+        font-size: clamp(1.1rem, 2vw, 1.8rem);
     }
 
     .hero-h2 {
         font-family: 'Alexandria', sans-serif;
         font-weight: 700;
-        font-size: clamp(40px, 5vw, 70px); /* Scales between 40px and 70px */
-        padding-bottom: 20px;
+        font-size: clamp(2.2rem, 5vw, 4.3rem);
         line-height: 1.1;
+        padding-bottom: 20px;
     }
 
     .hero-section-2 {
-        display: grid;
-        grid-template-rows: 20px 1fr auto;
-        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        
+        width: 100%;
+        flex-grow: 1;
+        border-bottom-right-radius: 40px;
+
+        background-size: cover;
+        background-position: center;
         background-color: #A38D75;
+    }
+
+    .hero-img-mobile{
+        width: 100%;
+        height: 100%;
+        overflow: hidden; 
+    }
+
+    .hero-img-mobile img {
+        width: 100%;
+        height: 100%;
+        border-bottom-right-radius: 40px; 
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .hero-img {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        padding-top: 15px;
+        display: none;
+    }
+
+    .hero-links{
+        display: none;
+    }
+
+
+
+    /* --- MOBILE VIEW (< 620px) --- */
+    @media screen and (max-width: 620px) {
+        #hero {
+            /* Increase height for mobile so the background image is visible */
+            min-height: 70vh; 
+        }
+
+        .hero-section-1 {
+            /* 1. Add the tint using a linear gradient */
+            /* 2. Add the dynamic mobile image variable */
+            background-image: 
+                linear-gradient(rgba(56, 50, 43, 0.75), rgba(56, 50, 43, 0.75)), 
+                var(--mobileImgUrl);
+            
+            /* Ensure the text stays on top */
+            z-index: 1;
+            border-bottom-right-radius: 40px; /* Mirror the curve on mobile */
+        }
+
+        .hero-section-2 {
+            display: none;
+        }
+    }
+
+    /* --- TABLET VIEW (621px to 1099px) --- */
+    @media screen and (min-width: 621px) and (max-width: 1099px) {
+        .hero-section-2 {
+            /* 1. Apply the tint and the image */
+            background-image: 
+                linear-gradient(rgba(56, 50, 43, 0.5), rgba(56, 50, 43, 0.5)), 
+                var(--mobileImgUrl);
+            background-size: cover;
+            background-position: center;
+
+            /* 2. Give it height so the background is actually visible */
+            min-height: 400px; 
+            width: 100%;
+            
+            border-bottom-right-radius: 40px;
+        }
+
+        /* 3. Hide the actual <img> tags so they don't sit on top of your background */
+        .hero-section-2 .hero-img, 
+        .hero-section-2 .hero-img-mobile {
+            display: none;
+        }
+    }
+
+    /* --- DESKTOP VIEW (1100px+) --- */
+    @media screen and (min-width: 1100px) {
+        #hero {
+            display: grid;
+            min-height: 60vh;
+            grid-template-columns: 40vw 1fr;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .hero-section-1 {
+            background-image: none; /* Remove mobile image background */
+            background-color: #38322B;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            padding: 0 40px;
+        }
+
+        .hero-section-2 {
+            display: flex;
+            border-bottom-right-radius: 0;
+        }
+
+        .hero-img-mobile { display: none; }
+
+        .hero-img {
+            width: 100%;
+            height: 100%; /* Visible height for mobile */
+            overflow: hidden;
+            display: flex;
+            align-items: start;
+            padding-top: 0px;
+            padding-left: 10px;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            
+            align-items: center;
+            /* gap: 50px; */
+            padding: 50px;
+            
+        }
+
+        .hero-links a {
+            font-family: "PT Sans", sans-serif;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .hero-links a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 50%;
+            background: #38322B;
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+        .hero-links a:hover::after { width: 100%; }
+        .hero-links a:hover { color: #38322B; }
+    }
+</style>
+<!-- ---
+import Button from "./ui/Button.astro";
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)} id="hero">
+    <div class="hero-section-1">
+        <div class="hero-h1">{blok.title_1}</div>
+        <div class="hero-h2">{blok.title_2}</div>
+        <div class="btn-desktop"><Button href="" variant="primary">{blok.button_text}</Button></div>
+    </div>
+    
+    <div class="hero-section-2">
+        <div class="hero-img">
+            <picture>
+                <source media="(max-width: 1099px)" srcset={blok.image} />
+                <img src={blok.image} alt="Hero Image" />
+            </picture>
+        </div>
+
+        <div class="hero-img-mobile">
+            <picture>
+                <source media="(max-width: 1099px)" srcset={blok.image_mobile} />
+                <img src={blok.image} alt="Hero Image" />
+            </picture>
+        </div> -->
+        
+        <!-- <div class="hero-links">
+            <a href={blok.link_1.cached_url}>{blok.link_1_text}</a>
+            <a href={blok.link_2.cached_url}>{blok.link_2_text}</a>
+            <a href={blok.link_3.cached_url}>{blok.link_3_text}</a>
+        </div> -->
+    <!-- </div>
+</section>
+
+<style>
+    /* --- MAIN CONTAINER --- */
+    #hero {
+        display: flex;
+        flex-direction: row; 
+        width: 100%;
+        min-height: 50vh;
+        /* Base color of the page background to make borders visible */
+        background-color: transparent; 
+        /* The main container needs to clip the children's borders */
+        /* border-bottom-left-radius: 80px; */
+        /* border-bottom-right-radius: 80px;  */
+        overflow: hidden; 
+    }
+
+    /* --- SECTION 1 (DARK BOX) --- */
+    .hero-section-1 {
+        display: flex;
+        flex-direction: column;
+        background-color: #38322B;
+        color: white;
+
+        /* padding: 60px 40px; */
+        padding-inline: 20px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+
+        /* z-index: 10; */
+        border-bottom-left-radius: 40px;
+        /* margin-bottom: -40px;  */
+        width: 100%;
+
+        gap: 10px;
+    }
+
+    .hero-h1 {
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1.1rem, 2vw, 1.8rem);
+    }
+
+    .hero-h2 {
+        font-family: 'Alexandria', sans-serif;
+        font-weight: 700;
+        font-size: clamp(2.2rem, 5vw, 4.3rem);
+        line-height: 1.1;
+        padding-bottom: 20px;
+    }
+
+    /* --- SECTION 2 (BROWN BOX) --- */
+    .hero-section-2 {
+        display: flex;
+        flex-direction: column;
+        background-color: #A38D75;
+        width: 100%;
+        flex-grow: 1;
+
+        border-bottom-right-radius: 40px;
+        /* border-bottom-left-radius: 80px; */
+    }
+
+    .hero-img-mobile{
+        width: 100%;
+        height: 100%; /* Visible height for mobile */
+        overflow: hidden; 
+    }
+
+    .hero-img-mobile picture{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero-img-mobile img {
+        width: 100%;
+        height: 100%;
+        border-bottom-right-radius: 40px; 
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+
+    .hero-img {
+        width: 100%;
+        height: 400px; /* Visible height for mobile */
+        overflow: hidden;
+        padding-top: 15px;
+        display: none;
+    }
+
+    .hero-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
     }
 
     .hero-links {
         display: flex;
-        flex-wrap: wrap; /* Allows links to wrap on tiny screens */
+        flex-direction: row;
+        justify-content: center;
         align-items: center;
-        justify-content: space-evenly;
-        gap: 15px;
-        font-size: 1.1rem;
-        padding-top: 20px;
+        gap: 20px;
+        padding: 10px;
+        
+        margin-top: -40px;
+        z-index: 10;
+        border-radius: 0 0 30px 30px; 
+        background-color: #A38D75;
     }
 
-    .hero-section-2 a {
+    .hero-links a {
+        font-family: "PT Sans", sans-serif;
         text-decoration: none;
         color: white;
-        white-space: nowrap;
+        font-size: 1.2rem;
     }
 
-    .hero-img img {
-        height: auto;
-        max-height: 60vh;
-        width: 100%;
-        object-fit: contain;
-        object-position: center;
-    }
-
-    /* --- RESPONSIVENESS --- */
-
-    /* Tablets and Small Laptops */
-    @media screen and (max-width: 1100px) {
-        #hero {
-            grid-template-columns: 50vw 1fr; /* Give more space to text */
+    @media screen and (max-width: 620px) {
+        .hero-section-2{
+            display: none;
         }
     }
 
-    /* Mobile (Stacking) */
-    @media screen and (max-width: 768px) {
+    /* --- DESKTOP VIEW (1100px+) --- */
+    @media screen and (min-width: 1100px) {
         #hero {
-            grid-template-columns: 1fr; /* Stacked */
+            display: grid;
+            min-height: 90vh;
+            grid-template-columns: 40vw 1fr;
+            /* Desktop rounded style */
             border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
         }
 
         .hero-section-1 {
-            border-radius: 0 0 40px 40px; /* Round the bottom of the dark section */
-            order: 1; /* Keep text at top */
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0 0px 0px 0;
+            padding: 0 40px;
+            gap: 0;
         }
 
         .hero-section-2 {
-            order: 2; /* Image below text */
-            grid-template-rows: auto;
-            gap: 20px;
+            padding-top: 0;
+            padding-left: 40px; /* Increased desktop padding */
+            justify-content: space-between;
+            /* Reset mobile radii for desktop grid look */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            background-color: #A38D75;
+        }
+
+        .hero-img-mobile{
+            display: none;
+        }
+
+        .hero-img {
+            height: 100%;
+            display: block;
         }
 
         .hero-links {
-            justify-content: center;
-            flex-direction: column; /* Stack links on mobile for better touch targets */
-            text-align: center;
+            flex-direction: row;
+            justify-content: space-evenly;
+            padding-bottom: 40px;
         }
+
+        .hero-links a {
+            position: relative;
+        }
+
+        .hero-links a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 50%;
+            background: #38322B;
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+        .hero-links a:hover::after { width: 100%; }
+        .hero-links a:hover { color: #38322B; }
     }
-</style>
-<!-- <style>
-    #hero{
-        display: grid;
-        grid-template-columns: 40vw 1fr;
-
-        height: 90vh;
-        width: 100vw;
-        background-color: #A38D75;
-
-        border-bottom-left-radius: 10%;
-    }
-
-    .hero-section-1, .hero-section-2{
-        height: 100%;
-        width: 100%;
-    }
-
-    .hero-section-1{
-        display: flex;
-        flex-direction: column;
-        background-color: #38322B;
-        border-radius: 0 30px 30px 30px;
-
-        align-items: center;
-        justify-content: center;
-        color: white;
-    }
-
-    .hero-h1{
-        font-family: 'Alexandria', sans-serif;
-        font-weight: 300;
-        font-size: 30px;
-    }
-
-    .hero-h2{
-        font-family: 'Alexandria', sans-serif;
-        font-weight: 700;
-        font-size: 70px;
-        padding-bottom: 20px;
-    }
-
-    .hero-section-2{
-        display: grid;
-        grid-template-rows: 5% 80% auto;
-
-        padding-left: 20px;
-        background-color: #A38D75;
-
-        border-radius: 0 0 0 30px;
-    }
-
-    .hero-section-2 a{
-        text-decoration: none;
-        color: white;
-    }
-
-    .hero-links{
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-
-        font-size: large;
-    }
-
-    .hero-img img{
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-
-        object-position: right center;
-        padding-right: -1px;
-    }
-
-
-   
-
-/* Media queries */
-
-	@media screen and (max-width: 640px) {
-		
-	} 
 </style> -->

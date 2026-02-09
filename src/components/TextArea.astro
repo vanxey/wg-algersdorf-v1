@@ -27,14 +27,117 @@ const { blok } = Astro.props;
     </div>
 </section>
 
-<!-- Optimized styles -->
 <style>
+    #text-area {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(30px, 5vh, 60px);
+        min-height: 70vh;
+        width: 100%;
+        justify-content: center;
+        padding: 80px clamp(20px, 15%, 200px); 
+        text-align: center;
+        background-color: white;
+    }
+
+    .text {
+        /* CHANGED: Now scales from 20px (1.25rem) to 36px (2.25rem) */
+        /* 2.5vw on a 14" MacBook (~1512px) is approx 37px, capping it perfectly at 36px */
+        font-size: clamp(1.25rem, 2.5vw, 2.25rem); 
+        font-family: "PT Sans", sans-serif;
+        font-weight: 800;
+        line-height: 1.4;
+        color: #38322B;
+    }
+
+    .wavy-wrapper {
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .wavy-underline {
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        /* Adjusted height slightly to match the smaller text scale */
+        height: clamp(6px, 1.2vw, 12px); 
+        pointer-events: none;
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    /* --- RESPONSIVENESS --- */
+
+    @media screen and (max-width: 1024px) {
+        #text-area {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            min-height: 60vh;
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        .text {
+            line-height: 1.3;
+        }
+
+        .wavy-underline {
+            bottom: -4px;
+            stroke-width: 8;
+        }
+        
+        .button :global(a), .button :global(button) {
+            width: 100%;
+            max-width: 300px;
+        }
+    } 
+</style>
+
+<!-- ---
+import Button from "./ui/Button.astro";
+import { storyblokEditable } from '@storyblok/astro';
+
+const { blok } = Astro.props;
+---
+
+<section {...storyblokEditable(blok)} id="text-area">
+    <div class="text">
+        {blok.text_before}
+        <span class="wavy-wrapper">
+            {blok.highlighted_word}
+            <svg 
+                viewBox="0 0 218 15" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg" 
+                class="wavy-underline" 
+                preserveAspectRatio="none"
+            >
+                <path d="M0.460938 7.5C0.460938 7.5 60.1227 18.75 111.337 7.5C162.551 -3.75 217.461 7.5 217.461 7.5" stroke="#A38D75" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+        </span>
+        {blok.text_after}
+    </div>
+    <div class="button">
+        <Button href="" variant="secondary">{blok.button_text}</Button>
+    </div>
+</section> -->
+
+<!-- Optimized styles -->
+<!-- <style>
     #text-area {
         display: flex; /* Changed to flex for easier vertical stacking */
         flex-direction: column;
         gap: clamp(30px, 5vh, 60px); /* Responsive gap */
-        height: auto;
+        min-height: 70vh;
         width: 100%;
+        justify-content: center;
         
         /* Mobile-friendly padding: 15% on sides for desktop, 5% for mobile */
         padding: 80px clamp(20px, 15%, 200px); 
@@ -80,6 +183,7 @@ const { blok } = Astro.props;
         #text-area {
             padding-top: 60px;
             padding-bottom: 60px;
+            min-height: 60vh;
         }
     }
 
@@ -101,47 +205,4 @@ const { blok } = Astro.props;
             max-width: 300px;
         }
     } 
-</style>
-<!-- <style>
-    #text-area {
-        display: grid;
-        grid-template-rows: 1fr auto;
-        gap: 50px;
-        height: 100%;
-        width: 100%;
-        padding: 10% 20%;
-        text-align: center;
-    }
-
-    .text {
-        font-size: xx-large;
-        font-family: "PT Sans", sans-serif;
-        font-weight: 800;
-        line-height: 1.6; /* Increased slightly to ensure the wave has space */
-        color: #38322B;
-    }
-
-    .wavy-wrapper {
-        position: relative;
-        display: inline-block;
-    }
-
-    .wavy-underline {
-        position: absolute;
-        left: 0;
-        bottom: -5px; /* Moves it below the text baseline */
-        width: 100%;
-        height: 12px;
-        pointer-events: none;
-    }
-
-    .button {
-        padding: 0 20%;
-    }
-
-    /* Media queries */
-
-	@media screen and (max-width: 640px) {
-		
-	} 
 </style> -->
