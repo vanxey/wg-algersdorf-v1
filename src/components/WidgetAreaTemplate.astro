@@ -1,0 +1,50 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Tag from "./ui/Tag.astro";
+import Heading from "./ui/Heading.astro";
+
+const { blok } = Astro.props;
+---
+
+<div id="widget-area">
+  <div class="heading-area">
+    <div class="tag-area"><Tag variant="secondary">{blok.category_text}</Tag></div>
+    <Heading>{blok.heading_1}</Heading>
+  </div>
+
+  <div class="widget-grid-wrapper" {...storyblokEditable(blok)}>
+    <div class="grid-container">
+      {blok.column?.map((nestedBlok) => (
+        <StoryblokComponent blok={nestedBlok} />
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  #widget-area{
+    display: flex;
+    flex-direction: column;
+
+    padding-inline: clamp(1.25rem, 8vw, 10%);
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  /* .tag-area{
+    display: flex;
+    padding-bottom: 20px;
+  } */
+
+  .widget-grid-wrapper {
+    padding: 4rem 10%;
+    width: 100%;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+  }
+</style>

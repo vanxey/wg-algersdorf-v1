@@ -1,28 +1,94 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Tag from "./ui/Tag.astro";
+import Heading from "./ui/Heading.astro";
 
 const { blok } = Astro.props;
 ---
 
-<div class="widget-grid-wrapper" {...storyblokEditable(blok)}>
-  <div class="grid-container">
-    {blok.columns?.map((nestedBlok) => (
-      <StoryblokComponent blok={nestedBlok} />
-    ))}
+<div id="widget-area">
+  <div class="heading-area">
+    <div class="tag-area"><Tag variant="secondary">{blok.category_text}</Tag></div>
+    <Heading>{blok.heading_1}</Heading>
+  </div>
+
+  <div class="widget-grid-wrapper" {...storyblokEditable(blok)}>
+    <div class="grid-container">
+      {blok.columns?.map((nestedBlok) => (
+        /* WRAPPER DIV IS KEY HERE */
+        <div class="grid-item">
+          <StoryblokComponent blok={nestedBlok} />
+        </div>
+      ))}
+    </div>
   </div>
 </div>
 
 <style>
-  .widget-grid-wrapper {
-    padding: 4rem 10%;
-    width: 100%;
+  #widget-area {
+    display: flex;
+    flex-direction: column;
+    padding-inline: clamp(1.25rem, 8vw, 10%);
+    padding-top: 60px;
+    padding-bottom: 60px;
+    gap: 30px;
+  }
+
+  .heading-area{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    align-items: stretch;
+    width: 100%;
+  }
+
+  /* Target the wrapper div we just added */
+  .grid-item:nth-child(4n + 1) {
+    grid-column: span 2;
+  }
+
+  .grid-item:nth-child(4n + 2) {
+    grid-column: span 1;
+  }
+
+  .grid-item:nth-child(4n + 3) {
+    grid-column: span 1;
+  }
+
+  .grid-item:nth-child(4n + 4) {
+    grid-column: span 2;
+  }
+
+  /* Ensure the nested component fills the grid item height */
+  .grid-item {
+    display: flex;
+    width: 100%;
+  }
+
+  /* RESPONSIVENESS */
+  @media screen and (max-width: 1024px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-item {
+      grid-column: span 1 !important; /* Standard 2-column grid */
+    }
+    /* Optional: make every 3rd item span full width on tablet for flavor */
+    /* .grid-item:nth-child(3n) { grid-column: span 2 !important; } */
+  }
+
+  @media screen and (max-width: 640px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+    .grid-item {
+      grid-column: span 1 !important;
+    }
   }
 </style>

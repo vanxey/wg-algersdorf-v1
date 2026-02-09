@@ -1,0 +1,28 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<div class="widget-grid-wrapper" {...storyblokEditable(blok)}>
+  <div class="grid-container">
+    {blok.columns?.map((nestedBlok) => (
+      <StoryblokComponent blok={nestedBlok} />
+    ))}
+  </div>
+</div>
+
+<style>
+  .widget-grid-wrapper {
+    padding: 4rem 10%;
+    width: 100%;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+  }
+</style>
