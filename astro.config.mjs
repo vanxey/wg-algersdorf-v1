@@ -31,6 +31,8 @@ export default defineConfig({
         widget: "components/ui/Widget.astro",
         widgetGrid: "components/WidgetGrid.astro",
         widgetArea: "components/WidgetArea.astro",
+        teamArea: "components/TeamArea.astro",
+        personWidget: "components/ui/PersonWidget.astro",
       },
     }),
   ],

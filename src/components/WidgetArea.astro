@@ -15,8 +15,7 @@ const { blok } = Astro.props;
 
   <div class="widget-grid-wrapper" {...storyblokEditable(blok)}>
     <div class="grid-container">
-      {blok.columns?.map((nestedBlok) => (
-        /* WRAPPER DIV IS KEY HERE */
+      {blok.topics_widget?.map((nestedBlok) => (
         <div class="grid-item">
           <StoryblokComponent blok={nestedBlok} />
         </div>

@@ -1,0 +1,84 @@
+---
+    import { storyblokEditable } from "@storyblok/astro"
+    import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+    import Button from "./ui/Button.astro"
+    import Heading from "./ui/Heading.astro"
+
+    const { blok } = Astro.props
+---
+<section id="team-area" {...storyblokEditable(blok)}>
+    <div class="r-1">
+        <Heading>{blok.heading_1}</Heading>
+        <div class="subheading">{blok.subheading_1}</div>
+    </div>
+
+    <div class="r-2">
+            {blok.team_widget?.map((nestedBlok) => (
+            <div class="grid-item">
+                <StoryblokComponent blok={nestedBlok} />
+            </div>
+            ))}
+    </div>
+
+    <div class="r-3">
+    <div class="text">{blok.text}</div>
+    <div class="button">
+        <Button variant="secondary">{blok.button_text}</Button>
+    </div>
+    </div>
+    
+
+</section>
+
+<style>
+    #team-area{
+        display: flex;
+        flex-direction: column;
+        row-gap: 50px;
+        height: auto;
+        width: 100%;
+
+        /* Unified responsive padding */
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 60px;
+        padding-bottom: 60px;
+
+        color: #38322B;
+        background-color: #FDFBF7;
+
+      
+        font-family: "PT Sans", sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .r-1{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .r-3{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        align-items: center;
+
+    }
+
+    .r-2{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        width: 100%;
+    }
+
+  .grid-item {
+    display: flex;
+    width: 100%;
+  }
+
+
+</style>
