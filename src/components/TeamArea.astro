@@ -1,7 +1,7 @@
 ---
     import { storyblokEditable } from "@storyblok/astro"
     import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-    import Button from "./ui/Button.astro"
+    import Button2 from "./ui/Button2.astro"
     import Heading from "./ui/Heading.astro"
 
     const { blok } = Astro.props
@@ -23,7 +23,7 @@
     <div class="r-3">
     <div class="text">{blok.text}</div>
     <div class="button">
-        <Button variant="secondary">{blok.button_text}</Button>
+        <Button2 variant="quarternary">{blok.button_text}</Button>
     </div>
     </div>
     
@@ -61,10 +61,11 @@
     .r-3{
         display: flex;
         flex-direction: row;
-        gap: 50px;
+        gap: 20px;
         padding-top: 20px;
         padding-bottom: 40px;
         align-items: center;
+        justify-content: space-between;
 
     }
 

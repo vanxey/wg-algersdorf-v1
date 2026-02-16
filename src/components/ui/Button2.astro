@@ -1,0 +1,69 @@
+---
+const { href, variant = "primary", ...rest } = Astro.props;
+---
+
+<a href={href} class:list={["btn", variant]} {...rest}>
+  <span class="btn-text"><slot /></span>
+    <svg class="btn-arrow" viewBox="0 0 60 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 5H58M58 5L54 1M58 5L54 9" stroke="currentColor" stroke-width="1" />
+    </svg>
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: "PT Sans", sans-serif;
+    font-size: medium;
+    font-style: italic;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    padding: 10px 50px; border-radius: 30px; 
+  }
+
+  .btn-text{
+    white-space: nowrap;
+    padding-right: 10px;
+  }
+
+  /* The Arrow Variant */
+  .btn.arrow {
+    background: transparent;
+    color: #38322B; /* Your Dark Brown */
+    padding: 10px 0;
+    font-weight: 400;
+    gap: 15px; /* Space between text and arrow */
+  }
+
+  .btn-arrow {
+    width: 60px; /* Length of the long arrow */
+    height: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover Animation: The arrow "nudges" forward */
+  .btn.arrow:hover .btn-arrow {
+    transform: translateX(8px);
+  }
+
+  .btn.arrow:hover {
+    opacity: 0.7;
+  }
+
+  .primary { background-color: #A38D75; color: white; border: 1px solid #A38D75;}
+  .primary:hover { background-color: white; color: #A38D75; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
+  
+  .hero { background-color: transparent; color: white; border: 1px solid #A38D75;}
+  .hero:hover { background-color: #A38D75; color: white; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
+
+  .secondary { background-color: transparent; color: #A38D75; border: 1px solid #A38D75;}
+  .secondary:hover { background-color: #A38D75; color: white; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
+
+  .tertiary { background-color: transparent; color: white; border: 1px solid white;}
+  .tertiary:hover { background-color: white; color: #38322B; border: 1px solid white; cursor: pointer; transition: 0.5s;}
+
+  .quarternary { background-color: transparent; color: #38322B; border: 1px solid #38322B;}
+  .quarternary:hover { background-color: #38322B; color: white; border: 1px solid #38322B; cursor: pointer; transition: 0.5s;}
+</style>
