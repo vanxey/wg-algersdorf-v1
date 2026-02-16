@@ -28,7 +28,7 @@ export default defineConfig({
         aboutArea2: "components/AboutArea_2.astro",
         aboutArea3: "components/AboutArea_3.astro",
         quote: "components/Quote.astro",
-        widget: "components/ui/Widget.astro",
+        topicWidget: "components/ui/TopicWidget.astro",
         widgetGrid: "components/WidgetGrid.astro",
         widgetArea: "components/WidgetArea.astro",
         teamArea: "components/TeamArea.astro",
