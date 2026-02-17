@@ -28,6 +28,13 @@ const { href, variant = "primary", ...rest } = Astro.props;
     padding-right: 10px;
   }
 
+   @media (max-width: 400px) {
+      .btn-text{
+        white-space: wrap;
+        padding-left: 10px;
+      }
+    }
+
   /* The Arrow Variant */
   .btn.arrow {
     background: transparent;

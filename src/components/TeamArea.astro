@@ -1,4 +1,158 @@
 ---
+import { storyblokEditable } from "@storyblok/astro"
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Button2 from "./ui/Button2.astro"
+import Heading from "./ui/Heading.astro"
+
+const { blok } = Astro.props
+---
+<section id="team-area" {...storyblokEditable(blok)}>
+    <div class="r-1">
+        <Heading>{blok.heading_1}</Heading>
+        <div class="subheading">{blok.subheading_1}</div>
+    </div>
+
+    <div class="slider-wrapper">
+        <div class="r-2" id="team-slider">
+            {blok.team_widget?.map((nestedBlok) => (
+                <div class="grid-item">
+                    <StoryblokComponent blok={nestedBlok} />
+                </div>
+            ))}
+        </div>
+        
+        <div class="scroll-indicator-container">
+            <div class="scroll-progress-bar" id="scroll-bar"></div>
+        </div>
+    </div>
+
+    <div class="r-3">
+        <div class="text">{blok.text}</div>
+        <div class="button-wrapper">
+            <Button2 variant="quarternary">{blok.button_text}</Button2>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Logic to move the progress bar based on scroll position
+    const slider = document.getElementById('team-slider');
+    const bar = document.getElementById('scroll-bar');
+
+    if (slider && bar) {
+        slider.addEventListener('scroll', () => {
+            const scrollPercentage = (slider.scrollLeft / (slider.scrollWidth - slider.clientWidth)) * 100;
+            bar.style.width = `${scrollPercentage}%`;
+        });
+    }
+</script>
+
+<style>
+    #team-area {
+        display: flex;
+        flex-direction: column;
+        row-gap: 50px;
+        width: 100%;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 60px;
+        padding-bottom: 60px;
+        color: #38322B;
+        background-color: #FDFBF7;
+    }
+
+    .r-1 {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Slider Layout */
+    .slider-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .r-2 {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        margin-inline: -5vw; 
+        padding-inline: 5vw;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .r-2::-webkit-scrollbar { display: none; }
+
+    .grid-item {
+        flex: 0 0 280px;
+        scroll-snap-align: start;
+    }
+
+    /* Scroll Indicator Styles */
+    .scroll-indicator-container {
+        width: 100%;
+        height: 2px;
+        background-color: rgba(56, 50, 43, 0.1); /* Light track */
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .scroll-progress-bar {
+        width: 0%; /* Initial state */
+        height: 100%;
+        background-color: #A38D75; /* Your brand gold/beige */
+        transition: width 0.1s ease-out;
+    }
+
+    /* Desktop Adjustments */
+    @media (min-width: 1024px) {
+        .r-2 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-inline: 0;
+            padding-inline: 0;
+            overflow: visible;
+        }
+
+        .grid-item {
+            flex: unset;
+            width: 100%;
+        }
+
+        /* Hide indicator on desktop */
+        .scroll-indicator-container {
+            display: none;
+        }
+    }
+
+    .r-3 {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 20px;
+        /* border-top: 1px solid rgba(56, 50, 43, 0.1); */
+    }
+
+    @media (min-width: 768px) {
+        .r-3 {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .button-wrapper {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+</style>
+
+<!-- ---
     import { storyblokEditable } from "@storyblok/astro"
     import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
     import Button2 from "./ui/Button2.astro"
@@ -82,4 +236,4 @@
   }
 
 
-</style>
+</style> -->

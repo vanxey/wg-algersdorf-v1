@@ -33,6 +33,7 @@ export default defineConfig({
         widgetArea: "components/WidgetArea.astro",
         teamArea: "components/TeamArea.astro",
         personWidget: "components/ui/PersonWidget.astro",
+        footer: "components/Footer.astro",
       },
     }),
   ],
