@@ -4,6 +4,406 @@ import SocialMediaIcons from "./ui/SocialMediaIcons.astro"
 
 const { blok } = Astro.props
 ---
+<section id="footer" {...storyblokEditable(blok)}>
+    <div class="r-1">
+        <div class="logo-wrapper">
+            <div class="logo">
+                <img src="/src/assets/logo_without_green_white_wg.png" alt="Logo" />
+            </div>
+        </div>
+        <div class="links-wrapper">
+            <div class="links">
+                <a href="/ueber-uns">Über uns</a>
+                <a href="/team">Team</a>
+                <a href="/verein">Verein</a>
+    
+                <a href="/services">Services</a>
+                <a href="/jobs">Jobs</a>
+                <a href="/impressum">Impressum</a>
+    
+                <a href="/kontakt">Kontakt</a>
+                <a href="/partner">Partner</a>
+                <a href="/datenschutz">Datenschutz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="r-2" style="display: none;">  -->
+     <div class="r-2">
+        <a href="https://maps.app.goo.gl/2Mo4xDhu6kv4g6vv8" target="_blank" rel="noopener">
+            <img src="/src/assets/map_algersdorf.png" alt="Standort Karte" />
+
+            <div class="glass-overlay">
+                <div class="address-card">
+                    <div class="pin-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    <div class="info">
+                        <p class="addr">Algersdorfer Straße, 8020 Graz</p>
+                        <p class="contact">+43 123 456 789 | office@algersdorfer.at</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="stripe"></div>
+
+    <div class="r-3">
+        <div class="copyright">© 2025 Copyright Wohngemeinschaft Algersdorfer Straße</div>
+        <div class="socials">
+            <SocialMediaIcons />
+        </div>
+    </div>
+</section>
+
+<style>
+    /* 1. Main Footer Container */
+    #footer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+        width: 100%;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 80px;
+        padding-bottom: 40px;
+        background-color: #38322B;
+        color: #FDFBF7;
+        font-family: "PT Sans", sans-serif;
+    }
+
+    /* 2. Top Row: Logo and Links */
+    .r-1 {
+        display: grid;
+        grid-template-columns: 1fr; /* Stacked on mobile */
+        gap: 40px;
+        align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+        .r-1 {
+            grid-template-columns: 40% 1fr; /* 2-column layout for desktop */
+            align-items: center;
+        }
+    }
+
+    .logo-wrapper {
+        display: flex;
+        justify-content: center; /* Centered on mobile */
+    }
+
+    @media (min-width: 1024px) {
+        .logo-wrapper {
+            justify-content: flex-start; /* Left-aligned on desktop */
+        }
+    }
+
+    .logo {
+        background-color: #fff;
+        padding: 15px 25px;
+        border-radius: 20px;
+        display: inline-flex;
+        width: fit-content;
+    }
+
+    .logo img {
+        width: clamp(180px, 20vw, 280px);
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* 3. Navigation Links */
+    .links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small mobile */
+        gap: 15px 20px;
+        text-align: center;
+    }
+
+    @media (min-width: 480px) {
+        .links {
+            grid-template-columns: repeat(3, 1fr); /* 3 columns on tablet/desktop */
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .links {
+            text-align: left; /* Left-aligned for desktop layout */
+        }
+    }
+
+    .links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+        position: relative;
+    }
+
+    .links a::after {
+        content: '';
+        position: absolute;
+        width: 0; 
+        height: 2px;
+        bottom: -2px; 
+        left: 50%;
+        background: #A38D75;
+        transition: 0.3s;
+        transform: translateX(-50%);
+    }
+
+    .links a:hover::after { width: 100%; }
+    .links a:hover { color: #A38D75; }
+
+    /* 4. Map Section & Liquid Glass Overlay */
+    .r-2 {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 30px;
+    }
+
+    .map-link {
+        display: block;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .r-2 img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        filter: grayscale(100%) brightness(0.6);
+        transition: filter 0.5s ease, transform 0.5s ease;
+    }
+
+    .map-link:hover img {
+        filter: grayscale(30%) brightness(0.8);
+        transform: scale(1.03);
+    }
+
+    .glass-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .address-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px) saturate(160%);
+        -webkit-backdrop-filter: blur(15px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        padding: 25px 40px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: white;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .map-link:hover .address-card {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateY(-8px);
+    }
+
+    .pin-icon { color: #A38D75; }
+
+    .info .addr {
+        font-weight: 700;
+        font-size: 1.25rem;
+        margin: 0;
+        font-family: "PT Sans Caption", sans-serif;
+    }
+
+    .info .contact {
+        font-size: 1rem;
+        margin: 4px 0 0 0;
+        opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+        .address-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+            width: 95%;
+            padding: 20px;
+        }
+        .r-2 img { height: 400px; }
+    }
+
+    /* 5. Bottom Stripe & Copyright Bar */
+    .stripe {
+        width: 100%;
+        border-bottom: #A38D75 solid 1px;
+        opacity: 0.3;
+    }
+
+    .r-3 {
+        display: flex;
+        flex-direction: column-reverse; /* Socials above text on mobile */
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .r-3 {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+    }
+
+    .copyright {
+        font-size: 0.85rem;
+        font-style: italic;
+        color: #A38D75;
+    }
+</style>
+<!-- <style>
+    #footer {
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px; /* Increased for better breathing room */
+        width: 100%;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 80px;
+        padding-bottom: 40px;
+        background-color: #38322B;
+        color: #FDFBF7;
+        font-family: "PT Sans", sans-serif;
+    }
+
+    /* Row 1: Logo and Links */
+    .r-1 {
+        display: grid;
+        grid-template-columns: 1fr; /* Stacked by default */
+        gap: 40px;
+        align-items: start;
+    }
+
+
+    @media (min-width: 1024px) {
+        .r-1 {
+            grid-template-columns: 40% 1fr; /* Logo takes less space than links on desktop */
+            align-items: center;
+        }
+
+        .logo-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        }
+
+        .links{
+            text-align: start;
+        }
+    }
+
+    .logo-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo {
+        background-color: #fff;
+        padding: 15px 25px;
+        border-radius: 20px;
+        display: inline-flex;
+        width: fit-content;
+    }
+
+    .logo img {
+        width: clamp(180px, 20vw, 280px); /* Fluid logo size */
+        height: auto;
+    }
+
+    /* Links Grid */
+    .links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 cols on small mobile */
+        gap: 15px 20px;
+        /* align-items: center; */
+        text-align: center;
+    }
+
+    @media (min-width: 480px) {
+        .links {
+            grid-template-columns: repeat(3, 1fr); /* 3 cols on larger mobile/tablet */
+        }
+    }
+
+    .links a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+        white-space: nowrap; /* Keep links on one line */
+    }
+
+    .links a:hover {
+        color: #A38D75;
+    }
+
+    /* Map Image */
+    .r-2 img {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 30px;
+        filter: grayscale(100%) brightness(0.8);
+        transition: filter 0.3s ease;
+    }
+
+    .r-2 img:hover {
+        filter: grayscale(0%) brightness(1);
+    }
+
+    .stripe {
+        width: 100%;
+        border-bottom: #A38D75 solid 1px;
+        opacity: 0.3;
+    }
+
+    /* Bottom Row: Copyright and Socials */
+    .r-3 {
+        display: flex;
+        flex-direction: column-reverse; /* Socials on top for mobile */
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .r-3 {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+    }
+
+    .copyright {
+        font-size: 0.85rem;
+        font-style: italic;
+        color: #A38D75;
+    }
+</style> -->
+
+<!-- ---
+import { storyblokEditable } from "@storyblok/astro"
+import SocialMediaIcons from "./ui/SocialMediaIcons.astro"
+
+const { blok } = Astro.props
+---
 <section id="footer">
     <div class="r-1">
         <div class="logo">
@@ -140,4 +540,4 @@ const { blok } = Astro.props
         }
         .links a:hover::after { width: 100%; }
         .links a:hover { color: #A38D75; }
-</style>
+</style> -->
