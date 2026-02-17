@@ -25,8 +25,8 @@ const { blok } = Astro.props
             </div>
         </div>
     </div>
-    <div class="r-2">
-        <div class="map"></div>
+    <div class="r-2" style="display: none;">
+        <img src="src/assets/map_algersdorf.png" alt="" />
     </div>
     <div class="stripe"></div>
     <div class="r-3">
@@ -70,7 +70,7 @@ const { blok } = Astro.props
         justify-content: center;
     }
 
-    img{
+    .logo img{
         width: 300px;
         object-fit: contain;
     }
@@ -84,6 +84,17 @@ const { blok } = Astro.props
     .r-1{
         display: grid;
         grid-template-columns: 60% 1fr;
+    }
+
+    .r-2{
+        display: grid;
+        grid-template-columns: 1fr;
+        
+    }
+
+    .r-2 img{
+        width: 100%;
+        border-radius: 20px;
     }
 
     .r-3{
