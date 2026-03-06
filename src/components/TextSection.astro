@@ -1,0 +1,80 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+
+<section id="textSection" {...storyblokEditable(blok)}>
+    <div class="col-1">{blok.heading}</div>
+    <div class="stripe"></div>
+    <div class="col-2"> {blok.text}</div>
+</section>
+
+<style>
+    #textSection {
+        display: grid;
+        /* Mobile First: 1 column */
+        grid-template-columns: 1fr; 
+        
+        /* Using unified padding logic */
+        padding-inline: clamp(1.5rem, 8vw, 10%);
+        padding-top: 60px;
+        padding-bottom: 60px;
+        
+        gap: 20px;
+    }
+
+    .col-1 {
+        font-family: "PT Sans Caption", sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.2rem, 3vw, 1.5rem); 
+        color: #38322B;
+        /* Center text on mobile */
+        text-align: center;
+    }
+
+    .stripe {
+        background-color: #38322B;
+        /* Horizontal line on mobile */
+        height: 2px;
+        width: 50px;
+        justify-self: center;
+    }
+
+    .col-2 {
+        font-family: "PT Sans", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem); 
+        color: #38322B;
+        text-align: center;
+        line-height: 1.6;
+    }
+
+    /* Desktop View */
+    @media (min-width: 1024px) {
+        #textSection {
+            /* Your original 3-column layout */
+            grid-template-columns: 180px 2px 1fr;
+            gap: 40px;
+            padding-top: 100px;
+            padding-bottom: 100px;
+            text-align: left;
+        }
+
+        .col-1 {
+            text-align: left;
+            align-self: center;
+        }
+
+        .stripe {
+            height: 100%; /* Vertical line on desktop */
+            width: 2px;
+            justify-self: stretch;
+        }
+
+        .col-2 {
+            text-align: left;
+            align-self: center;
+        }
+    }
+</style>

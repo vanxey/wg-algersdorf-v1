@@ -57,7 +57,8 @@ const renderedContent2 = renderRichText(blok.text_2)
     @media screen and (min-width: 1024px) {
         .about-row {
             /* Consistent 55% / 1fr split */
-            grid-template-columns: 55% 1fr;
+            /* grid-template-columns: 55% 1fr; */
+            grid-template-columns: 60% 1fr;
             /* Synchronized gap with Areas 1 & 2 */
             column-gap: 40px;
             align-items: stretch;
@@ -99,10 +100,10 @@ const renderedContent2 = renderRichText(blok.text_2)
     .about-heading::before {
         content: "";
         display: inline-block;
-        width: 10px;          /* 10px wide as requested */
+        width: 2px;          /* 10px wide as requested */
         background-color: currentColor; /* Matches text color automatically */
         flex-shrink: 0;       /* Prevents stripe from squishing */
-        border-radius: 2px;   /* Optional: slightly rounded corners for a modern look */
+        border-radius: 2px;   
     }
 
     .about-subheading {
@@ -131,7 +132,8 @@ const renderedContent2 = renderRichText(blok.text_2)
     @media screen and (min-width: 1024px) {
         .img-container {
             order: unset; /* Placed in the 2nd column on desktop */
-            aspect-ratio: auto;
+            /* aspect-ratio: auto; */
+
             align-self: stretch;
             border-radius: 20px;
 
@@ -168,76 +170,3 @@ const renderedContent2 = renderRichText(blok.text_2)
         object-position: top;
     }
 </style>
-<!-- <style>
-    #about-area{
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        height: auto;
-        width: 100%;
-
-        padding-inline: 10%;
-        padding-top: 5%;
-        padding-bottom: 10%;
-    }
-
-    .about-row{
-        display: grid;
-        grid-template-columns: 55% 1fr;
-        height: fit-content;
-        width: 100%;
-
-        align-items: center;
-    }
-
-    .about-content{
-        display: flex;
-        flex-direction: column;
-        padding-right: 40px;
-    }
-
-    .about-heading{
-        font-family: "PT Sans Caption", sans-serif;
-        font-size: xx-large;
-    }
-
-    .about-subheading{
-        font-family: "PT Sans", sans-serif;
-        font-size: 1em;
-        font-style: italic;
-        padding-top: 10px;
-    }
-
-    .about-text{
-        display: flex;
-        font-size: 1.2em;
-    }
-
-    p{
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .img-container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 100%;
-        height: 100%;
-        /* aspect-ratio: 16/9; */
-        overflow: hidden;
-        position: relative;
-
-        border-radius: 50px;
-        box-shadow: 0px 4px 16px 2px #adadad;
-    }
-
-    img{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: top;
-    }
-</style> -->
