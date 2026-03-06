@@ -24,6 +24,7 @@ export default defineConfig({
         hero2: "components/Hero2.astro", 
         textArea: "components/TextArea.astro",
         textSection: "components/TextSection.astro",
+        textSectionRegular: "components/TextSectionRegular.astro",
         sliderArea: "components/SliderArea.astro",
         sliderArea_v2: "components/SliderArea_v2.astro",
         imageSlider: "components/ImageSlider.astro",

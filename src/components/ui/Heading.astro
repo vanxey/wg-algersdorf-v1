@@ -1,15 +1,15 @@
 ---
-// const { variant = 'primary' } = Astro.props;
+const { variant = 'primary' } = Astro.props;
 ---
-<div class=`heading-wrapper `>
+<div class=`heading-wrapper ${variant}`>
     <slot/>
 </div>
 
 <style>
      .heading-wrapper{
         font-family: "PT Sans Caption", sans-serif;
-        /* font-size: clamp(1.8rem, 4vw, 2.5rem); */
-        font-size: clamp(1.6rem, 3vw, 2.2rem);
         line-height: 1.1;
     }
+    .primary{font-size: clamp(1.6rem, 3vw, 2.2rem);}
+    .secondary{font-size: clamp(1.2rem, 2.6vw, 1.8rem);}
 </style>
