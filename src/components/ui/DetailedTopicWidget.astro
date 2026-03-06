@@ -1,0 +1,70 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+---
+<section id="detailed-topic-widget" {...storyblokEditable(blok)}>
+    <div class="widget">
+        <div class="row">
+            <div class="heading">{blok.heading}</div>
+            <div class="image"><img src={blok.img?.filename} alt={blok.img?.alt} /></div>
+        </div>
+        
+        <div class="text">{blok.text}</div>
+    </div>
+</section> 
+
+<style>
+    #detailed-topic-widget{
+        display: flex;
+        height: 400px;
+        width: 400px;
+        background-color: #38322B;
+        border-radius: 30px;
+        padding: 20px;
+        color: white;
+    }
+
+    .widget{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        row-gap: 10px;
+    }
+
+    .row{
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        justify-content: space-between;
+        
+    }
+
+    .heading{
+        font-family: "PT Sans Caption", sans-serif;
+        font-weight: 600;
+        /* Balanced fluid font size */
+        font-size: 2rem; 
+    }
+
+    .text{
+        font-family: "PT Sans", sans-serif;
+        font-weight: 400;
+        /* Balanced fluid font size */
+        font-size: 1.2rem; 
+        line-height: 1.6;
+    }
+
+    .image{
+        height: 80px;
+        width: 80px;
+    }
+    
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+</style>
+   

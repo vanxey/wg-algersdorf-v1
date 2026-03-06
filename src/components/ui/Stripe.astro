@@ -1,0 +1,19 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+const variant = blok.color || "primary";
+
+---
+
+<section {...storyblokEditable(blok)}>
+<div class={`stripe ${variant}`} >
+</div>
+</section>
+
+
+<style>
+  .stripe { padding-top: 20px; margin-inline: 100px; margin-bottom: 20px; border-bottom-radius: 20px; border-bottom-width: 1px; border-bottom-style: solid;}
+  .primary { border-bottom-color: #38322B;}
+  .secondary { border-bottom-color: #A38D75;}
+</style>
