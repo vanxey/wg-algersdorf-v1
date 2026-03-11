@@ -1,0 +1,105 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+// Convert the Storyblok RichText object into HTML
+const renderedContent = renderRichText(blok.text);
+---
+
+<div class="accordion-item" {...storyblokEditable(blok)}>
+  <details>
+    <summary>
+      <span class="heading">{blok.heading}</span>
+      <span class="icon"></span>
+    </summary>
+    <div class="content" set:html={renderedContent} />
+  </details>
+</div>
+
+<style>
+  .accordion-item {
+    width: 100%;
+    /* 2px border on top and bottom only */
+    /* border-top: 2px solid #38322B; */
+    border-bottom: 2px solid #38322B;
+    background-color: transparent;
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none; /* Hides default triangle in Chrome/Firefox */
+    user-select: none;
+  }
+
+  /* Hides default triangle in Safari */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .heading {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    /* color: #38322B; */
+    color: black;
+  }
+
+  /* The + and - Icon Logic */
+  .icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon::before,
+  .icon::after {
+    content: "";
+    position: absolute;
+    background-color: #38322B;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+  }
+
+  /* Horizontal bar */
+  .icon::before {
+    width: 100%;
+    height: 2px;
+  }
+
+  /* Vertical bar (makes it a +) */
+  .icon::after {
+    width: 2px;
+    height: 100%;
+  }
+
+  /* When <details> is open, rotate the vertical bar to hide it (making it a -) */
+  details[open] .icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .content {
+    padding-bottom: 30px;
+    font-family: "PT Sans", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #38322B;
+  }
+
+  /* Styling the RichText elements directly */
+  .content :global(p) {
+    /* margin-bottom: 1rem; */
+    margin: 0px;
+  }
+
+  .content :global(a) {
+    color: #A38D75;
+    text-decoration: underline;
+  }
+</style>

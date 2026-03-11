@@ -22,7 +22,7 @@ const { blok } = Astro.props;
         /* Unified fluid padding: 1.25rem on mobile, up to 10% on large screens */
         padding-inline: clamp(1.25rem, 8vw, 10%);
         padding-top: 40px;
-        padding-bottom: 60px;
+        /* padding-bottom: 60px; */
     
         color: #38322B;
         row-gap: 20px;
@@ -46,8 +46,9 @@ const { blok } = Astro.props;
     /* Tablet/Desktop adjustments */
     @media (min-width: 1024px) {
         #text-section-regular {
-            padding-top: 60px;
-            padding-bottom: 100px;
+            padding-top: 20px;
+            /* padding-bottom: 100px; */
+            padding-bottom: 20px;
         }
     }
 </style>

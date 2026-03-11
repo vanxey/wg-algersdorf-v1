@@ -40,6 +40,8 @@ export default defineConfig({
         widgetArea: "components/WidgetArea.astro",
         teamArea: "components/TeamArea.astro",
         personWidget: "components/ui/PersonWidget.astro",
+        questionsAnswersSection: "components/QuestionsAnswersSection.astro",
+        qnaWidget: "components/ui/QnaWidget.astro",
         stripe: "components/ui/Stripe.astro",
         footer: "components/Footer.astro",
       },

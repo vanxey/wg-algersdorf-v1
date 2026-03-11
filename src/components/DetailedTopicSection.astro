@@ -2,96 +2,148 @@
 import { storyblokEditable } from "@storyblok/astro";
 import Tag from "./ui/Tag.astro";
 import Heading from "./ui/Heading.astro";
-import DetailedTopicWidget from "./ui/DetailedTopicWidget.astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props;
 ---
 <section id="detailed-topic-section" {...storyblokEditable(blok)}>
-    <Tag variant="secondary">{blok.category_name}</Tag>
-    <Heading variant="secondary">{blok.heading}</Heading>
+    <div class="header-area">
+        <Tag variant="secondary">{blok.category_name}</Tag>
+        <Heading variant="secondary">{blok.heading}</Heading>
+    </div>
     
-    <div class="slider-container">
-      {blok.detailed_topic_widget?.map((nestedBlok) => (
-        <div class="slider-item">
-          <StoryblokComponent blok={nestedBlok} />
+    <div class="slider-wrapper">
+        <div class="slider-container" id="widget-slider">
+          {blok.detailed_topic_widget?.map((nestedBlok) => (
+            <div class="slider-item">
+              <StoryblokComponent blok={nestedBlok} />
+            </div>
+          ))}
         </div>
-      ))}
+
+        <div class="slider-indicators">
+            {blok.detailed_topic_widget?.map((_, index) => (
+                <div class="dot" data-index={index}></div>
+            ))}
+        </div>
     </div>
 </section>
+
+<script>
+    const slider = document.getElementById('widget-slider');
+    const dots = document.querySelectorAll('#detailed-topic-section .dot');
+
+    // Verify 'slider' exists before doing anything
+    if (slider) {
+        slider.addEventListener('scroll', () => {
+        // 1. Get the total amount the user CAN scroll
+        const maxScroll = slider.scrollWidth - slider.clientWidth;
+        
+        // 2. Get the current percentage of the scroll (0 to 1)
+        const scrollPercentage = slider.scrollLeft / maxScroll;
+        
+        // 3. Map that percentage to the dot index
+        const index = Math.round(scrollPercentage * (dots.length - 1));
+        
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    });
+    }
+</script>
+
 <style>
     #detailed-topic-section {
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: auto;
         padding-top: 60px;
         padding-bottom: 60px;
         color: #38322B;
         row-gap: 30px;
-
-        padding-left: clamp(1.25rem, 8vw, 10%);
+        padding-inline: clamp(1.25rem, 8vw, 10%);
     }
 
-    /* THE SLIDER LOGIC */
+    .header-area {
+        /* padding-inline: clamp(1.25rem, 8vw, 10%); */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .slider-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+        /* This creates a fade on the left and right 10% of the container */
+        /* -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 1%,
+            black 99%,
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 1%,
+            black 99%,
+            transparent 100%
+        ); */
+    }
+
     .slider-container {
         display: flex;
         flex-direction: row;
         overflow-x: auto;
         scroll-snap-type: x mandatory; 
         gap: 24px;
-        
         padding-inline: clamp(1.25rem, 8vw, 10%);
-        padding-bottom: 25px; /* Space for the scrollbar */
         
-        /* Hide default scrollbar for a cleaner look on Firefox/IE */
-        scrollbar-width: thin;
-        scrollbar-color: #38322B #D9D9D9;
+        /* HIDE SCROLLBARS */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
     }
 
-    /* Chrome, Edge, and Safari custom scrollbar */
     .slider-container::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .slider-container::-webkit-scrollbar-track {
-        background: #D9D9D9;
-        border-radius: 100px;
-        /* Matches header padding so the bar doesn't touch screen edges */
-        margin-inline: clamp(1.25rem, 8vw, 10%);
-    }
-
-    .slider-container::-webkit-scrollbar-thumb {
-        background-color: #38322B;
-        border-radius: 100px;
-
-        border: 2px solid transparent;
+        display: none; /* Chrome/Safari */
     }
 
     .slider-item {
-        flex: 0 0 280px; /* Base size for mobile */
+        flex: 0 0 280px;
         scroll-snap-align: start;
         display: flex;
-        transition: transform 0.3s ease;
     }
 
-    /* Responsive Item Sizing for Tablet & MacBook */
     @media (min-width: 768px) {
-        .slider-item {
-            flex: 0 0 340px;
-        }
+        .slider-item { flex: 0 0 340px; }
     }
 
     @media (min-width: 1200px) {
-        .slider-item {
-            flex: 0 0 420px; 
-        }
+        .slider-item { flex: 0 0 420px; }
     }
 
-    /* Subtle hover effect for desktop */
-    /* @media (hover: hover) {
-        .slider-item:hover {
-            transform: translateY(-5px);
-        }
-    } */
+    /* PILL INDICATORS */
+    .slider-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(163, 141, 117, 0.15);
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dot.active {
+        background-color: #A38D75;
+        width: 35px; /* Pill shape */
+        border-radius: 10px;
+    }
 </style>
