@@ -1,0 +1,100 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import Heading from "./ui/Heading.astro";
+import Button from "./ui/Button.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+const renderedContent = renderRichText(blok.text);
+---
+<section id="call-to-action-section" {...storyblokEditable(blok)}>
+
+    <div class="wrapper">
+          {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>}
+         <div class="overlay"></div>
+        <div class="wrapper-content">
+        <div class="heading"> <Heading>{blok.heading}</Heading></div>
+                <div class="text" set:html={renderedContent} />
+                <div class="btn">
+                    <Button>{blok.button_text}</Button>
+                </div>
+        </div>
+        
+    </div>
+</section>
+
+
+<style>
+    #call-to-action-section {
+        display: flex;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+
+        width: 100%;
+        color: white;
+        row-gap: 30px;
+    }
+
+    .wrapper{
+        display: flex;
+        min-height: 500px;
+        width: 100%;
+        border-radius: 40px;
+        background-color: #38322B;
+
+        position: relative;
+        overflow: hidden;
+    }
+
+      .wrapper-content{
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 40px;
+        padding: 40px;
+
+        row-gap: 40px;
+        align-items: center;
+        justify-content: center;
+        padding-inline: clamp(1.5rem, 8.5vw, 15%);
+    }
+
+    .text {
+        color: white;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .text :global(*) {
+        color: white !important;
+    }
+
+    .text :global(p) {
+        margin-bottom: 1rem;
+    }
+
+    img{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        z-index: 1;
+        inset: 0;
+    }
+
+    .overlay{
+        position: absolute;
+        inset: 0;
+        background: rgba(56, 50, 43, 0.8);
+        z-index: 2;
+    }
+
+    .heading{
+        border-bottom: solid 1px #A38D75;
+        padding-bottom: 20px;
+    }
+    
+</style>
