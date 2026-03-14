@@ -43,6 +43,7 @@ export default defineConfig({
         questionsAnswersSection: "components/QuestionsAnswersSection.astro",
         qnaWidget: "components/ui/QnaWidget.astro",
         callToActionSection: "components/CallToActionSection.astro",
+        contactSection: "components/ContactSection.astro",
         stripe: "components/ui/Stripe.astro",
         footer: "components/Footer.astro",
       },

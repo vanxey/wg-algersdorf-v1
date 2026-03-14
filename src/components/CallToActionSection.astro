@@ -16,15 +16,100 @@ const renderedContent = renderRichText(blok.text);
         <div class="heading"> <Heading>{blok.heading}</Heading></div>
                 <div class="text" set:html={renderedContent} />
                 <div class="btn">
-                    <Button>{blok.button_text}</Button>
+                    <Button variant="quinary" style="padding-inline: 100px;">{blok.button_text}</Button>
                 </div>
         </div>
         
     </div>
 </section>
 
-
 <style>
+    #call-to-action-section {
+        display: flex;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        width: 100%;
+        color: white;
+    }
+
+    .wrapper {
+        display: flex;
+        min-height: 500px;
+        width: 100%;
+        border-radius: 40px;
+        background-color: #38322B;
+        position: relative; /* CRITICAL: Anchor for the image */
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper-content {
+        position: relative; /* CRITICAL: Forces it above the image */
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        
+        /* UPDATED: max-width keeps the "squished" look on desktop but fits mobile */
+        width: 100%;
+        max-width: 900px; 
+        
+        padding: 40px;
+        text-align: center;
+        row-gap: 10px;
+        align-items: center;
+        justify-content: center;
+        /* Padding inline here helps with the "squish" */
+        padding-inline: clamp(1.5rem, 10vw, 15%);
+    }
+
+    img {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        /* UPDATED: Ensures the image subject isn't cut off at the top */
+        object-position: center; 
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(56, 50, 43, 0.8);
+        z-index: 2;
+    }
+
+    .btn {
+        height: fit-content;
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    /* Target the button padding responsively */
+    .btn :global(button), .btn :global(a) {
+        padding-inline: clamp(2rem, 15vw, 100px) !important;
+    }
+
+    .text {
+        color: white;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .text :global(*) {
+        color: white !important;
+    }
+
+    .heading {
+        border-bottom: solid 1px #A38D75;
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+    }
+</style>
+<!-- <style>
     #call-to-action-section {
         display: flex;
         padding-top: 60px;
@@ -33,7 +118,7 @@ const renderedContent = renderRichText(blok.text);
 
         width: 100%;
         color: white;
-        row-gap: 30px;
+        row-gap: 10px;
     }
 
     .wrapper{
@@ -45,6 +130,8 @@ const renderedContent = renderRichText(blok.text);
 
         position: relative;
         overflow: hidden;
+        justify-content: center;
+        align-items: center;
     }
 
       .wrapper-content{
@@ -52,14 +139,21 @@ const renderedContent = renderRichText(blok.text);
         z-index: 3;
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 900px;
         border-radius: 40px;
         padding: 40px;
+        text-align: center;
 
-        row-gap: 40px;
+        row-gap: 10px;
         align-items: center;
         justify-content: center;
         padding-inline: clamp(1.5rem, 8.5vw, 15%);
+    }
+
+    .btn{
+        height: fit-content;
+        width: 100%;
+        padding-top: 10px;
     }
 
     .text {
@@ -97,4 +191,4 @@ const renderedContent = renderRichText(blok.text);
         padding-bottom: 20px;
     }
     
-</style>
+</style> -->
