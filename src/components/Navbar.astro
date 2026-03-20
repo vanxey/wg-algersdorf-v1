@@ -6,16 +6,18 @@ const { blok } = Astro.props
 
 <div id="navbar" {...storyblokEditable(blok)}>
     <div id="logo-container">
-        <div id="logo">
+        <a id="logo" href="/home" aria-label="Zur Startseite">
+        <!-- <div id="logo"> -->
              <img src="src/assets/wg-logo-2.png" alt="logo" height="auto" width="auto"/>
-        </div>
+        <!-- </div> -->
+        </a>
     </div>
     
     <nav id="nav-menu">
         <a href="home">Home</a>
+        <a href="/about-us">Über Uns</a>
         <a href="/wg">Die WG</a>
-        <a href="/angebot">Angebot</a>
-        <a href="/kontakt">Kontakt</a>
+        <a href="/about-us#contact-section">Kontakt</a>
     </nav>
 
     <div id="burger-menu" aria-label="Toggle Menu">
@@ -71,7 +73,11 @@ const { blok } = Astro.props
         width: 70px;
     }
 
-    /* Desktop Navigation */
+    a {
+        text-decoration: none;
+        border: none;
+    }
+
     nav {
         display: flex;
         flex-direction: row;

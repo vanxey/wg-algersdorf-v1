@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Heading from '../components/ui/Heading.astro';
+---
+
+<Layout title="Impressum & Datenschutz">
+  <main class="legal-page">
+    <section class="legal-container">
+      
+      <nav class="legal-nav">
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
+      </nav>
+
+      <hr class="divider" />
+
+      <article id="impressum" class="legal-section">
+        <Heading variant="secondary">Impressum</Heading>
+        
+        <div class="content">
+          <p><strong>Diensteanbieter und Medieninhaber:</strong></p>
+          <p>
+            Wohngemeinschaft Algersdorfer Straße<br />
+            Algersdorfer Straße 31<br />
+            8020 Graz, Österreich
+          </p>
+
+          <p><strong>Kontakt:</strong><br />
+          E-Mail: office@wg-algersdorf.org<br />
+          Telefon: 0316 58 68 55<br />
+          Fax: 0316 58 68 55 - 6</p>
+
+          <p><strong>Geschäftsführung:</strong><br />
+          Linda Büchner</p>
+
+          <h3>Copyright / Urheberrecht</h3>
+          <p>
+            Alle Inhalte dieser Website, insbesondere Texte, Bilder, Grafiken und Fotos sowie deren Anordnung auf der Website unterliegen dem Schutz des Urheberrechtsgesetzes und anderer Schutzgesetze. Die Inhalte dürfen weder ganz noch teilweise für kommerzielle Zwecke reproduziert oder unter Verwendung elektronischer Systeme kopiert, verändert, vervielfältigt oder sonst wie verbreitet werden.
+          </p>
+          <p>
+            Die Inhalte dürfen nur im Rahmen der Schrankenbestimmungen des Urheberrechtsgesetzes vorbehaltlich weiterer anwendbarer Gesetze ohne vorherige schriftliche Zustimmung der Wohngemeinschaft Algersdorfer Straße unter Kennzeichnung des Copyrights „Quelle: Wohngemeinschaft Algersdorfer Straße“ genutzt werden. Wir weisen darauf hin, dass auf der Website Inhalte und Bilder enthalten sind, die dem Urheberrecht Dritter unterliegen.
+          </p>
+
+          <h3>Haftungshinweis</h3>
+          <p>Die Wohngemeinschaft Algersdorfer Straße haftet auf keinen Fall für direkte oder indirekte Schäden, die sich aus der Verwendung der abgerufenen Informationen ergeben.</p>
+          <p><strong>Externe Links:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+        </div>
+      </article>
+
+      <hr class="divider" />
+
+      <article id="datenschutz" class="legal-section">
+        <Heading variant="secondary">Datenschutzerklärung</Heading>
+        
+        <div class="content">
+          <h3>1. Datenschutz auf einen Blick</h3>
+          <p>Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften (DSGVO, TKG 2021) sowie dieser Datenschutzerklärung. Die Nutzung unserer Website ist in der Regel ohne Angabe personenbezogener Daten möglich.</p>
+          
+          <h3>2. Verantwortliche Stelle</h3>
+          <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist die oben im Impressum genannte Wohngemeinschaft Algersdorfer Straße.</p>
+          
+          <h3>3. Hosting und Server-Log-Files</h3>
+          <p>Diese Website wird extern gehostet (Netlify). Der Hoster erfasst automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt (z.B. IP-Adresse, Browsertyp, Referrer URL). Dies ist technisch notwendig, um die Stabilität und Sicherheit der Website zu gewährleisten (Art. 6 Abs. 1 lit. f DSGVO).</p>
+          
+          <h3>4. Social Media Verlinkungen</h3>
+          <p>Wir setzen auf unserer Website Verweise (Links) zu sozialen Netzwerken wie Instagram und Facebook ein. Es handelt sich hierbei um einfache Hyperlinks. Eine Datenübermittlung an die sozialen Netzwerke findet erst statt, wenn Sie aktiv auf den Link klicken. In diesem Fall baut Ihr Browser eine direkte Verbindung mit den Servern von Meta auf.</p>
+          
+          <h3>5. Ihre Rechte</h3>
+          <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt, können Sie sich bei der Aufsichtsbehörde (in Österreich ist dies die Datenschutzbehörde) beschweren.</p>
+        </div>
+      </article>
+
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    background-color: #FDFBF7;
+    padding-block: clamp(60px, 10vw, 120px);
+    color: #38322B;
+  }
+
+  .legal-container {
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 8vw, 10%);
+  }
+
+  .legal-nav {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .legal-nav a {
+    text-decoration: none;
+    /* color: #A38D75; */
+    color: #38322B;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .legal-section {
+    padding-block: 40px;
+    scroll-margin-top: 40px;
+  }
+
+  .content {
+    margin-top: 30px;
+    line-height: 1.75;
+    font-family: 'PT Sans', sans-serif;
+  }
+
+  .content h3 {
+    margin-top: 40px;
+    font-size: 1.2rem;
+    color: #38322B;
+    border-left: 3px solid #A38D75;
+    padding-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  .content p {
+    margin-bottom: 1.2rem;
+    opacity: 0.95;
+  }
+
+  .divider {
+    border: 0;
+    border-top: 1px solid rgba(56, 50, 43, 0.15);
+  }
+
+  .content a {
+    color: #A38D75;
+    word-break: break-all;
+  }
+</style>
