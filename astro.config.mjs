@@ -46,6 +46,8 @@ export default defineConfig({
         contactSection: "components/ContactSection.astro",
         stripe: "components/ui/Stripe.astro",
         socialMedia: "components/SocialMedia.astro",
+        teamSection: "components/TeamSection.astro",
+        communitySection: "components/CommunitySection.astro",
         footer: "components/Footer.astro",
       },
     }),

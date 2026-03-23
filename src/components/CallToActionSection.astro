@@ -15,8 +15,8 @@ const renderedContent = renderRichText(blok.text);
         <div class="wrapper-content">
         <div class="heading"> <Heading>{blok.heading}</Heading></div>
                 <div class="text" set:html={renderedContent} />
-                <div class="btn">
-                    <Button variant="quinary" style="padding-inline: 100px;">{blok.button_text}</Button>
+                <div class="btn" >
+                    <Button variant="quinary" href="/bewohner#contact-section" style="padding-inline: 100px;">{blok.button_text}</Button>
                 </div>
         </div>
         
