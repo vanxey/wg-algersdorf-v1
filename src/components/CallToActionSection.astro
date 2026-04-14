@@ -16,7 +16,7 @@ const renderedContent = renderRichText(blok.text);
         <div class="heading"> <Heading>{blok.heading}</Heading></div>
                 <div class="text" set:html={renderedContent} />
                 <div class="btn" >
-                    <Button variant="quinary" href="/bewohner#contact-section" style="padding-inline: 100px;">{blok.button_text}</Button>
+                    <Button variant="quinary" href={blok.link.url} style="padding-inline: 100px;">{blok.button_text}</Button>
                 </div>
         </div>
         
@@ -109,86 +109,3 @@ const renderedContent = renderRichText(blok.text);
         margin-bottom: 10px;
     }
 </style>
-<!-- <style>
-    #call-to-action-section {
-        display: flex;
-        padding-top: 60px;
-        padding-bottom: 60px;
-        padding-inline: clamp(1.25rem, 8vw, 10%);
-
-        width: 100%;
-        color: white;
-        row-gap: 10px;
-    }
-
-    .wrapper{
-        display: flex;
-        min-height: 500px;
-        width: 100%;
-        border-radius: 40px;
-        background-color: #38322B;
-
-        position: relative;
-        overflow: hidden;
-        justify-content: center;
-        align-items: center;
-    }
-
-      .wrapper-content{
-        position: relative;
-        z-index: 3;
-        display: flex;
-        flex-direction: column;
-        width: 900px;
-        border-radius: 40px;
-        padding: 40px;
-        text-align: center;
-
-        row-gap: 10px;
-        align-items: center;
-        justify-content: center;
-        padding-inline: clamp(1.5rem, 8.5vw, 15%);
-    }
-
-    .btn{
-        height: fit-content;
-        width: 100%;
-        padding-top: 10px;
-    }
-
-    .text {
-        color: white;
-        font-size: 1.2rem;
-        line-height: 1.6;
-    }
-
-    .text :global(*) {
-        color: white !important;
-    }
-
-    .text :global(p) {
-        margin-bottom: 1rem;
-    }
-
-    img{
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        z-index: 1;
-        inset: 0;
-    }
-
-    .overlay{
-        position: absolute;
-        inset: 0;
-        background: rgba(56, 50, 43, 0.8);
-        z-index: 2;
-    }
-
-    .heading{
-        border-bottom: solid 1px #A38D75;
-        padding-bottom: 20px;
-    }
-    
-</style> -->

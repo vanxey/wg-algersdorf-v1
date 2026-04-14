@@ -10,7 +10,7 @@ const { blok } = Astro.props;
     <div class="wrapper">
         <div class="col-1">
             <div class="heading">{blok.heading}</div>
-            <Button2 variant="hero">{blok.button_text}</Button2>
+            <Button2 variant="hero" href={blok.link.url}>{blok.button_text}</Button2>
         </div>
         <div class="col-2">
             <div class="img-wrapper">
