@@ -25,7 +25,16 @@ const { blok } = Astro.props;
                     return (
                         <div class="card" {...storyblokEditable(person)}>
                             <div class="image-wrapper">
-                                <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" />
+                                {/* <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" /> */}
+                                <img src={person.image?.filename 
+                                        ? `${person.image?.filename}/m/240x240/smart/filters:format(webp):quality(70)` 
+                                        : "src/assets/anonymous_person.png"
+                                     } 
+                                 alt={person.name || "Person Name"}
+                                 loading="lazy"
+                                 width="120" 
+                                 height="120"
+                            />
                             </div>
                             <div class="info">
                                 <div class="name">{person.title}</div>

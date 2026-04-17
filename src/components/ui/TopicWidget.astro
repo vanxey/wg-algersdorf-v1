@@ -15,7 +15,13 @@ const { blok } = Astro.props;
     </div>
 
     <div class="image">
-        <img src={blok.img_1?.filename} alt={blok.img_1?.alt} />
+        <!-- <img src={blok.img_1?.filename} alt={blok.img_1?.alt} /> -->
+          <img src={`${blok.img_1?.filename}/m/600x600/smart/filters:format(webp):quality(70)`} 
+                    alt={blok.name || "Widget Image"}
+                    loading="lazy"
+                    width="300" 
+                    height="300"
+            />
     </div>
 </div>
 

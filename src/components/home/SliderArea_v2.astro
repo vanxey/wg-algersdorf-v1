@@ -21,7 +21,17 @@ const { blok } = Astro.props;
     <div id="slider-content">
         <div class="slider-column">
             <div class="img-container">
-                {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
+                <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->
+                 {blok.img_1?.filename && (
+                    <img 
+                        src={`${blok.img_1?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
+                        alt={blok.img_1.alt || ""} 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                        decoding="async"
+                    />
+                )}
                 <div class="img-text-wrapper">
                     <div class="img-title">{blok.img_1_title}</div>
                     <div class="img-description">{blok.img_1_description}</div>
@@ -31,7 +41,17 @@ const { blok } = Astro.props;
 
         <div class="slider-column">
             <div class="img-container">
-                {blok.img_2 && <img src={blok.img_2.filename} alt={blok.img_2.alt}/>}
+                <!-- {blok.img_2 && <img src={blok.img_2.filename} alt={blok.img_2.alt}/>} -->
+                 {blok.img_2?.filename && (
+                <img 
+                    src={`${blok.img_2?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img_2.alt || ""} 
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                    decoding="async"
+                />
+            )}
                 <div class="img-text-wrapper">
                     <div class="img-title">{blok.img_2_title}</div>
                     <div class="img-description">{blok.img_2_description}</div>
@@ -41,7 +61,17 @@ const { blok } = Astro.props;
 
         <div class="slider-column">
             <div class="img-container">
-                {blok.img_3 && <img src={blok.img_3.filename} alt={blok.img_3.alt}/>}
+                <!-- {blok.img_3 && <img src={blok.img_3.filename} alt={blok.img_3.alt}/>} -->
+                 {blok.img_3?.filename && (
+                    <img 
+                        src={`${blok.img_3?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
+                        alt={blok.img_3.alt || ""} 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                        decoding="async"
+                    />
+                )}
                 <div class="img-text-wrapper">
                     <div class="img-title">{blok.img_3_title}</div>
                     <div class="img-description">{blok.img_3_description}</div>

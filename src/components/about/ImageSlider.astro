@@ -6,7 +6,7 @@ const { blok } = Astro.props;
 
 <section id="image-slider" {...storyblokEditable(blok)}>
     <div class="slider-container" id="main-slider">
-        {blok.img_1?.filename && (
+        <!-- {blok.img_1?.filename && (
             <div class="slide">
                 <img src={blok.img_1.filename} alt={blok.img_1.alt || "Slider Image 1"} />
             </div>
@@ -21,6 +21,45 @@ const { blok } = Astro.props;
         {blok.img_3?.filename && (
             <div class="slide">
                 <img src={blok.img_3.filename} alt={blok.img_3.alt || "Slider Image 3"} />
+            </div>
+        )} -->
+        {blok.img_1?.filename && (
+            <div class="slide">
+                <img 
+                    src={`${blok.img_1?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img_1.alt || "Slider Image 1"}
+                    width="2000" 
+                    height="857"
+                    loading="eager" 
+                    fetchpriority="high"
+                    decoding="sync"
+                />
+            </div>
+        )}
+
+        {blok.img_2?.filename && (
+            <div class="slide">
+                <img 
+                    src={`${blok.img_2?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img_2.alt || "Slider Image 2"}
+                    width="2000" 
+                    height="857"
+                    loading="lazy" 
+                    decoding="async"
+                />
+            </div>
+        )}
+
+        {blok.img_3?.filename && (
+            <div class="slide">
+                <img 
+                    src={`${blok.img_3?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img_3.alt || "Slider Image 3"}
+                    width="2000" 
+                    height="857"
+                    loading="lazy" 
+                    decoding="async"
+                />
             </div>
         )}
     </div>
@@ -71,8 +110,6 @@ const { blok } = Astro.props;
         scrollbar-width: none;
         -ms-overflow-style: none;
         gap: 20px;
-        
-        /* Fixed 50px padding on the sides */
         padding-inline: 50px;
     }
 

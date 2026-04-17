@@ -16,7 +16,22 @@ const href = formatLink(blok.link);
         </div>
         <div class="col-2">
             <div class="img-wrapper">
-              {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>}
+            {blok.img?.filename && (
+                <img 
+                    src={`${blok.img?.filename}/m/1600x1200/smart/filters:format(webp):quality(75)`} 
+                    srcset={`
+                        ${blok.img?.filename}/m/800x600/smart/filters:format(webp):quality(75) 800w,
+                        ${blok.img?.filename}/m/1600x1200/smart/filters:format(webp):quality(75) 1600w
+                    `}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    alt={blok.img.alt || "Hero Image"}
+                    loading="eager"
+                    fetchpriority="high"
+                    width="800" 
+                    height="600"
+                />
+                //<img src={blok.img.filename} alt={blok.img.alt}/>
+            )}
             </div>
         </div>
     </div>
@@ -75,6 +90,7 @@ const href = formatLink(blok.link);
     img {
         height: 100%;
         width: 100%;
+        aspect-ratio: 4 / 3;
         object-fit: cover;
     }
 

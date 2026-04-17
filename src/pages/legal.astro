@@ -1,10 +1,13 @@
 ---
+import { storyblokEditable } from "@storyblok/astro"
 import Layout from '../layouts/Layout.astro';
 import Heading from '../components/ui/Heading.astro';
+
+const { blok } = Astro.props
 ---
 
 <Layout title="Impressum & Datenschutz">
-  <main class="legal-page">
+  <main class="legal-page" {...storyblokEditable(blok)}>
     <section class="legal-container">
       
       <nav class="legal-nav">

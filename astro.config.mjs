@@ -55,6 +55,7 @@ export default defineConfig({
         topicWidget: "components/ui/TopicWidget.astro",
         qnaWidget: "components/ui/QnaWidget.astro",
         stripe: "components/ui/Stripe.astro",
+        socialMediaIcon: "components/ui/SocialMediaIcons.astro"
        
         
         

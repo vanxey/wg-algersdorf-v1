@@ -7,7 +7,15 @@ const { blok } = Astro.props;
     <div class="widget">
         <div class="row">
             <div class="heading">{blok.heading}</div>
-            <div class="image"><img src={blok.img?.filename} alt={blok.img?.alt} /></div>
+            <div class="image">
+                <!-- <img src={blok.img?.filename} alt={blok.img?.alt} /> -->
+                 <img src={`${blok.img?.filename}/m/240x240/smart/filters:format(webp):quality(70)`} 
+                    alt={blok.img.alt || "Detailed Topic Widget"}
+                    loading="lazy"
+                    width="120" 
+                    height="120"
+            />
+            </div>
         </div>
         
         <div class="text">{blok.text}</div>

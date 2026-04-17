@@ -12,7 +12,13 @@ const href = formatLink(blok.link);
 <section id="call-to-action-section" {...storyblokEditable(blok)}>
 
     <div class="wrapper">
-          {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>}
+          <!-- {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>} -->
+           <img src={`${blok.img?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img.alt || "Slider Image 1"}
+                    width="2000" 
+                    height="857"
+                    loading="lazy" 
+                />
          <div class="overlay"></div>
         <div class="wrapper-content">
         <div class="heading"> <Heading>{blok.heading}</Heading></div>

@@ -6,7 +6,16 @@
 
 <div id="person-widget" {...storyblokEditable(blok)}>
     <div class="img">
-        <img src={blok.img.filename} alt={blok.img.alt}/>
+        <!-- <img src={blok.img.filename} alt={blok.img.alt}/> -->
+         <img src={blok.img?.filename 
+                    ? `${blok.img?.filename}/m/600x600/smart/filters:format(webp):quality(70)` 
+                    : "src/assets/anonymous_person.png"
+                } 
+                alt={blok.name || "Person Widget"}
+                loading="lazy"
+                width="300" 
+                height="300"
+            />
     </div>
     <div class="name">
         {blok.name}

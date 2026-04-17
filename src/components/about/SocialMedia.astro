@@ -23,7 +23,13 @@ const icons = {
             return (
                 <a href={nestedBlok.link?.url} target="_blank" class="post-card" {...storyblokEditable(nestedBlok)}>
                     <div class="image-wrapper">
-                        <img src={nestedBlok.image?.filename} alt="Social post" loading="lazy" />
+                        {/* <img src={nestedBlok.image?.filename} alt="Social post" loading="lazy" /> */}
+                         <img src={`${nestedBlok.image?.filename}/m/600x600/smart/filters:format(webp):quality(70)`} 
+                                 alt={nestedBlok.name || "Social Media Preview"}
+                                 loading="lazy"
+                                 width="300" 
+                                 height="300"
+                            />
                         <div class="hover-overlay">
                             <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
                                 <path d={icons[platform]} />

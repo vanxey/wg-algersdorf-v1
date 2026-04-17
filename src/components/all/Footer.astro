@@ -1,18 +1,34 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
-import SocialMediaIcons from "../ui/SocialMediaIcons.astro"
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { formatLink } from "../../utils/storyblok";
 
 const { blok } = Astro.props
+
+
+const href1 = formatLink(blok.link_1);
+const href2 = formatLink(blok.link_2);
+const href3 = formatLink(blok.link_3);
+const href4 = formatLink(blok.link_4);
+const href5 = formatLink(blok.link_5);
+const href6 = formatLink(blok.link_6);
 ---
 <section id="footer" {...storyblokEditable(blok)}>
     <div class="r-1">
         <div class="logo-wrapper">
             <div class="logo">
-                <img src="/src/assets/logo_without_green_white_wg.png" alt="Logo" />
+                <!-- <img src="/src/assets/logo_without_green_white_wg.png" alt="Logo" /> -->
+                 <!-- <img src={blok.logo?.filename} alt="Logo" /> -->
+                 <img src={`${blok.logo?.filename}/m/800x0/smart/filters:format(webp):quality(90)`} 
+                    alt={blok.logo.alt || "Logo Image"}
+                    loading="lazy"
+                    width="400" 
+                    height="400"
+                />
             </div>
         </div>
         <div class="links-wrapper">
-            <div class="links">
+            <!-- <div class="links">
                 <a href="/about-us">Über uns</a>
                 <a href="/team">Team</a>
                 <a href="/bewohner">Community</a>
@@ -20,6 +36,15 @@ const { blok } = Astro.props
                 <a href="/team#contact-section">Kontakt</a>
                 <a href="/legal">Datenschutz</a>
                 <a href="/legal">Impressum</a>
+            </div> -->
+            <div class="links">
+                <a href={href1}>Über uns</a>
+                <a href={href2}>Team</a>
+                <a href={href3}>Community</a>
+    
+                <a href={href4}>Kontakt</a>
+                <a href={href5}>Datenschutz</a>
+                <a href={href6}>Impressum</a>
             </div>
         </div>
     </div>
@@ -27,7 +52,13 @@ const { blok } = Astro.props
     <!-- <div class="r-2" style="display: none;">  -->
      <div class="r-2">
         <a href="https://maps.app.goo.gl/2Mo4xDhu6kv4g6vv8" target="_blank" rel="noopener">
-            <img src="/src/assets/map_algersdorf.png" alt="Standort Karte" />
+            <!-- <img src="/src/assets/map_algersdorf.png" alt="Standort Karte" /> -->
+             <img src={`${blok.map?.filename}/m/2000x0/smart/filters:format(webp):quality(90)`} 
+                    alt={blok.map.alt || "Map Image"}
+                    loading="lazy"
+                    width="2000" 
+                    height="857"
+                />
 
             <div class="glass-overlay">
                 <div class="address-card">
@@ -38,8 +69,10 @@ const { blok } = Astro.props
                         </svg>
                     </div>
                     <div class="info">
-                        <p class="addr">Algersdorfer Straße, 8020 Graz</p>
-                        <p class="contact">+43 123 456 789 | office@algersdorfer.at</p>
+                        <p class="addr">{blok.adress_text_1}</p>
+                        <p class="contact">{blok.adress_text_2}</p>
+                        <!-- <p class="addr">Algersdorfer Straße, 8020 Graz</p>
+                        <p class="contact">+43 123 456 789 | office@algersdorfer.at</p> -->
                     </div>
                 </div>
             </div>
@@ -49,9 +82,15 @@ const { blok } = Astro.props
     <div class="stripe"></div>
 
     <div class="r-3">
-        <div class="copyright">© 2025 Copyright Wohngemeinschaft Algersdorfer Straße</div>
+        <!-- <div class="copyright">© 2025 Copyright Wohngemeinschaft Algersdorfer Straße</div> -->
+         <div class="copyright">{blok.copyright}</div>
         <div class="socials">
-            <SocialMediaIcons />
+            <!-- {blok.social_media?.map((nestedBlok) => {
+                <StoryblokComponent blok={nestedBlok} />
+            })} -->
+            {blok.social_media?.map((nestedBlok) => (
+                <StoryblokComponent blok={nestedBlok} />
+            ))}
         </div>
     </div>
 </section>

@@ -11,7 +11,16 @@ const renderedContent = renderRichText(blok.quote)
     </div>
     <div class:list={["quote-text"]} set:html={renderedContent}/>
     <div class="quote-img">
-        {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
+        <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->
+         <img src={blok.img_1?.filename 
+                    ? `${blok.img_1?.filename}/m/240x240/smart/filters:format(webp):quality(70)` 
+                    : "src/assets/anonymous_person.png"
+                    } 
+                alt={blok.name || "Quote Author"}
+                loading="lazy"
+                width="120" 
+                height="120"
+        />
     </div>
     <div class="quote-author">{blok.author_name}</div>
 </section>

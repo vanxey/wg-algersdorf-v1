@@ -16,8 +16,19 @@ const renderedContent = renderRichText(blok.text_1)
             <div class="about-heading">{blok.heading_1}</div>
             <div class="about-text" set:html={renderedContent}/>
         </div>
-        <div class="img-container">{blok.img_1 && 
-                <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}</div>
+        <div class="img-container">
+            <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->
+            {blok.img_1?.filename && (
+            <img 
+                src={`${blok.img_1?.filename}/m/1200x0/filters:format(webp):quality(80)`} 
+                alt={blok.img_1.alt || "About Image"}
+                width="1200"
+                height="600"
+                loading="lazy"
+                decoding="async"
+            />
+        )}
+        </div>
     </div>
     
 </section>

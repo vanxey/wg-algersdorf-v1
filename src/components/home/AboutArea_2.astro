@@ -11,8 +11,18 @@ const renderedContent = renderRichText(blok.text_1)
 
 <section id="about-area" {...storyblokEditable(blok)}>
     <div class="about-row">
-        <div class="img-container">{blok.img_1 && 
-                <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}
+        <div class="img-container">
+            <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->
+        {blok.img_1?.filename && (
+            <img 
+                src={`${blok.img_1?.filename}/m/1200x0/filters:format(webp):quality(80)`} 
+                alt={blok.img_1.alt || "About Image"} 
+                width="1200"
+                height="600"
+                loading="lazy"
+                decoding="async"
+            />
+        )}
         </div>
         <div class="about-content">
                 <!-- <div class="about-tag"><Tag variant="secondary">{blok.category_text}</Tag></div> -->
