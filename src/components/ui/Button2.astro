@@ -35,22 +35,22 @@ const { href, variant = "primary", ...rest } = Astro.props;
       }
     }
 
-  /* The Arrow Variant */
+
   .btn.arrow {
     background: transparent;
-    color: #38322B; /* Your Dark Brown */
+    color: #38322B; 
     padding: 10px 0;
     font-weight: 400;
-    gap: 15px; /* Space between text and arrow */
+    gap: 15px; 
   }
 
   .btn-arrow {
-    width: 60px; /* Length of the long arrow */
+    width: 60px; 
     height: 10px;
     transition: transform 0.3s ease;
   }
 
-  /* Hover Animation: The arrow "nudges" forward */
+
   .btn.arrow:hover .btn-arrow {
     transform: translateX(8px);
   }

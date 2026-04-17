@@ -1,0 +1,182 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import Tag from "../ui/Tag.astro";
+import Heading from "../ui/Heading.astro";
+
+const { blok } = Astro.props;
+---
+
+<section id="team-section" {...storyblokEditable(blok)}>
+    <div class="header-area">
+        <Tag variant="secondary">{blok.tag_text || "Community"}</Tag>
+        <Heading variant="secondary">{blok.heading}</Heading>
+    </div>
+
+    {blok.departments?.map((dept) => (
+        <div class="department-group" {...storyblokEditable(dept)}>
+            <div class="dept-header">
+                <h3 class="dept-title">{dept.department}</h3>
+                <div class="dept-stripe"></div>
+            </div>
+
+            <div class="grid-container">
+                {dept.members?.map((person) => {
+                    const renderedContent = renderRichText(person.text);
+                    return (
+                        <div class="card" {...storyblokEditable(person)}>
+                            <div class="image-wrapper">
+                                <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" />
+                            </div>
+                            <div class="info">
+                                <div class="name">{person.title}</div>
+                                <div class="text" set:html={renderedContent} />
+                                <div class="title">{person.name}</div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
+    ))}
+</section>
+
+<style>
+    #team-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-block: 80px;
+        row-gap: 20px;
+        background-color: white;
+    }
+
+    .header-area {
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    /* Department Layout */
+    .department-group {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .dept-header {
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .dept-title {
+        font-family: "PT Sans", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #38322B;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .dept-stripe {
+        height: 1px;
+        flex-grow: 1;
+        background-color: rgba(163, 141, 117, 0.4); 
+    }
+
+    /* Grid Logic */
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        padding-top: 30px;
+        border-radius: 24px;
+        background-color: #38322B;
+        color: white;
+        transition: transform 0.3s ease;
+    }
+
+    .image-wrapper {
+        width: 100px; 
+        aspect-ratio: 1 / 1; 
+        
+        margin-inline: auto; 
+        margin-bottom: 20px;
+        
+        border-radius: 12px; 
+        overflow: hidden;
+        border: 2px solid rgba(163, 141, 117, 0.3); 
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .info {
+        padding: 8px 4px;
+        text-align: left;
+    }
+
+    .name {
+        font-family: "PT Sans", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 2px;
+        color: rgb(242, 242, 242);
+    }
+
+    .title {
+        font-family: "PT Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 300;
+        color: #A38D75; 
+    }
+
+    .text{
+        color: white;
+    }
+
+    .text :global(span) {
+        font-family: "PT Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 300;
+        color: rgb(242, 242, 242) !important;
+    }
+
+    @media (min-width: 600px) {
+        .grid-container { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 900px) {
+        .grid-container { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 1200px) {
+        .grid-container { 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 24px; 
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+    }
+</style>

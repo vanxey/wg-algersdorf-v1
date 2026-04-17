@@ -1,0 +1,129 @@
+---
+import { storyblokEditable } from "@storyblok/astro"
+
+const { blok } = Astro.props;
+---
+
+<section id="image-slider" {...storyblokEditable(blok)}>
+    <div class="slider-container" id="main-slider">
+        {blok.img_1?.filename && (
+            <div class="slide">
+                <img src={blok.img_1.filename} alt={blok.img_1.alt || "Slider Image 1"} />
+            </div>
+        )}
+
+        {blok.img_2?.filename && (
+            <div class="slide">
+                <img src={blok.img_2.filename} alt={blok.img_2.alt || "Slider Image 2"} />
+            </div>
+        )}
+
+        {blok.img_3?.filename && (
+            <div class="slide">
+                <img src={blok.img_3.filename} alt={blok.img_3.alt || "Slider Image 3"} />
+            </div>
+        )}
+    </div>
+
+    <div class="slider-indicators">
+        {blok.img_1?.filename && <div class="dot active" data-slide="0"></div>}
+        {blok.img_2?.filename && <div class="dot" data-slide="1"></div>}
+        {blok.img_3?.filename && <div class="dot" data-slide="2"></div>}
+    </div>
+</section>
+
+<script>
+    const slider = document.getElementById('main-slider');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider) {
+        slider.addEventListener('scroll', () => {
+            const index = Math.round(slider.scrollLeft / slider.clientWidth);
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slider.scrollTo({
+                    left: slider.clientWidth * index,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+</script>
+
+<style>
+    #image-slider {
+        width: 100%;
+        padding-bottom: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .slider-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        gap: 20px;
+        
+        /* Fixed 50px padding on the sides */
+        padding-inline: 50px;
+    }
+
+    .slider-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .slide {
+        flex: 0 0 calc(100vw - 100px); 
+        scroll-snap-align: center;
+        aspect-ratio: 21 / 9; 
+        /* aspect-ratio: 16 / 9; */
+        border-radius: 30px;
+        overflow: hidden;
+        background-color: #38322B;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .slider-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(56, 50, 43, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: #A38D75;
+        width: 25px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .slider-container {
+            padding-inline: 20px;
+        }
+        .slide {
+            flex: 0 0 calc(100vw - 40px);
+            aspect-ratio: 16 / 9;
+        }
+    }
+</style>

@@ -1,0 +1,54 @@
+---
+import Tag from "../ui/Tag.astro"
+import Heading from "../ui/Heading.astro"
+import { storyblokEditable } from "@storyblok/astro"
+
+const { blok } = Astro.props;
+---
+
+<section id="text-section-regular" {...storyblokEditable(blok)}>
+    <Tag variant="secondary">{blok.category_name}</Tag>
+    <Heading variant="secondary">{blok.heading}</Heading>
+    <div class="text">{blok.text}</div>
+</section>
+
+<style>
+    #text-section-regular {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        
+        
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 40px;
+        
+    
+        color: #38322B;
+        row-gap: 20px;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        max-width: 900px; 
+    }
+
+    .text {
+        font-family: "PT Sans", sans-serif;
+        font-weight: 400;
+        
+        font-size: clamp(1rem, 2.2vw, 1.2rem); 
+        line-height: 1.6;
+    }
+
+    
+    @media (min-width: 1024px) {
+        #text-section-regular {
+            padding-top: 20px;
+           
+            padding-bottom: 20px;
+        }
+    }
+</style>

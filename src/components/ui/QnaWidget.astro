@@ -2,7 +2,6 @@
 import { storyblokEditable, renderRichText } from "@storyblok/astro";
 
 const { blok } = Astro.props;
-// Convert the Storyblok RichText object into HTML
 const renderedContent = renderRichText(blok.text);
 ---
 
@@ -19,7 +18,6 @@ const renderedContent = renderRichText(blok.text);
 <style>
   .accordion-item {
     width: 100%;
-    /* 2px border on top and bottom only */
     /* border-top: 2px solid #38322B; */
     border-bottom: 2px solid #38322B;
     background-color: transparent;
@@ -31,11 +29,11 @@ const renderedContent = renderRichText(blok.text);
     align-items: center;
     padding: 20px 0;
     cursor: pointer;
-    list-style: none; /* Hides default triangle in Chrome/Firefox */
+    list-style: none;
     user-select: none;
   }
 
-  /* Hides default triangle in Safari */
+
   summary::-webkit-details-marker {
     display: none;
   }
@@ -48,7 +46,7 @@ const renderedContent = renderRichText(blok.text);
     color: black;
   }
 
-  /* The + and - Icon Logic */
+
   .icon {
     position: relative;
     width: 20px;
@@ -66,19 +64,19 @@ const renderedContent = renderRichText(blok.text);
     transition: transform 0.3s ease;
   }
 
-  /* Horizontal bar */
+
   .icon::before {
     width: 100%;
     height: 2px;
   }
 
-  /* Vertical bar (makes it a +) */
+ 
   .icon::after {
     width: 2px;
     height: 100%;
   }
 
-  /* When <details> is open, rotate the vertical bar to hide it (making it a -) */
+ 
   details[open] .icon::after {
     transform: translate(-50%, -50%) rotate(90deg);
     opacity: 0;
@@ -92,7 +90,7 @@ const renderedContent = renderRichText(blok.text);
     color: #38322B;
   }
 
-  /* Styling the RichText elements directly */
+
   .content :global(p) {
     /* margin-bottom: 1rem; */
     margin: 0px;

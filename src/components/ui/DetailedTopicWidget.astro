@@ -17,22 +17,22 @@ const { blok } = Astro.props;
 <style>
     #detailed-topic-widget {
         display: flex;
-        /* Remove fixed height: 400px */
+       
         height: auto; 
         min-height: 350px;
         
-        /* Make width responsive */
+        
         width: 100%;
         max-width: 400px; 
         
         background-color: #38322B;
         border-radius: 30px;
-        padding: clamp(20px, 5vw, 30px); /* Padding shrinks on smaller screens */
+        padding: clamp(20px, 5vw, 30px); 
         color: white;
         transition: transform 0.3s ease;
     }
 
-    /* Subtle hover effect for desktop users */
+    
     /* @media (hover: hover) {
         #detailed-topic-widget:hover {
             transform: translateY(-5px);
@@ -57,7 +57,7 @@ const { blok } = Astro.props;
     .heading {
         font-family: "PT Sans Caption", sans-serif;
         font-weight: 600;
-        /* Scales font between 1.5rem and 2rem */
+        
         font-size: clamp(1.5rem, 4vw, 2rem); 
         line-height: 1.2;
     }
@@ -65,7 +65,7 @@ const { blok } = Astro.props;
     .text {
         font-family: "PT Sans", sans-serif;
         font-weight: 400;
-        /* Scales font between 1rem and 1.2rem */
+        
         font-size: clamp(1rem, 2.5vw, 1.2rem); 
         line-height: 1.5;
         opacity: 0.9;
@@ -74,7 +74,7 @@ const { blok } = Astro.props;
     .image{
         height: clamp(60px, 10vw, 80px);
         width: clamp(60px, 10vw, 80px);
-        flex-shrink: 0; /* Prevents the image from getting crushed by long titles */
+        flex-shrink: 0; 
         border-radius: 15px;
         overflow: hidden;
     }
@@ -85,7 +85,6 @@ const { blok } = Astro.props;
         object-fit: cover;
     }
 
-    /* Mobile specific adjustment if the widget is used standalone */
     /* @media (max-width: 480px) {
         #detailed-topic-widget {
             min-height: 300px;

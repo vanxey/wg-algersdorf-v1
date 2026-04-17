@@ -18,13 +18,10 @@ const { variant = 'primary' } = Astro.props;
         font-style: italic;
         /* font-size: large;
         padding: 5px 10px 5px 10px; */
-        /* Font scales from 1rem (16px) on mobile to 1.25rem (20px) on desktop */
         font-size: clamp(1rem, 1.5vw, 1.25rem);
         
-        /* Padding scales proportionally based on the viewport width */
         padding: clamp(3px, 0.8vw, 5px) clamp(8px, 1.5vw, 12px);
         
-        /* Optional: Ensure the tag doesn't get too skinny */
         display: inline-block;
         line-height: 1.2;
     }

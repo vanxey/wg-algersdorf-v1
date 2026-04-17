@@ -1,0 +1,215 @@
+---
+// import { render } from "astro/dist/runtime/server";
+import Button from "../ui/Button.astro";
+import Tag from "../ui/Tag.astro";
+import { storyblokEditable } from "@storyblok/astro";
+// import { renderRichText } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+// const renderedContent = renderRichText(blok.img_3_description)
+---
+<section {...storyblokEditable(blok)} id="slider-area">
+    <div id="slider-tag">
+        <div class="tag-wrapper">
+            <Tag variant="primary">{blok.category_text}</Tag>
+        </div>
+    </div>
+    <div id="slider-heading">
+        <div class="heading">{blok.heading}</div>
+        <Button href="/about-us#detailed-topic-section" variant="tertiary">{blok.button_text}</Button>
+    </div>
+    
+    <div id="slider-content">
+        <div class="slider-column">
+            <div class="img-container">{blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_1_title}</div>
+                <div class="img-description">{blok.img_1_description}</div>
+            </div>
+        </div>
+        <div class="slider-column">
+            <div class="img-container">{blok.img_2 && <img src={blok.img_2.filename} alt={blok.img_2.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_2_title}</div>
+                <div class="img-description">{blok.img_2_description}</div>
+            </div>
+        </div>
+        <div class="slider-column">
+            <div class="img-container">{blok.img_3 && <img src={blok.img_3.filename} alt={blok.img_3.alt}/>}</div>
+            <div class="img-text-wrapper">
+                <div class="img-title">{blok.img_3_title}</div>
+                <div class="img-description">{blok.img_3_description}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="slider-indicator">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</section>
+
+
+<style>
+    
+    #slider-area {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        width: 100%;
+        background-color: #38322B;
+        color: white;
+        
+        padding: 60px 0 60px 0; 
+        overflow: hidden;
+    }
+
+   
+    #slider-tag, #slider-heading {
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+    }
+
+    /* .tag-wrapper {
+        width: max-content;
+    } */
+
+    #slider-heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+     @media screen and (min-width: 1024px) {
+        #slider-heading {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    .heading {
+        font-family: "PT Sans", sans-serif;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        font-weight: 400;
+    }
+
+
+    #slider-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        width: 100%;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+    }
+
+    @media (max-width: 1024px) {
+        #slider-content {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding-inline: 10%;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        #slider-content::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+   
+    .slider-column {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        scroll-snap-align: center; 
+        flex-shrink: 0; 
+        width: 100%;
+    }
+
+    @media (max-width: 1024px) {
+        .slider-column {
+            
+            width: 60vw; 
+        }
+    }
+
+    .img-container {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 20px;
+        background-color: #4a443d;
+    }
+
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .img-text-wrapper {
+        padding-inline: 5px;
+    }
+
+    .img-title {
+        font-family: "PT Sans Caption", sans-serif;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    
+    #slider-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        background-color: white;
+        transform: scale(1.3);
+    }
+
+    @media (min-width: 1024px) {
+        #slider-indicator {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    const slider = document.getElementById('slider-content');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider && dots.length > 0) {
+        slider.addEventListener('scroll', () => {
+            const scrollLeft = slider.scrollLeft;
+           
+            const firstSlide = slider.querySelector('.slider-column') as HTMLElement;
+            
+            if (firstSlide) {
+                const slideWidth = firstSlide.clientWidth + 20; // width + gap
+                const index = Math.round(scrollLeft / slideWidth);
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+        });
+    }
+</script>
