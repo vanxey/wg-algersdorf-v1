@@ -1,10 +1,12 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
+import { formatLink } from "../../utils/storyblok";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Button2 from "../ui/Button2.astro"
 import Heading from "../ui/Heading.astro"
 
 const { blok } = Astro.props
+const href = formatLink(blok.link);
 ---
 <section id="team-area" {...storyblokEditable(blok)}>
     <div class="r-1">
@@ -29,7 +31,7 @@ const { blok } = Astro.props
     <div class="r-3">
         <div class="text">{blok.text}</div>
         <div class="button-wrapper">
-            <Button2 variant="quarternary">{blok.button_text}</Button2>
+            <Button2 href={href} variant="quarternary">{blok.button_text}</Button2>
         </div>
     </div>
 </section>

@@ -46,8 +46,10 @@ export default defineConfig({
         textSectionRegular: "components/home/TextSectionRegular.astro",
         widgetArea: "components/home/WidgetArea.astro",
         widgetGrid: "components/home/WidgetGrid.astro",
-        
-        teamArea: "components/team/TeamArea.astro",
+        teamArea: "components/home/TeamArea.astro",
+
+        impressum: "components/legal/Impressum.astro",
+
         teamSection: "components/team/TeamSection.astro",
         
         detailedTopicWidget: "components/ui/DetailedTopicWidget.astro",

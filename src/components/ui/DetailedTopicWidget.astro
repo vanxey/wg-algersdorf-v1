@@ -4,6 +4,7 @@ import { storyblokEditable } from "@storyblok/astro";
 const { blok } = Astro.props;
 ---
 <section id="detailed-topic-widget" {...storyblokEditable(blok)}>
+    <span id={blok.id}>
     <div class="widget">
         <div class="row">
             <div class="heading">{blok.heading}</div>
@@ -20,6 +21,7 @@ const { blok } = Astro.props;
         
         <div class="text">{blok.text}</div>
     </div>
+    </span>
 </section> 
 
 <style>

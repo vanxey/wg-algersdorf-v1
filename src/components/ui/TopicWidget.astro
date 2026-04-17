@@ -1,14 +1,16 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { formatLink } from "../../utils/storyblok";
 
 const { blok } = Astro.props;
+const href = formatLink(blok.link_1);
 ---
 
 <div id="widget-container" {...storyblokEditable(blok)}>
     <div class="content">
         <div class="heading-1">{blok.heading_1}</div>
         {blok.heading_2 && <div class="heading-2">{blok.heading_2}</div>}
-        <a href={blok.link_url?.cached_url} class="widget-link">
+        <a href={href} class="widget-link">
             <div class="widget-link-button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#000000" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275q-.275-.275-.275-.7t.275-.7L14.6 7H7q-.425 0-.713-.288T6 6q0-.425.288-.713T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17q-.425 0-.713-.288T16 16V8.4Z"/></svg></div>
             <div class="widget-link-text">{blok.link_text || "Mehr erfahren"}</div>
         </a>
@@ -56,7 +58,16 @@ const { blok } = Astro.props;
         flex-direction: row;
         gap: 10px;
         padding-top: 20px;
+        text-decoration: none;
+        color: white;
     }
+
+    .widget-link:hover{
+        scale: 1.02;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
 
     .widget-link-button{
         display: flex;
@@ -73,6 +84,7 @@ const { blok } = Astro.props;
         align-items: center;
         font-size: medium;
         font-weight: 200;
+        text-decoration: none;
     }
 
     .content{

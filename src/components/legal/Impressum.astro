@@ -1,0 +1,120 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro"
+import Heading from '../../components/ui/Heading.astro';
+
+const { blok } = Astro.props
+const dienstanbieter = renderRichText(blok.dienstanbieter);
+const kontakt = renderRichText(blok.kontakt);
+const geschaeftsfuehrung = renderRichText(blok.geschaeftsfuehrung);
+const copyright = renderRichText(blok.copyright);
+const haftungshinweis = renderRichText(blok.haftungshinweis);
+const datenschutz = renderRichText(blok.datenschutz);
+---
+  <main class="legal-page" {...storyblokEditable(blok)}>
+    <section class="legal-container">
+      
+      <nav class="legal-nav">
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
+      </nav>
+
+      <hr class="divider" />
+
+      <article id="impressum" class="legal-section">
+        <Heading variant="secondary">Impressum</Heading>
+        
+        <div class="content">
+          <p><strong>Diensteanbieter und Medieninhaber:</strong></p>
+          <div class="content" set:html={dienstanbieter} />
+
+          <p><strong>Kontakt:</strong></p>
+          <div class="content" set:html={kontakt} />
+
+          <p><strong>Geschäftsführung:</strong></p>
+          <div class="content" set:html={geschaeftsfuehrung} />
+
+          <h3>Copyright / Urheberrecht</h3>
+          <div class="content" set:html={copyright} />
+
+          <h3>Haftungshinweis</h3>
+          <div class="content" set:html={haftungshinweis} />
+        </div>
+      </article>
+
+      <hr class="divider" />
+
+      <article id="datenschutz" class="legal-section">
+        <Heading variant="secondary">Datenschutzerklärung</Heading>
+        
+        <div class="content">
+          <div class="content" set:html={datenschutz} />
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+<style>
+  .legal-page {
+    background-color: #FDFBF7;
+    padding-block: clamp(60px, 10vw, 120px);
+    color: #38322B;
+  }
+
+  .legal-container {
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 8vw, 10%);
+  }
+
+  .legal-nav {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
+  }
+
+  .legal-nav a {
+    text-decoration: none;
+    /* color: #A38D75; */
+    color: #38322B;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .legal-section {
+    padding-block: 40px;
+    scroll-margin-top: 40px;
+  }
+
+  .content {
+    margin-top: 20px;
+    line-height: 1.75;
+    font-family: 'PT Sans', sans-serif;
+  }
+
+  .content :global(h3) {
+    margin-top: 40px;
+    font-size: 1.2rem;
+    color: #38322B;
+    border-left: 3px solid #A38D75;
+    padding-left: 15px;
+    margin-bottom: 15px;
+  }
+
+  .content :global(p) {
+    margin-bottom: 1.2rem;
+    opacity: 0.95;
+  }
+
+  .divider {
+    border: 0;
+    border-top: 1px solid rgba(56, 50, 43, 0.15);
+  }
+
+  .content :global(a) {
+    color: #A38D75;
+    word-break: break-all;
+  }
+</style>
