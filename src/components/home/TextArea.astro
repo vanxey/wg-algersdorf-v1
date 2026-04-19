@@ -1,8 +1,13 @@
 ---
 import Button from "../ui/Button.astro";
 import { storyblokEditable } from '@storyblok/astro';
+import { isBlokValid, formatLink } from "../../utils/storyblok"
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "TextArea")) return null;
+
+const href = formatLink(blok.link, "About link");
 ---
 
 <section {...storyblokEditable(blok)} id="text-area">
@@ -23,7 +28,7 @@ const { blok } = Astro.props;
         {blok.text_after}
     </div>
     <div class="button">
-        <Button href="/home#about-area" variant="secondary">{blok.button_text}</Button>
+        <Button href={href} variant="secondary">{blok.button_text}</Button>
     </div>
 </section>
 

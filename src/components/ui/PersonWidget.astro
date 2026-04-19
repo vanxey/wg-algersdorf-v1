@@ -1,13 +1,21 @@
 ---
     import { storyblokEditable } from "@storyblok/astro"
+    import { isBlokValid, getImageUrl, getAltText } from "../../utils/storyblok"
 
     const { blok } = Astro.props
+
+    if (!isBlokValid(blok, "Person Widget")) return null;
+
+    const imageSrc = getImageUrl(blok.img, "/m/600x600/smart/filters:format(webp):quality(70)", "Team Person Image");
+    const altText = getAltText(blok.img, "Team Person");
+
+    const fallbackImage = "/anonymous_person.png";
 ---
 
 <div id="person-widget" {...storyblokEditable(blok)}>
     <div class="img">
         <!-- <img src={blok.img.filename} alt={blok.img.alt}/> -->
-         <img src={blok.img?.filename 
+         <!-- <img src={blok.img?.filename 
                     ? `${blok.img?.filename}/m/600x600/smart/filters:format(webp):quality(70)` 
                     : "src/assets/anonymous_person.png"
                 } 
@@ -15,7 +23,16 @@
                 loading="lazy"
                 width="300" 
                 height="300"
-            />
+            /> -->
+            {imageSrc && (
+                <img 
+                    src={imageSrc || fallbackImage} 
+                    alt={altText}
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                />
+            )}
     </div>
     <div class="name">
         {blok.name}

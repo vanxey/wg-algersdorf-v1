@@ -1,7 +1,13 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid, getImageUrl, getAltText } from "../../utils/storyblok"
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
+
+const imageSrc = getImageUrl(blok.img, "/m/240x240/smart/filters:format(webp):quality(70)", "Topic Widget Image");
+const altText = getAltText(blok.img, "Topic Widget Image");
 ---
 <section id="detailed-topic-widget" {...storyblokEditable(blok)}>
     <span id={blok.id}>
@@ -10,12 +16,21 @@ const { blok } = Astro.props;
             <div class="heading">{blok.heading}</div>
             <div class="image">
                 <!-- <img src={blok.img?.filename} alt={blok.img?.alt} /> -->
-                 <img src={`${blok.img?.filename}/m/240x240/smart/filters:format(webp):quality(70)`} 
+                 <!-- <img src={`${blok.img?.filename}/m/240x240/smart/filters:format(webp):quality(70)`} 
                     alt={blok.img.alt || "Detailed Topic Widget"}
                     loading="lazy"
                     width="120" 
                     height="120"
-            />
+            /> -->
+             {imageSrc && (
+                <img 
+                    src={imageSrc} 
+                    alt={altText}
+                    width="120"
+                    height="120"
+                    loading="lazy"
+                />
+            )}
             </div>
         </div>
         

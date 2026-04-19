@@ -1,15 +1,22 @@
 ---
 import Button from "../ui/Button.astro";
 import { storyblokEditable } from '@storyblok/astro';
-import { formatLink } from "../../utils/storyblok";
+import { isBlokValid, formatLink, getImageUrl, getAltText } from "../../utils/storyblok";
 
 const { blok } = Astro.props;
-const mobileImgUrl = blok.image_mobile || blok.image;
 
-const mainHref = formatLink(blok.link);
-const href1 = formatLink(blok.link_1);
-const href2 = formatLink(blok.link_2);
-const href3 = formatLink(blok.link_3);
+if (!isBlokValid(blok, "Hero")) return null;
+
+const mainHref = formatLink(blok.link, "Mehr erfahren");
+const href1 = formatLink(blok.link_1, "Community living");
+const href2 = formatLink(blok.link_2, "Gain back independence");
+const href3 = formatLink(blok.link_3, "Trust the process");
+
+// const mobileImgUrl = blok.image_mobile || blok.image;
+const desktopImg = getImageUrl(blok.image, "/m/1800x0/filters:format(webp):quality(80)", "Desktop Hero Image");
+const mobileImg = getImageUrl(blok.image_mobile || blok.image, "/m/1000x1500/smart/filters:format(webp):quality(80)", "Mobile Hero Image");
+
+const altText = getAltText(blok.image, blok.title_2);
 ---
 
 <section {...storyblokEditable(blok)} id="hero">
@@ -24,11 +31,12 @@ const href3 = formatLink(blok.link_3);
     <div class="hero-section-2">
         <div class="hero-img">
             <picture>
-                <source media="(max-width: 1099px)" srcset={blok.image} />
+                <source media="(max-width: 1099px)" srcset={desktopImg} />
                 <!-- <img src={blok.image} alt="Hero Image" /> -->
+                <!-- src={`${blok.image}/m/1800x0/filters:format(webp):quality(80)`}  -->
                 <img 
-                    src={`${blok.image}/m/1800x0/filters:format(webp):quality(80)` } 
-                    alt={blok.title_2 || "Hero Image"} 
+                    src={desktopImg} 
+                    alt={altText} 
                     loading="eager" 
                     fetchpriority="high" 
                     decoding="sync"
@@ -38,11 +46,12 @@ const href3 = formatLink(blok.link_3);
 
         <div class="hero-img-mobile">
             <picture>
-                <source media="(max-width: 1099px)" srcset={blok.image_mobile} />
+                <source media="(max-width: 1099px)" srcset={mobileImg} />
                 <!-- <img src={blok.image} alt="Hero Image" /> -->
+                <!-- src={`${blok.image_mobile}/m/1000x1500/smart/filters:format(webp):quality(80)`} -->
                 <img 
-                    src={`${blok.image}/m/1000x1500/smart/filters:format(webp):quality(80)`} 
-                    alt={blok.title_2 || "Hero Image"} 
+                    src={mobileImg}
+                    alt={altText} 
                     loading="eager" 
                     fetchpriority="high" 
                     decoding="sync"
@@ -58,7 +67,7 @@ const href3 = formatLink(blok.link_3);
     </div>
 </section>
 
-<style define:vars={{ mobileImgUrl: `url(${mobileImgUrl})` }}>
+<style define:vars={{ mobileImgUrl: `url(${mobileImg})` }}>
     #hero {
         display: flex;
         flex-direction: row; 

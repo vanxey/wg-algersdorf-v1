@@ -2,11 +2,15 @@
 import Button from "../ui/Button.astro"
 import Tag from "../ui/Tag.astro"
 import { storyblokEditable } from "@storyblok/astro"
-import { renderRichText } from "@storyblok/astro"
+import { isBlokValid, renderSafeRichText, getImageUrl, getAltText } from "../../utils/storyblok"
 
 const { blok } = Astro.props
 
-const renderedContent = renderRichText(blok.text_1)
+if (!isBlokValid(blok, "About Area 2 rev")) return null;
+
+const renderedContent = renderSafeRichText(blok.text_1, "About Text");
+const imageSrc = getImageUrl(blok.img_1, "/m/1200x0/filters:format(webp):quality(80)", "About Image");
+const altText = getAltText(blok.img_1, "About Us Image");
 ---
 
 <section id="about-area" {...storyblokEditable(blok)}>
@@ -18,7 +22,7 @@ const renderedContent = renderRichText(blok.text_1)
         </div>
         <div class="img-container">
         <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->    
-        {blok.img_1?.filename && (
+        <!-- {blok.img_1?.filename && (
             <img 
                 src={`${blok.img_1?.filename}/m/1200x0/filters:format(webp):quality(80)`} 
                 alt={blok.img_1.alt || "About section image"}
@@ -27,7 +31,17 @@ const renderedContent = renderRichText(blok.text_1)
                 loading="lazy"
                 decoding="async"
             />
-        )}    
+        )}     -->
+        {imageSrc && (
+                <img 
+                    src={imageSrc} 
+                    alt={altText}
+                    width="1200"
+                    height="600"
+                    loading="lazy"
+                    decoding="async"
+                />
+            )}
         </div>
 
     </div>

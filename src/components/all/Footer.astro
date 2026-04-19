@@ -1,17 +1,23 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import { formatLink } from "../../utils/storyblok";
+import { isBlokValid, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
 
 const { blok } = Astro.props
 
+if (!isBlokValid(blok, "Footer")) return null;
 
-const href1 = formatLink(blok.link_1);
-const href2 = formatLink(blok.link_2);
-const href3 = formatLink(blok.link_3);
-const href4 = formatLink(blok.link_4);
-const href5 = formatLink(blok.link_5);
-const href6 = formatLink(blok.link_6);
+const imageSrc1 = getImageUrl(blok.logo, "/m/800x0/smart/filters:format(webp):quality(90)", "Logo Image");
+const imageSrc2 = getImageUrl(blok.map, "/m/2000x0/smart/filters:format(webp):quality(90)", "Map Image");
+const altText1 = getAltText(blok.logo, "Logo Image");
+const altText2 = getAltText(blok.map, "Map Image");
+
+const href1 = formatLink(blok.link_1, "Page Link 1");
+const href2 = formatLink(blok.link_2, "Page Link 2");
+const href3 = formatLink(blok.link_3, "Page Link 3");
+const href4 = formatLink(blok.link_4, "Page Link 4");
+const href5 = formatLink(blok.link_5, "Page Link 5");
+const href6 = formatLink(blok.link_6, "Page Link 6");
 ---
 <section id="footer" {...storyblokEditable(blok)}>
     <div class="r-1">
@@ -19,12 +25,21 @@ const href6 = formatLink(blok.link_6);
             <div class="logo">
                 <!-- <img src="/src/assets/logo_without_green_white_wg.png" alt="Logo" /> -->
                  <!-- <img src={blok.logo?.filename} alt="Logo" /> -->
-                 <img src={`${blok.logo?.filename}/m/800x0/smart/filters:format(webp):quality(90)`} 
+                 <!-- <img src={`${blok.logo?.filename}/m/800x0/smart/filters:format(webp):quality(90)`} 
                     alt={blok.logo.alt || "Logo Image"}
                     loading="lazy"
                     width="400" 
                     height="400"
-                />
+                /> -->
+                {imageSrc2 && (
+                    <img 
+                        src={imageSrc1} 
+                        alt={altText1} 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                    />
+                )}
             </div>
         </div>
         <div class="links-wrapper">
@@ -53,12 +68,21 @@ const href6 = formatLink(blok.link_6);
      <div class="r-2">
         <a href="https://maps.app.goo.gl/2Mo4xDhu6kv4g6vv8" target="_blank" rel="noopener">
             <!-- <img src="/src/assets/map_algersdorf.png" alt="Standort Karte" /> -->
-             <img src={`${blok.map?.filename}/m/2000x0/smart/filters:format(webp):quality(90)`} 
+             <!-- <img src={`${blok.map?.filename}/m/2000x0/smart/filters:format(webp):quality(90)`} 
                     alt={blok.map.alt || "Map Image"}
                     loading="lazy"
                     width="2000" 
                     height="857"
-                />
+                /> -->
+                {imageSrc2 && (
+                    <img 
+                        src={imageSrc2} 
+                        alt={altText2} 
+                        loading="lazy"
+                        width="2000"
+                        height="857"
+                    />
+                )}
 
             <div class="glass-overlay">
                 <div class="address-card">

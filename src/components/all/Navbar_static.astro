@@ -1,29 +1,33 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
-import { isBlokValid, getImageUrl } from "../../utils/storyblok";
-
-const { blok } = Astro.props;
-
-if (!isBlokValid(blok, "Navbar")) return null;
-
-const logoSrc = getImageUrl(blok.logo, "", "Navbar Logo");
-
-const localLogo = "/wg-logo-2.png";
-const finalLogo = logoSrc || localLogo;
+ 
+const { blok } = Astro.props
 ---
 
 <div id="navbar" {...storyblokEditable(blok)}>
     <div id="logo-container">
         <a id="logo" href="/home" aria-label="Zur Startseite">
-             <img src={finalLogo} alt="logo" height="auto" width="auto"/>
+             <img src="src/assets/wg-logo-2.png" alt="logo" height="auto" width="auto"/>
         </a>
     </div>
     
     <nav id="nav-menu">
-        {blok.nav_items?.map((nestedBlok) => (
-            <StoryblokComponent blok={nestedBlok} />
-        ))}
+        <a href="/home">Home</a>
+        <a href="/about-us">Über uns</a>
+        
+        <div class="dropdown">
+            <button class="dropdown-trigger">
+                Die WG
+                <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div class="dropdown-content">
+                <a href="/team">Das Team</a>
+                <a href="/bewohner">Die Community</a>
+            </div>
+        </div>
+        <a href="/about-us#contact-section">Kontakt</a>
     </nav>
 
     <div id="burger-menu" aria-label="Toggle Menu">
@@ -51,10 +55,6 @@ const finalLogo = logoSrc || localLogo;
 </script>
 
 <style>
-    /* THE FIX: We use :global() for any element that comes 
-       from a nested Storyblok component.
-    */
-
     #navbar {
         display: flex;
         align-items: center;
@@ -83,9 +83,7 @@ const finalLogo = logoSrc || localLogo;
         height: 100%;
     }
 
-    /* Target nested links and dropdown triggers */
-    nav :global(a), 
-    nav :global(.dropdown-trigger) {
+    nav a, .dropdown-trigger {
         text-decoration: none;
         color: black;
         font-family: 'Inter', sans-serif;
@@ -101,17 +99,16 @@ const finalLogo = logoSrc || localLogo;
         transition: color 0.3s ease;
     }
 
-    nav :global(a:hover), 
-    nav :global(.dropdown-trigger:hover) { color: #A38D75; }
+    nav a:hover, .dropdown-trigger:hover { color: #A38D75; }
 
-    nav :global(.dropdown) {
+    .dropdown {
         position: relative;
         height: 100%;
         display: flex;
         align-items: center;
     }
 
-    nav :global(.dropdown-content) {
+    .dropdown-content {
         position: absolute;
         top: 80%;
         left: 50%;
@@ -127,22 +124,21 @@ const finalLogo = logoSrc || localLogo;
         z-index: 1001;
     }
 
-    nav :global(.dropdown:hover .dropdown-content) {
+    .dropdown:hover .dropdown-content {
         opacity: 1;
         visibility: visible;
         top: 100%;
     }
 
-    nav :global(.dropdown-content a) {
+    .dropdown-content a {
         padding: 12px 20px;
         display: block;
         font-size: 0.9rem;
         border-bottom: none;
-        text-align: left; /* Keep original left alignment */
     }
 
-    nav :global(.chevron) { width: 18px; height: 18px; transition: transform 0.3s; }
-    nav :global(.dropdown:hover .chevron) { transform: rotate(180deg); }
+    .chevron { width: 18px; height: 18px; transition: transform 0.3s; }
+    .dropdown:hover .chevron { transform: rotate(180deg); }
 
     #burger-menu { display: none; cursor: pointer; }
     #burger-menu svg { height: 40px; width: 40px; }
@@ -168,20 +164,20 @@ const finalLogo = logoSrc || localLogo;
 
         nav.active { max-height: 800px; opacity: 1; pointer-events: auto; }
 
-        nav :global(.dropdown) {
+        .dropdown {
             width: 100%;
             flex-direction: column;
             height: auto;
         }
 
-        nav :global(.dropdown-trigger) {
+        .dropdown-trigger {
             width: 100%;
             height: 70px;
             justify-content: center;
             border-bottom: 1px solid #f0f0f0;
         }
 
-        nav :global(.dropdown-content) {
+        .dropdown-content {
             position: static;
             transform: none;
             width: 100%;
@@ -194,8 +190,7 @@ const finalLogo = logoSrc || localLogo;
             padding: 0;
         }
 
-        nav :global(a), 
-        nav :global(.dropdown-content a) {
+        nav a, .dropdown-content a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -204,6 +199,6 @@ const finalLogo = logoSrc || localLogo;
             border-bottom: 1px solid #f0f0f0;
         }
 
-        nav.active :global(a) { opacity: 1; }
+        nav.active a { opacity: 1; }
     }
 </style>

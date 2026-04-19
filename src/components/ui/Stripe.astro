@@ -1,7 +1,11 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid } from "../../utils/storyblok";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Stripe")) return null;
+
 const variant = blok.color || "primary";
 const variant_bg = blok.background || "white-bg";
 ---

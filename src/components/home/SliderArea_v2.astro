@@ -2,8 +2,21 @@
 import Button from "../ui/Button.astro";
 import Tag from "../ui/Tag.astro";
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "SliderArea")) return null;
+
+const img1 = getImageUrl(blok.img_1, "/m/800x800/smart/filters:format(webp):quality(75)", "Slider Img 1");
+const img2 = getImageUrl(blok.img_2, "/m/800x800/smart/filters:format(webp):quality(75)", "Slider Img 2");
+const img3 = getImageUrl(blok.img_3, "/m/800x800/smart/filters:format(webp):quality(75)", "Slider Img 3");
+
+const alt1 = getAltText(blok.img_1, blok.img_1_title);
+const alt2 = getAltText(blok.img_2, blok.img_2_title);
+const alt3 = getAltText(blok.img_3, blok.img_3_title);
+
+const href = formatLink(blok.link, "Slider Button");
 ---
 
 <section {...storyblokEditable(blok)} id="slider-area">
@@ -15,17 +28,27 @@ const { blok } = Astro.props;
     
     <div id="slider-heading">
         <div class="heading">{blok.heading}</div>
-        <Button href="/about-us#numbers" variant="tertiary">{blok.button_text}</Button>
+        <Button href={href} variant="tertiary">{blok.button_text}</Button>
     </div>
     
     <div id="slider-content">
         <div class="slider-column">
             <div class="img-container">
                 <!-- {blok.img_1 && <img src={blok.img_1.filename} alt={blok.img_1.alt}/>} -->
-                 {blok.img_1?.filename && (
+                 <!-- {blok.img_1?.filename && (
                     <img 
                         src={`${blok.img_1?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
                         alt={blok.img_1.alt || ""} 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                        decoding="async"
+                    />
+                )} -->
+                {img1 && (
+                    <img 
+                        src={img1} 
+                        alt={alt1} 
                         loading="lazy"
                         width="400"
                         height="400"
@@ -42,10 +65,20 @@ const { blok } = Astro.props;
         <div class="slider-column">
             <div class="img-container">
                 <!-- {blok.img_2 && <img src={blok.img_2.filename} alt={blok.img_2.alt}/>} -->
-                 {blok.img_2?.filename && (
+                 <!-- {blok.img_2?.filename && (
                 <img 
                     src={`${blok.img_2?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
                     alt={blok.img_2.alt || ""} 
+                    loading="lazy"
+                    width="400"
+                    height="400"
+                    decoding="async"
+                />
+            )} -->
+            {img2 && (
+                <img 
+                    src={img2} 
+                    alt={alt2} 
                     loading="lazy"
                     width="400"
                     height="400"
@@ -62,10 +95,20 @@ const { blok } = Astro.props;
         <div class="slider-column">
             <div class="img-container">
                 <!-- {blok.img_3 && <img src={blok.img_3.filename} alt={blok.img_3.alt}/>} -->
-                 {blok.img_3?.filename && (
+                 <!-- {blok.img_3?.filename && (
                     <img 
                         src={`${blok.img_3?.filename}/m/800x800/smart/filters:format(webp):quality(75)`} 
                         alt={blok.img_3.alt || ""} 
+                        loading="lazy"
+                        width="400"
+                        height="400"
+                        decoding="async"
+                    />
+                )} -->
+                {img3 && (
+                    <img 
+                        src={img3} 
+                        alt={alt3} 
                         loading="lazy"
                         width="400"
                         height="400"

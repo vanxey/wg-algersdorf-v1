@@ -31,6 +31,7 @@ export default defineConfig({
         contactSection: "components/all/ContactSection.astro",
         footer: "components/all/Footer.astro",
         hero2: "components/all/Hero2.astro", 
+        navbar: "components/all/Navbar.astro", 
 
         communitySection: "components/community/CommunitySection.astro",
 
@@ -39,7 +40,7 @@ export default defineConfig({
         aboutArea3: "components/home/AboutArea_3.astro",
         hero: "components/home/Hero.astro", 
         quote: "components/home/Quote.astro",
-        sliderArea: "components/home/SliderArea.astro",
+        // sliderArea: "components/home/SliderArea.astro",
         sliderArea_v2: "components/home/SliderArea_v2.astro",
         textArea: "components/home/TextArea.astro",
         textSection: "components/home/TextSection.astro",
@@ -57,10 +58,10 @@ export default defineConfig({
         topicWidget: "components/ui/TopicWidget.astro",
         qnaWidget: "components/ui/QnaWidget.astro",
         stripe: "components/ui/Stripe.astro",
-        socialMediaIcon: "components/ui/SocialMediaIcons.astro"
+        socialMediaIcon: "components/ui/SocialMediaIcons.astro",
+        navDropdown: "components/ui/NavDropDown.astro",
+        navLink: "components/ui/NavLink.astro",
        
-        
-        
       },
     }),
   ],

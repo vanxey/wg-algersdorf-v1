@@ -1,7 +1,18 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
+import { isBlokValid, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Image Slider")) return null;
+
+const img1 = getImageUrl(blok.img_1, "/m/2000x0/smart/filters:format(webp):quality(75)", "Slider Img 1");
+const img2 = getImageUrl(blok.img_2, "/m/2000x0/smart/filters:format(webp):quality(75)", "Slider Img 2");
+const img3 = getImageUrl(blok.img_3, "/m/2000x0/smart/filters:format(webp):quality(75)", "Slider Img 3");
+
+const alt1 = getAltText(blok.img_1, "Slider Img 1");
+const alt2 = getAltText(blok.img_2, "Slider Img 2");
+const alt3 = getAltText(blok.img_3, "Slider Img 3");
 ---
 
 <section id="image-slider" {...storyblokEditable(blok)}>
@@ -23,7 +34,7 @@ const { blok } = Astro.props;
                 <img src={blok.img_3.filename} alt={blok.img_3.alt || "Slider Image 3"} />
             </div>
         )} -->
-        {blok.img_1?.filename && (
+        <!-- {blok.img_1?.filename && (
             <div class="slide">
                 <img 
                     src={`${blok.img_1?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
@@ -35,9 +46,22 @@ const { blok } = Astro.props;
                     decoding="sync"
                 />
             </div>
+        )} -->
+        {img1 && (
+            <div class="slide">
+                <img 
+                    src={img1} 
+                    alt={alt1}
+                    width="2000" 
+                    height="857"
+                    loading="eager" 
+                    fetchpriority="high"
+                    decoding="sync"
+                />
+            </div>
         )}
 
-        {blok.img_2?.filename && (
+        <!-- {blok.img_2?.filename && (
             <div class="slide">
                 <img 
                     src={`${blok.img_2?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
@@ -48,9 +72,22 @@ const { blok } = Astro.props;
                     decoding="async"
                 />
             </div>
+        )} -->
+        {img2 && (
+            <div class="slide">
+                <img 
+                    src={img2} 
+                    alt={alt2}
+                    width="2000" 
+                    height="857"
+                    loading="eager" 
+                    fetchpriority="high"
+                    decoding="sync"
+                />
+            </div>
         )}
 
-        {blok.img_3?.filename && (
+        <!-- {blok.img_3?.filename && (
             <div class="slide">
                 <img 
                     src={`${blok.img_3?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
@@ -61,13 +98,26 @@ const { blok } = Astro.props;
                     decoding="async"
                 />
             </div>
+        )} -->
+        {img3 && (
+            <div class="slide">
+                <img 
+                    src={img3} 
+                    alt={alt3}
+                    width="2000" 
+                    height="857"
+                    loading="eager" 
+                    fetchpriority="high"
+                    decoding="sync"
+                />
+            </div>
         )}
     </div>
 
     <div class="slider-indicators">
-        {blok.img_1?.filename && <div class="dot active" data-slide="0"></div>}
-        {blok.img_2?.filename && <div class="dot" data-slide="1"></div>}
-        {blok.img_3?.filename && <div class="dot" data-slide="2"></div>}
+        {img1 && <div class="dot active" data-slide="0"></div>}
+        {img2 && <div class="dot" data-slide="1"></div>}
+        {img3 && <div class="dot" data-slide="2"></div>}
     </div>
 </section>
 

@@ -1,24 +1,37 @@
 ---
-import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import { storyblokEditable } from "@storyblok/astro";
 import Heading from "../ui/Heading.astro";
 import Button from "../ui/Button.astro";
-import { formatLink } from "../../utils/storyblok";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { isBlokValid, renderSafeRichText, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
 
 const { blok } = Astro.props;
-const renderedContent = renderRichText(blok.text);
-const href = formatLink(blok.link);
+
+if (!isBlokValid(blok, "Call To Action")) return null;
+
+const renderedContent = renderSafeRichText(blok.text, "Call To Action Text");
+const imageSrc = getImageUrl(blok.img, "/m/2000x0/smart/filters:format(webp):quality(75)", "Banner Image");
+const altText = getAltText(blok.img, "Banner Image");
+const href = formatLink(blok.link, "Kontakt");
 ---
 <section id="call-to-action-section" {...storyblokEditable(blok)}>
 
     <div class="wrapper">
           <!-- {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>} -->
-           <img src={`${blok.img?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+           <!-- <img src={`${blok.img?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
                     alt={blok.img.alt || "Slider Image 1"}
                     width="2000" 
                     height="857"
                     loading="lazy" 
+                /> -->
+            {imageSrc && (
+                <img 
+                    src={imageSrc} 
+                    alt={altText}
+                    width="2000"
+                    height="857"
+                    loading="lazy"
                 />
+            )}
          <div class="overlay"></div>
         <div class="wrapper-content">
         <div class="heading"> <Heading>{blok.heading}</Heading></div>

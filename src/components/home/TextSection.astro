@@ -1,6 +1,10 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid } from "../../utils/storyblok";
+
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Text Section")) return null;
 ---
 
 <section id="textSection" {...storyblokEditable(blok)}>

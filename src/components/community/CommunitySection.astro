@@ -1,9 +1,12 @@
 ---
-import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid, getImageUrl, getAltText, renderSafeRichText } from "../../utils/storyblok"
 import Tag from "../ui/Tag.astro";
 import Heading from "../ui/Heading.astro";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Community Section")) return null;
 ---
 
 <section id="team-section" {...storyblokEditable(blok)}>
@@ -21,12 +24,18 @@ const { blok } = Astro.props;
 
             <div class="grid-container">
                 {dept.members?.map((person) => {
-                    const renderedContent = renderRichText(person.text);
+                    const renderedContent = renderSafeRichText(person.text, "Personalized Text");
+
+                    const imageSrc = getImageUrl(person.image, "/m/240x240/smart/filters:format(webp):quality(70)", person.name || "Community Person Image");
+                    const altText = getAltText(person.image, person.name || "Person name");
+
+                    const fallbackImage = "/anonymous_person.png";
+                    const finalSrc = imageSrc || fallbackImage;
                     return (
                         <div class="card" {...storyblokEditable(person)}>
                             <div class="image-wrapper">
                                 {/* <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" /> */}
-                                <img src={person.image?.filename 
+                                {/* <img src={person.image?.filename 
                                         ? `${person.image?.filename}/m/240x240/smart/filters:format(webp):quality(70)` 
                                         : "src/assets/anonymous_person.png"
                                      } 
@@ -34,7 +43,14 @@ const { blok } = Astro.props;
                                  loading="lazy"
                                  width="120" 
                                  height="120"
-                            />
+                            /> */}
+                                <img 
+                                            src={finalSrc} 
+                                            alt={altText}
+                                            width="120"
+                                            height="120"
+                                            loading="lazy"
+                                />
                             </div>
                             <div class="info">
                                 <div class="name">{person.title}</div>

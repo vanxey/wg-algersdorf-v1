@@ -1,11 +1,21 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
-import { formatLink } from "../../utils/storyblok";
+import { isBlokValid, formatLink, getImageUrl, getAltText } from "../../utils/storyblok";
 import Button2 from "../ui/Button2.astro";
 
 
 const { blok } = Astro.props;
-const href = formatLink(blok.link);
+
+if (!isBlokValid(blok, "Hero 2")) return null;
+
+const href = formatLink(blok.link, "Hero 2 Link");
+
+const imgBase = getImageUrl(blok.img, "/m/1600x1200/smart/filters:format(webp):quality(75)", "Hero 2 Image");
+const imgSmall = getImageUrl(blok.img, "/m/800x600/smart/filters:format(webp):quality(75)");
+
+const srcset = imgBase ? `${imgSmall} 800w, ${imgBase} 1600w` : "";
+const altText = getAltText(blok.img, blok.heading);
+
 ---
 
 <section id="hero2" {...storyblokEditable(blok)}>
@@ -16,7 +26,7 @@ const href = formatLink(blok.link);
         </div>
         <div class="col-2">
             <div class="img-wrapper">
-            {blok.img?.filename && (
+            <!-- {blok.img?.filename && (
                 <img 
                     src={`${blok.img?.filename}/m/1600x1200/smart/filters:format(webp):quality(75)`} 
                     srcset={`
@@ -31,6 +41,19 @@ const href = formatLink(blok.link);
                     height="600"
                 />
                 //<img src={blok.img.filename} alt={blok.img.alt}/>
+            )} -->
+            {imgBase && (
+                <img 
+                    src={imgBase} 
+                    srcset={srcset}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    alt={altText}
+                    loading="eager"
+                    fetchpriority="high"
+                    width="800" 
+                    height="600"
+                    decoding="sync"
+                />
             )}
             </div>
         </div>

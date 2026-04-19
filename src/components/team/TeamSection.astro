@@ -1,9 +1,12 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid, getImageUrl, getAltText } from "../../utils/storyblok"
 import Tag from "../ui/Tag.astro";
 import Heading from "../ui/Heading.astro";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Team Section")) return null;
 ---
 
 <section id="team-section" {...storyblokEditable(blok)}>
@@ -20,26 +23,43 @@ const { blok } = Astro.props;
             </div>
 
             <div class="grid-container">
-                {dept.members?.map((person) => (
-                    <div class="card" {...storyblokEditable(person)}>
-                        <div class="image-wrapper">
-                            {/* <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" /> */}
-                            <img src={person.image?.filename 
-                                        ? `${person.image?.filename}/m/640x800/smart/filters:format(webp):quality(75)` 
-                                        : "src/assets/anonymous_person.png"
-                                     } 
-                                 alt={person.name || "Person name"}
-                                 loading="lazy"
-                                 width="320" 
-                                 height="400"
-                            />
-                        </div>
-                        <div class="info">
-                            <div class="name">{person.name}</div>
-                            <div class="job-title">{person.job}</div>
-                        </div>
-                    </div>
-                ))}
+                {dept.members?.map((person) =>{
+
+                    const imageSrc = getImageUrl(person.image, "/m/640x800/smart/filters:format(webp):quality(75)", person.name || "Team Person Image");
+                    const altText = getAltText(person.image, person.name || "Person name");
+
+                    const fallbackImage = "/anonymous_person.png";
+                    const finalSrc = imageSrc || fallbackImage;
+                    return (
+                            <div class="card" {...storyblokEditable(person)}>
+                                <div class="image-wrapper">
+                                    {/* <img src={person.image?.filename || "src/assets/anonymous_person.png"} alt={person.name} loading="lazy" /> */}
+                                    {/* <img src={person.image?.filename 
+                                                ? `${person.image?.filename}/m/640x800/smart/filters:format(webp):quality(75)` 
+                                                : "src/assets/anonymous_person.png"
+                                            } 
+                                        alt={person.name || "Person name"}
+                                        loading="lazy"
+                                        width="320" 
+                                        height="400"
+                                    /> */}
+                                   
+                                        <img 
+                                            src={finalSrc} 
+                                            alt={altText}
+                                            width="320"
+                                            height="400"
+                                            loading="lazy"
+                                        />
+                                    
+                                </div>
+                                <div class="info">
+                                    <div class="name">{person.name}</div>
+                                    <div class="job-title">{person.job}</div>
+                                </div>
+                            </div>
+                        )
+                    })}
             </div>
         </div>
     ))}

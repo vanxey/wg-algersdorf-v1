@@ -1,11 +1,11 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import Tag from "../ui/Tag.astro";
-import Heading from "../ui/Heading.astro";
-import QnaWidget from "../ui/QnaWidget.astro";
+import { isBlokValid } from "../../utils/storyblok"
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "QnA Section")) return null;
 ---
 <section id="qna-section" {...storyblokEditable(blok)}>
     <div class="heading">{blok.heading}</div>

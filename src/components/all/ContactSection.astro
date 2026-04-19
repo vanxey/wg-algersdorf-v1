@@ -1,9 +1,11 @@
 ---
-import { storyblokEditable, renderRichText } from "@storyblok/astro";
-import { render } from "astro/dist/runtime/server";
+import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid, renderSafeRichText} from "../../utils/storyblok"
 
 const { blok } = Astro.props;
-const renderedContent = renderRichText(blok.text);
+
+if (!isBlokValid(blok, "Contact Section")) return null;
+const renderedContent = renderSafeRichText(blok.text, "Contact Text");
 ---
 
 <section id="contact-section" {...storyblokEditable(blok)}>

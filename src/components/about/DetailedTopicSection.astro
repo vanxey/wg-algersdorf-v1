@@ -1,10 +1,13 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid } from "../../utils/storyblok";
 import Tag from "../ui/Tag.astro";
 import Heading from "../ui/Heading.astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
 ---
 <section id="detailed-topic-section" {...storyblokEditable(blok)}>
     <div class="header-area">

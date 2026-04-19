@@ -2,8 +2,11 @@
 import Tag from "../ui/Tag.astro"
 import Heading from "../ui/Heading.astro"
 import { storyblokEditable } from "@storyblok/astro"
+import { isBlokValid } from "../../utils/storyblok";
 
 const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Text Section Regular")) return null;
 ---
 
 <section id="text-section-regular" {...storyblokEditable(blok)}>

@@ -1,14 +1,19 @@
 ---
-import { storyblokEditable, renderRichText } from "@storyblok/astro"
+import { storyblokEditable } from "@storyblok/astro"
+import { isBlokValid, renderSafeRichText } from "../../utils/storyblok"
+
 import Heading from '../../components/ui/Heading.astro';
 
 const { blok } = Astro.props
-const dienstanbieter = renderRichText(blok.dienstanbieter);
-const kontakt = renderRichText(blok.kontakt);
-const geschaeftsfuehrung = renderRichText(blok.geschaeftsfuehrung);
-const copyright = renderRichText(blok.copyright);
-const haftungshinweis = renderRichText(blok.haftungshinweis);
-const datenschutz = renderRichText(blok.datenschutz);
+
+if (!isBlokValid(blok, "Impressum")) return null;
+
+const dienstanbieter = renderSafeRichText(blok.dienstanbieter, "Dienstanbieter Text");
+const kontakt = renderSafeRichText(blok.kontakt, "Kontakt Text");
+const geschaeftsfuehrung = renderSafeRichText(blok.geschaeftsfuehrung, "Geschäftsführung Text");
+const copyright = renderSafeRichText(blok.copyright, "Copyright Text");
+const haftungshinweis = renderSafeRichText(blok.haftungshinweis, "Haftungshinweis Text");
+const datenschutz = renderSafeRichText(blok.datenschutz, "Datenschutz Text");
 ---
   <main class="legal-page" {...storyblokEditable(blok)}>
     <section class="legal-container">

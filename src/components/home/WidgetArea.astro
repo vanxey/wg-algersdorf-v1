@@ -1,10 +1,12 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { isBlokValid } from "../../utils/storyblok";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Tag from "../ui/Tag.astro";
 import Heading from "../ui/Heading.astro";
 
 const { blok } = Astro.props;
+if (!isBlokValid(blok, "Widget Area")) return null;
 ---
 
 <div id="widget-area">

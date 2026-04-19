@@ -1,0 +1,11 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import { formatLink, isBlokValid } from "../../utils/storyblok";
+
+const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Navbar links")) return null;
+---
+<a href={formatLink(blok.link, blok.label)} {...storyblokEditable(blok)}>
+    {blok.label}
+</a>
