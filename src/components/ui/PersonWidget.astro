@@ -83,4 +83,27 @@
         object-fit: cover;
         object-position: center;
     }
+
+    /* --- MOBILE UPDATES --- */
+    @media (max-width: 1024px) {
+        #person-widget {
+            /* Your 15px padding rule */
+            padding-inline: 15px;
+        }
+
+        .img {
+            /* Removing fixed height so it scales with the screen width */
+            height: auto; 
+            max-width: 280px; /* Prevents the photo from getting giant on large phones */
+            border-radius: 20px; /* Slightly smaller radius fits mobile better */
+        }
+
+        .name {
+            font-size: 1.1rem;
+        }
+
+        .title {
+            font-size: 0.95rem;
+        }
+    }
 </style>

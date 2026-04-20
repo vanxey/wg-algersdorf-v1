@@ -53,5 +53,43 @@ if (!isBlokValid(blok, "QnA Section")) return null;
         font-size: clamp(1.2rem, 2.6vw, 1.8rem);
     }
 
+    /* --- MOBILE UPDATES --- */
+    @media (max-width: 767px) {
+        #qna-section {
+            /* 15px inline padding as requested */
+            padding-inline: 15px; 
+            padding-top: 40px;
+            padding-bottom: 0px; /* Reduced vertical gap for mobile */
+        }
+
+        .heading {
+            padding-bottom: 2px;
+        }
+
+        .subheading {
+            padding-bottom: 20px; /* More space before the first dropdown */
+        }
+    }
+
+    .dropdown-container {
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .heading {
+        font-family: "Alexandria", sans-serif;
+        font-weight: 900;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+        padding-bottom: 5px;
+    }
+
+    .subheading {
+        padding-bottom: 10px;
+        font-family: "Alexandria", sans-serif;
+        font-weight: 900;
+        font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+    }
     
 </style>

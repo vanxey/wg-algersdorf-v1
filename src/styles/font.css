@@ -4,7 +4,7 @@
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
-    src: url('fonts/PT_Sans/PTSans-Regular.ttf') format('truetype');
+    src: url('/fonts/PT_Sans/PTSans-Regular.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -12,7 +12,7 @@
 	font-weight: 700;
 	font-style: normal;
     font-display: swap;
-    src: url('fonts/PT_Sans/PTSans-Bold.ttf') format('truetype');
+    src: url('/fonts/PT_Sans/PTSans-Bold.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -20,7 +20,7 @@
 	font-weight: 400;
 	font-style: italic;
     font-display: swap;
-    src: url('fonts/PT_Sans/PTSans-Italic.ttf') format('truetype');
+    src: url('/fonts/PT_Sans/PTSans-Italic.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -28,7 +28,7 @@
 	font-weight: 700;
 	font-style: italic;
     font-display: swap;
-    src: url('fonts/PT_Sans/PTSans-BoldItalic.ttf') format('truetype');
+    src: url('/fonts/PT_Sans/PTSans-BoldItalic.ttf') format('truetype');
 	}
 /* PT SANS CAPTION */
 	@font-face {
@@ -36,7 +36,7 @@
 	font-weight: 400;
 	font-style: normal;
     font-display: swap;
-    src: url('fonts/PT_Sans_Caption/PTSansCaption-Regular.ttf') format('truetype');
+    src: url('/fonts/PT_Sans_Caption/PTSansCaption-Regular.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -44,7 +44,7 @@
 	font-weight: 700;
 	font-style: normal;
     font-display: swap;
-    src: url('fonts/PT_Sans_Caption/PTSansCaption-Bold.ttf') format('truetype');
+    src: url('/fonts/PT_Sans_Caption/PTSansCaption-Bold.ttf') format('truetype');
 	}
 
 /* PT SERIF CAPTION */
@@ -53,7 +53,7 @@
 	font-weight: 400;
 	font-style: normal;
     font-display: swap;
-    src: url('fonts/PT_Serif_Caption/PTSerifCaption-Regular.ttf') format('truetype');
+    src: url('/fonts/PT_Serif_Caption/PTSerifCaption-Regular.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -61,7 +61,7 @@
 	font-weight: 400;
 	font-style: italic;
     font-display: swap;
-    src: url('fonts/PT_Serif_Caption/PTSerifCaption-Italic.ttf') format('truetype');
+    src: url('/fonts/PT_Serif_Caption/PTSerifCaption-Italic.ttf') format('truetype');
 	}
 
     /* PT SANS NARROW */
@@ -70,7 +70,7 @@
 	font-weight: 400;
 	font-style: normal;
     font-display: swap;
-    src: url('fonts/PT_Sans_Narrow/PTSansNarrow-Regular.ttf') format('truetype');
+    src: url('/fonts/PT_Sans_Narrow/PTSansNarrow-Regular.ttf') format('truetype');
 	}
 
 	@font-face {
@@ -78,7 +78,7 @@
 	font-weight: 400;
 	font-style: italic;
     font-display: swap;
-    src: url('fonts/PT_Sans_Narrow/PTSansNarrow-Bold.ttf') format('truetype');
+    src: url('/fonts/PT_Sans_Narrow/PTSansNarrow-Bold.ttf') format('truetype');
 	}
 
 
@@ -89,7 +89,7 @@
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
-    src: url('fonts/Inter/Inter-VariableFont_opsz-wght.ttf') format('truetype');
+    src: url('/fonts/Inter/Inter-VariableFont_opsz-wght.ttf') format('truetype');
     }
 
     @font-face {
@@ -98,7 +98,7 @@
     font-weight: 100 900;
     font-style: italic;
     font-display: swap;
-    src: url('fonts/Inter/Inter-Italic-VariableFont_opsz-wght.ttf') format('truetype');
+    src: url('/fonts/Inter/Inter-Italic-VariableFont_opsz-wght.ttf') format('truetype');
     }
 
 /* ALEXANDRIA */
@@ -109,5 +109,5 @@
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
-    src: url('fonts/Alexandria/Alexandria-VariableFont_wght.ttf') format('truetype');
+    src: url('/fonts/Alexandria/Alexandria-VariableFont_wght.ttf') format('truetype');
     }

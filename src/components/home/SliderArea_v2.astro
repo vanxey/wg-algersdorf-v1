@@ -129,6 +129,37 @@ const href = formatLink(blok.link, "Slider Button");
         <span class="dot"></span>
     </div>
 </section>
+<script>
+    const slider = document.getElementById('slider-content');
+    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll('.slider-column');
+
+    if (slider && slides.length >= 2) {
+        const secondSlide = slides[1];
+
+        secondSlide.scrollIntoView({ 
+            behavior: 'auto', 
+            block: 'nearest', 
+            inline: 'center' 
+        });
+
+        // DOT LOGIC
+        slider.addEventListener('scroll', () => {
+            const scrollLeft = slider.scrollLeft;
+            const firstSlide = slider.querySelector('.slider-column') as HTMLElement;
+            
+            if (firstSlide) {
+                const slideWidth = firstSlide.clientWidth;
+                const gap = 20; // Matches CSS gap
+                const index = Math.round(scrollLeft / (slideWidth + gap));
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+        });
+    }
+</script>
 
 <style>
     #slider-area {
@@ -188,10 +219,28 @@ const href = formatLink(blok.link, "Slider Button");
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             gap: 20px;
-            padding-inline: 15%;
+            /* padding-inline: 15%; */
+            padding-inline: 10%;
             scrollbar-width: none;
         }
         #slider-content::-webkit-scrollbar { display: none; }
+
+        #slider-heading :global(.btn),
+        #slider-heading :global(a) { 
+            display: none; 
+        }
+
+        .img-container:active .img-text-wrapper,
+        .slider-column:hover .img-text-wrapper {
+            opacity: 1;
+            backdrop-filter: blur(8px) saturate(140%);
+            -webkit-backdrop-filter: blur(8px) saturate(140%);
+        }
+        
+        .img-container:active img,
+        .slider-column:hover img {
+            transform: scale(1.05);
+        }
     }
 
     .slider-column {
@@ -204,7 +253,8 @@ const href = formatLink(blok.link, "Slider Button");
 
     @media (max-width: 1024px) {
         .slider-column {
-            width: 65vw; 
+            /* width: 65vw;  */
+            width: 80vw;
         }
     }
 
@@ -261,10 +311,26 @@ const href = formatLink(blok.link, "Slider Button");
  
     @media (max-width: 1024px) {
         .img-text-wrapper {
+            /* background: linear-gradient(transparent 30%, rgba(0,0,0,0.85)); */
+            justify-content: center;
+            /* background: rgba(56, 50, 43, 0.5);  */
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+
+            transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+            pointer-events: none;
+        }
+
+        .img-container:active .img-text-wrapper {
             opacity: 1;
-            background: linear-gradient(transparent 30%, rgba(0,0,0,0.85));
-            justify-content: flex-end;
-            backdrop-filter: none; 
+            background: rgba(20, 18, 16, 0.75);
+            backdrop-filter: blur(10px) saturate(140%);
+            -webkit-backdrop-filter: blur(10px) saturate(140%);
+        }
+
+        .img-container:active img {
+            transform: scale(1.05);
         }
     }
 
@@ -272,9 +338,10 @@ const href = formatLink(blok.link, "Slider Button");
         font-family: "PT Sans Caption", sans-serif;
         font-weight: 600;
         font-size: 1.25rem;
-        margin-bottom: 8px;
+        /* margin-bottom: 8px;
         transform: translateY(15px);
-        transition: transform 0.4s ease;
+        transition: transform 0.4s ease; */
+        transform: translateY(0);
     }
 
     .slider-column:hover .img-title {
@@ -312,9 +379,44 @@ const href = formatLink(blok.link, "Slider Button");
     @media (min-width: 1024px) {
         #slider-indicator { display: none; }
     }
+
+    /* @media (max-width: 767px) {
+        #slider-area{
+            padding-inline: 0px;
+        }
+    } */
+
+     @media (min-width: 768px) and (max-width: 1024px) {
+        #slider-tag, #slider-heading {
+        padding-inline: 8vw;
+        }
+
+        #slider-content {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        width: 100%;
+        padding-inline: 8vw;
+        scrollbar-width: none;
+    }
+
+    #slider-content::-webkit-scrollbar {
+        display: none;
+    }
+        .slider-column {
+            /* Lowering this number shrinks the image height too */
+            flex: 0 0 50%; 
+            scroll-snap-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+     }
 </style>
 
-<script>
+
+<!-- <script>
     const slider = document.getElementById('slider-content');
     const dots = document.querySelectorAll('.dot');
 
@@ -333,4 +435,4 @@ const href = formatLink(blok.link, "Slider Button");
             }
         });
     }
-</script>
+</script> -->

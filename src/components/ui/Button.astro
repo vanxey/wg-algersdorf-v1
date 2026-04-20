@@ -7,7 +7,33 @@ const { href, variant = 'primary' } = Astro.props;
 </a>
 
 <style>
-  .button { padding: 10px 50px; border-radius: 30px; text-decoration: none; }
+.button {
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 30px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+@media (min-width: 1025px) {
+    .button {
+        padding: 10px 50px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .button {
+        padding: 16px 40px;
+        display: block;     
+        width: 100%;
+        box-sizing: border-box; 
+    }
+    
+    .button:active {
+        transform: scale(0.98);
+    }
+}
+  /* .button { padding: 10px 50px; border-radius: 30px; text-decoration: none; } */
   .primary { background-color: #A38D75; color: white; border: 1px solid #A38D75;}
   .primary:hover { background-color: white; color: #A38D75; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}
   

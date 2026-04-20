@@ -21,6 +21,7 @@ const { href, variant = "primary", ...rest } = Astro.props;
     cursor: pointer;
 
     padding: 10px 50px; border-radius: 30px; 
+    -webkit-tap-highlight-color: transparent;
   }
 
   .btn-text{
@@ -58,6 +59,36 @@ const { href, variant = "primary", ...rest } = Astro.props;
   .btn.arrow:hover {
     opacity: 0.7;
   }
+
+  /* --- Mobile Only (767px and below) --- */
+@media (max-width: 767px) {
+  .btn {
+    /* Taller vertical padding for easier tapping with thumbs */
+    padding: 14px 30px; 
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .btn-text {
+    white-space: normal; /* Replaces your 400px wrap rule */
+    padding-right: 0;
+    text-align: center;
+  }
+
+  /* Tactile feedback for iPhone users */
+  .btn:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+
+  /* Keep arrow links compact but tall enough to tap */
+  .btn.arrow {
+    width: auto;
+    padding: 15px 0; 
+    justify-content: flex-start;
+  }
+}
 
   .primary { background-color: #A38D75; color: white; border: 1px solid #A38D75;}
   .primary:hover { background-color: white; color: #A38D75; border: 1px solid #A38D75; cursor: pointer; transition: 0.5s;}

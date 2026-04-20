@@ -125,4 +125,28 @@ if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
         width: 35px;
         border-radius: 10px;
     }
+
+    /* --- MOBILE UPDATES --- */
+    @media (max-width: 767px) {
+        #detailed-topic-section {
+            padding-bottom: 10px; /* Reduced bottom space for mobile */
+            padding-inline: 15px;  /* Less padding on sides for the header area */
+            row-gap: 40px;
+        }
+
+        .slider-container {
+            /* Match the section padding so cards align with the header */
+            padding-inline: 15px !important; 
+            gap: 15px; /* Tighter gap between cards */
+        }
+
+        .slider-item {
+            /* Make the widget significantly wider on mobile */
+            flex: 0 0 85vw; 
+        }
+
+        .slider-wrapper {
+            gap: 25px; /* Reduced space between slider and dots */
+        }
+    }
 </style>

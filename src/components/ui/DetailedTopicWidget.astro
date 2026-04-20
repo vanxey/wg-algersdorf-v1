@@ -115,4 +115,24 @@ const altText = getAltText(blok.img, "Topic Widget Image");
             min-height: 300px;
         }
     } */
+
+    /* --- Mobile Compatibility --- */
+    @media (max-width: 767px) {
+        #detailed-topic-widget {
+            max-width: none; 
+            width: 100%;
+            
+            min-height: auto; 
+        }
+
+        .row {
+            gap: 20px;
+        }
+
+        .image {
+            height: 80px;
+            width: 80px;
+        }
+    }
+
 </style>
