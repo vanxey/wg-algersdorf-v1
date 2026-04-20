@@ -5,22 +5,24 @@ import Layout from "../layouts/Layout_static_colors.astro";
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
-
-  // Fetch all links/stories from Storyblok
   const { data } = await storyblokApi.get("cdn/links/", {
-    version: "draft", // Change to 'published' for final production
+    version: "draft",
   });
 
   const links = data.links;
 
-  return Object.keys(links).map((linkKey) => {
+  return Object.keys(links).flatMap((linkKey) => {
     const slug = links[linkKey].slug;
-    
+
+    if (slug === 'home') {
+      return [
+        { params: { slug: undefined } }, 
+        { params: { slug: 'home' } }    
+      ];
+    }
+
     return {
-      // Astro expects 'undefined' for the homepage in a [...slug] route
-      params: { 
-        slug: slug === "home" ? undefined : slug 
-      },
+      params: { slug }
     };
   });
 }
