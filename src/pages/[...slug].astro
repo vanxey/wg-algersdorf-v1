@@ -3,6 +3,28 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../layouts/Layout_static_colors.astro";
 
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+
+  // Fetch all links/stories from Storyblok
+  const { data } = await storyblokApi.get("cdn/links/", {
+    version: "draft", // Change to 'published' for final production
+  });
+
+  const links = data.links;
+
+  return Object.keys(links).map((linkKey) => {
+    const slug = links[linkKey].slug;
+    
+    return {
+      // Astro expects 'undefined' for the homepage in a [...slug] route
+      params: { 
+        slug: slug === "home" ? undefined : slug 
+      },
+    };
+  });
+}
+
 const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi()
 const storyPath = slug === undefined ? 'home' : slug;
