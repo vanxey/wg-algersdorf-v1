@@ -135,13 +135,10 @@ const href = formatLink(blok.link, "Slider Button");
     const slides = document.querySelectorAll('.slider-column');
 
     if (slider && slides.length >= 2) {
-        const secondSlide = slides[1];
+        const secondSlide = slides[1] as HTMLElement;
 
-        secondSlide.scrollIntoView({ 
-            behavior: 'auto', 
-            block: 'nearest', 
-            inline: 'center' 
-        });
+        const scrollTarget = secondSlide.offsetLeft - (slider.clientWidth / 2) + (secondSlide.clientWidth / 2);
+        slider.scrollLeft = scrollTarget;
 
         // DOT LOGIC
         slider.addEventListener('scroll', () => {
@@ -150,7 +147,7 @@ const href = formatLink(blok.link, "Slider Button");
             
             if (firstSlide) {
                 const slideWidth = firstSlide.clientWidth;
-                const gap = 20; // Matches CSS gap
+                const gap = 20; 
                 const index = Math.round(scrollLeft / (slideWidth + gap));
                 
                 dots.forEach((dot, i) => {

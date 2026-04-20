@@ -33,7 +33,7 @@ const finalLogo = logoSrc || localLogo;
     </div>
 </div>
 
-<script>
+<!-- <script>
     const burgerMenu = document.getElementById('burger-menu');
     const navMenu = document.getElementById('nav-menu');
 
@@ -48,12 +48,38 @@ const finalLogo = logoSrc || localLogo;
             navMenu?.classList.remove('active');
         });
     });
+</script> -->
+
+<script>
+    const burgerMenu = document.getElementById('burger-menu');
+    const navMenu = document.getElementById('nav-menu');
+
+    burgerMenu?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = navMenu?.classList.toggle('active');
+        burgerMenu.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (event) => {
+        const isClickInsideMenu = navMenu?.contains(event.target as Node);
+        const isClickOnBurger = burgerMenu?.contains(event.target as Node);
+
+        if (navMenu?.classList.contains('active') && !isClickInsideMenu && !isClickOnBurger) {
+            navMenu.classList.remove('active');
+            burgerMenu?.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    const navLinks = document.querySelectorAll('#nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu?.classList.remove('active');
+            burgerMenu?.setAttribute('aria-expanded', 'false');
+        });
+    });
 </script>
 
 <style>
-    /* THE FIX: We use :global() for any element that comes 
-       from a nested Storyblok component.
-    */
 
     #navbar {
         display: flex;

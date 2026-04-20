@@ -36,11 +36,28 @@ import "../styles/color.css"
 		flex-direction: column;
 		font-family: 'PT Sans';
 		background-color: white;
-
-		/* Stop 80px early for every anchor link on the site */
-		scroll-padding-top: 100px;
+		/* scroll-padding-top: 100px; */
 		
-		/* Make the jump feel smooth instead of a sudden snap */
 		scroll-behavior: smooth;
+	}
+
+    /* section, [id] {
+        scroll-padding-top: 100px;
+    }
+
+    @media (max-width: 767px) {
+        section, [id] {
+            scroll-padding-top: 70px;
+        }
+    } */
+	section, [id] {
+    	scroll-margin-top: 100px;
+	}
+
+	@media (max-width: 767px) {
+		/* 15px rule context */
+		section, [id] {
+			scroll-margin-top: 70px;
+		}
 	}
 </style>
