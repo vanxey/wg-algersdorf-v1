@@ -1,11 +1,29 @@
-*{
-    --primary-color: #38322B;
-    --secondary-color: #A38D75;
+:root {
+  /* --- LIGHT THEME (Default) --- */
+  --color-primary: #A38D75;
+  --color-secondary: #38322B;
+  --color-bg-light: #FDFBF7;
+  --color-text: #38322B;
+  --color-white: #FFFFFF;
+  --navbar-bg: #FFFFFF;
+  --navbar-border: #f0f0f0;
+}
 
-    --offwhite-color-1: #FDFBF7;
-    --offwhite-color-2: #F2EEE9;
+/* --- DARK THEME OVERRIDES --- */
+/* If <html> tag has data-theme="dark" */
+[data-theme="dark"] {
+  --color-primary: #D1BFA7;      
+  --color-secondary: #FDFBF7;    
+  --color-bg-light: #1A1816;    
+  --color-text: #FDFBF7;       
+  --color-white: #25221F;      
+  --navbar-bg: #1A1816;
+  --navbar-border: #332E2A;
+}
 
-    --default-dark-color: black;
-    --default-light-color: white;
-
+/* --- SHARED DYNAMIC UTILITIES --- */
+:root, [data-theme="dark"] {
+  --color-primary-hover: color-mix(in srgb, var(--color-primary), black 15%);
+  --color-primary-soft: color-mix(in srgb, var(--color-primary), transparent 85%);
+  --color-secondary-overlay: color-mix(in srgb, var(--color-secondary), transparent 25%);
 }

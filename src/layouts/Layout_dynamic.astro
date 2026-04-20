@@ -1,0 +1,70 @@
+---
+import Navbar_static from "../components/all/Navbar_static.astro"
+import "../styles/color.css"
+
+// Receive theme data from the page (optional, based on your Storyblok setup)
+const { themeBlok } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro Basics</title>
+
+        <script is:inline>
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const finalTheme = savedTheme || systemTheme;
+            
+            document.documentElement.setAttribute('data-theme', finalTheme);
+        </script>
+
+        <style define:vars={{ 
+            storyPrimary: themeBlok?.color_primary,
+            storySecondary: themeBlok?.color_secondary,
+            storyBg: themeBlok?.color_background 
+        }}>
+            :root {
+                --color-primary: var(--storyPrimary, #A38D75);
+                --color-secondary: var(--storySecondary, #38322B);
+                --color-bg-light: var(--storyBg, #FDFBF7);
+            }
+        </style>
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<style is:global>
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+
+        display: flex;
+        flex-direction: column;
+        font-family: 'PT Sans', sans-serif;
+        
+        background-color: var(--color-bg-light);
+        color: var(--color-text);
+
+        scroll-padding-top: 100px;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+</style>
