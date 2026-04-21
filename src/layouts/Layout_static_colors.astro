@@ -1,22 +1,26 @@
 ---
 import Navbar_static from "../components/all/Navbar_static.astro"
+import BaseHead from "../components/BaseHead.astro";
 import "../styles/font.css";
 import "../styles/color.css"
+
+const { blok } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<!-- <Navbar_static /> -->
-			<slot />
-	</body>
+<html lang="de">
+    <head>
+        <BaseHead 
+            title={blok?.seo_title || "WG Algersdorfer Straße"} 
+            description={blok?.seo_description || "Modernes Wohnen in Graz."}
+        />
+        
+        <meta name="generator" content={Astro.generator} />
+        
+        <link rel="icon" type="image/png" href="/favicon-wg.png" />
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
 
 <style is:global>
