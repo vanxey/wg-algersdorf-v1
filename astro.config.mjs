@@ -28,10 +28,12 @@ export default defineConfig({
         socialMedia: "components/about/SocialMedia.astro",
 
         callToActionSection: "components/all/CallToActionSection.astro",
+        callToActionSectionDownload: "components/all/CallToActionSectionDownload.astro",
         contactSection: "components/all/ContactSection.astro",
         footer: "components/all/Footer.astro",
         hero2: "components/all/Hero2.astro", 
         navbar: "components/all/Navbar.astro", 
+        richTextSection: "components/all/RichTextSection.astro",
 
         communitySection: "components/community/CommunitySection.astro",
 
@@ -61,6 +63,8 @@ export default defineConfig({
         socialMediaIcon: "components/ui/SocialMediaIcons.astro",
         navDropdown: "components/ui/NavDropDown.astro",
         navLink: "components/ui/NavLink.astro",
+        socialMediaWidget: "components/ui/SocialMediaWidget.astro",
+        socialMediaWidgetDual: "components/ui/SocialMediaWidgetDual.astro",
        
       },
     }),

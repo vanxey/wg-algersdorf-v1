@@ -1,7 +1,10 @@
 ---
-const { variant = 'primary' } = Astro.props;
+import Navbar from "../all/Navbar.astro";
+
+const { variant = 'primary', ...rest } = Astro.props;
 ---
-<div class=`heading-wrapper ${variant}`>
+
+<div class=`heading-wrapper ${variant}` {...rest}>
     <slot/>
 </div>
 

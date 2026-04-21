@@ -31,8 +31,38 @@ if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
         </div>
     </div>
 </section>
-
 <script>
+    const slider = document.getElementById('widget-slider');
+    const dots = document.querySelectorAll('#detailed-topic-section .dot');
+    const items = document.querySelectorAll('#detailed-topic-section .slider-item');
+
+    if (slider && dots.length > 0) {
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const targetItem = items[index] as HTMLElement;
+                if (targetItem) {
+                    slider.scrollTo({
+                        left: targetItem.offsetLeft - slider.offsetLeft,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+       
+        slider.addEventListener('scroll', () => {
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            const scrollPercentage = slider.scrollLeft / maxScroll;
+            const index = Math.round(scrollPercentage * (dots.length - 1));
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        });
+    }
+</script>
+<!-- <script>
     const slider = document.getElementById('widget-slider');
     const dots = document.querySelectorAll('#detailed-topic-section .dot');
 
@@ -47,7 +77,7 @@ if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
         });
     });
     }
-</script>
+</script> -->
 
 <style>
     #detailed-topic-section {
@@ -71,6 +101,7 @@ if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
         display: flex;
         flex-direction: column;
         gap: 40px;
+        overflow: visible;
     }
 
     .slider-container {
@@ -109,21 +140,32 @@ if (!isBlokValid(blok, "Detailed Topic Widget")) return null;
         justify-content: center;
         gap: 12px;
         padding-bottom: 20px;
+        z-index: 20;
     }
 
     .dot {
-        width: 10px;
-        height: 10px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        background-color: rgba(163, 141, 117, 0.15);
+        /* background-color: rgba(163, 141, 117, 0.5); */
+        background-color: #A38D75;
+        opacity: 0.3;
         cursor: pointer;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        padding: 6px;
+        background-clip: content-box;
+    }
+
+    .dot:hover{
+        cursor: pointer;
     }
 
     .dot.active {
+        opacity: 1;
         background-color: #A38D75;
-        width: 35px;
-        border-radius: 10px;
+        width: 45px;
+        border-radius: 12px;
     }
 
     /* --- MOBILE UPDATES --- */

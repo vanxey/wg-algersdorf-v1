@@ -134,6 +134,47 @@ const href = formatLink(blok.link, "Slider Button");
     const dots = document.querySelectorAll('.dot');
     const slides = document.querySelectorAll('.slider-column');
 
+    if (slider && slides.length > 0) {
+        const getCenterTarget = (index: number) => {
+            const targetSlide = slides[index] as HTMLElement;
+            return targetSlide.offsetLeft - (slider.clientWidth / 2) + (targetSlide.clientWidth / 2);
+        };
+
+        if (slides.length >= 2) {
+            slider.scrollLeft = getCenterTarget(1);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slider.scrollTo({
+                    left: getCenterTarget(index),
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        slider.addEventListener('scroll', () => {
+            const scrollLeft = slider.scrollLeft;
+            const firstSlide = slider.querySelector('.slider-column') as HTMLElement;
+            
+            if (firstSlide) {
+                const slideWidth = firstSlide.clientWidth;
+                const gap = 20; 
+                const index = Math.round(scrollLeft / (slideWidth + gap));
+                
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+        });
+    }
+</script>
+
+<!-- <script>
+    const slider = document.getElementById('slider-content');
+    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll('.slider-column');
+
     if (slider && slides.length >= 2) {
         const secondSlide = slides[1] as HTMLElement;
 
@@ -156,7 +197,7 @@ const href = formatLink(blok.link, "Slider Button");
             }
         });
     }
-</script>
+</script> -->
 
 <style>
     #slider-area {
@@ -366,6 +407,10 @@ const href = formatLink(blok.link, "Slider Button");
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
+    }
+
+    .dot:hover{
+        cursor: pointer;
     }
 
     .dot.active {

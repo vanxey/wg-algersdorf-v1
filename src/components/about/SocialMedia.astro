@@ -3,6 +3,7 @@ import { storyblokEditable } from "@storyblok/astro";
 import { isBlokValid, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
 import Tag from "../ui/Tag.astro";
 import Heading from "../ui/Heading.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props;
 
@@ -13,8 +14,19 @@ const icons = {
 
 if (!isBlokValid(blok, "Social Media Section")) return null;
 ---
-
 <section id="social-feed-section" {...storyblokEditable(blok)}>
+    <div class="header-area">
+        <Tag variant="secondary">{blok.tag_text}</Tag>
+        <Heading variant="secondary">{blok.heading}</Heading>
+    </div>
+
+    <div class="grid-container">
+        {blok.posts?.map((nestedBlok) => (
+            <StoryblokComponent blok={nestedBlok} />
+        ))}
+    </div>
+</section>
+<!-- <section id="social-feed-section" {...storyblokEditable(blok)}>
     <div class="header-area">
         <Tag variant="secondary">{blok.tag_text || "Social Media"}</Tag>
         <Heading variant="secondary">{blok.heading || "Immer up to date bleiben:"}</Heading>
@@ -56,7 +68,7 @@ if (!isBlokValid(blok, "Social Media Section")) return null;
             );
         })}
     </div>
-</section>
+</section> -->
 
 <style>
     #social-feed-section {

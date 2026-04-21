@@ -1,0 +1,71 @@
+---
+import Tag from "../ui/Tag.astro"
+import Heading from "../ui/Heading.astro"
+import { storyblokEditable } from "@storyblok/astro"
+import { isBlokValid, renderSafeRichText } from "../../utils/storyblok";
+
+const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Richtext Section")) return null;
+
+const renderedContent = renderSafeRichText(blok.text, "Call To Action Text");
+---
+
+<section id="richtext-section" {...storyblokEditable(blok)}>
+    <Tag variant="secondary">{blok.category_name}</Tag>
+    <Heading variant="secondary">{blok.heading}</Heading>
+    <div class="text" set:html={renderedContent}/>
+</section>
+
+<style>
+    #richtext-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        
+        
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        padding-top: 40px;
+        
+    
+        color: #38322B;
+        row-gap: 20px;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        max-width: 900px; 
+    }
+
+    .text {
+        font-family: "PT Sans", sans-serif;
+        font-weight: 400;
+        
+        font-size: clamp(1rem, 2.2vw, 1.2rem); 
+        line-height: 1.6;
+        color: #38322B;
+        /* font-size: 1.2rem; */
+    }
+
+    .text :global(*) {
+        color: #38322B !important;
+    }
+
+    
+    @media (min-width: 1024px) {
+        #richtext-section {
+            padding-top: 20px;
+           
+            padding-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        #richtext-section {
+            padding-inline: 15px;
+        }
+    }
+</style>

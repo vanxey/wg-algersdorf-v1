@@ -32,7 +32,6 @@ const finalLogo = logoSrc || localLogo;
         </svg>
     </div>
 </div>
-
 <script>
     const burgerMenu = document.getElementById('burger-menu');
     const navMenu = document.getElementById('nav-menu');
@@ -43,6 +42,24 @@ const finalLogo = logoSrc || localLogo;
         burgerMenu.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     });
 
+    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            if (window.innerWidth <= 640) {
+                e.preventDefault(); 
+                e.stopPropagation();
+                
+                const dropdown = trigger.closest('.dropdown');
+                dropdown?.classList.toggle('is-open');
+                
+                const chevron = trigger.querySelector('.chevron') as HTMLElement;
+                if (chevron) {
+                    chevron.style.transform = dropdown?.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            }
+        });
+    });
+
     document.addEventListener('click', (event) => {
         const isClickInsideMenu = navMenu?.contains(event.target as Node);
         const isClickOnBurger = burgerMenu?.contains(event.target as Node);
@@ -50,6 +67,8 @@ const finalLogo = logoSrc || localLogo;
         if (navMenu?.classList.contains('active') && !isClickInsideMenu && !isClickOnBurger) {
             navMenu.classList.remove('active');
             burgerMenu?.setAttribute('aria-expanded', 'false');
+            
+            document.querySelectorAll('.dropdown.is-open').forEach(d => d.classList.remove('is-open'));
         }
     });
 
@@ -63,7 +82,6 @@ const finalLogo = logoSrc || localLogo;
 </script>
 
 <style>
-
     #navbar {
         display: flex;
         align-items: center;
@@ -92,7 +110,6 @@ const finalLogo = logoSrc || localLogo;
         height: 100%;
     }
 
-    /* Target nested links and dropdown triggers */
     nav :global(a), 
     nav :global(.dropdown-trigger) {
         text-decoration: none;
@@ -136,10 +153,13 @@ const finalLogo = logoSrc || localLogo;
         z-index: 1001;
     }
 
-    nav :global(.dropdown:hover .dropdown-content) {
-        opacity: 1;
-        visibility: visible;
-        top: 100%;
+    @media screen and (min-width: 641px) {
+        nav :global(.dropdown:hover .dropdown-content) {
+            opacity: 1;
+            visibility: visible;
+            top: 100%;
+        }
+        nav :global(.dropdown:hover .chevron) { transform: rotate(180deg); }
     }
 
     nav :global(.dropdown-content a) {
@@ -147,17 +167,15 @@ const finalLogo = logoSrc || localLogo;
         display: block;
         font-size: 0.9rem;
         border-bottom: none;
-        text-align: left; /* Keep original left alignment */
+        text-align: left;
     }
 
     nav :global(.chevron) { width: 18px; height: 18px; transition: transform 0.3s; }
-    nav :global(.dropdown:hover .chevron) { transform: rotate(180deg); }
 
     #burger-menu { display: none; cursor: pointer; }
     #burger-menu svg { height: 40px; width: 40px; }
 
     @media screen and (max-width: 640px) {
-        #navbar { padding: 0 20px; }
         #burger-menu { display: flex; }
 
         nav {
@@ -175,7 +193,7 @@ const finalLogo = logoSrc || localLogo;
             pointer-events: none;
         }
 
-        nav.active { max-height: 800px; opacity: 1; pointer-events: auto; }
+        nav.active { max-height: 1000px; opacity: 1; pointer-events: auto; }
 
         nav :global(.dropdown) {
             width: 100%;
@@ -195,12 +213,21 @@ const finalLogo = logoSrc || localLogo;
             transform: none;
             width: 100%;
             box-shadow: none;
-            opacity: 1;
-            visibility: visible;
+            max-height: 0; 
+            opacity: 0;
+            visibility: hidden;
             display: flex;
             flex-direction: column;
             background-color: #f9f9f9;
             padding: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+
+        nav :global(.dropdown.is-open .dropdown-content) {
+            max-height: 500px;
+            opacity: 1;
+            visibility: visible;
         }
 
         nav :global(a), 

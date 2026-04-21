@@ -1,0 +1,178 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import Heading from "../ui/Heading.astro";
+import Button from "../ui/Button.astro";
+import { isBlokValid, renderSafeRichText, getImageUrl, getAltText, formatLink } from "../../utils/storyblok"
+
+const { blok } = Astro.props;
+
+if (!isBlokValid(blok, "Call To Action")) return null;
+
+const renderedContent = renderSafeRichText(blok.text, "Call To Action Text");
+const imageSrc = getImageUrl(blok.img, "/m/2000x0/smart/filters:format(webp):quality(75)", "Banner Image");
+const altText = getAltText(blok.img, "Banner Image");
+---
+<section id="call-to-action-section" {...storyblokEditable(blok)}>
+
+    <div class="wrapper">
+          <!-- {blok.img && <img src={blok.img.filename} alt={blok.img.alt}/>} -->
+           <!-- <img src={`${blok.img?.filename}/m/2000x0/smart/filters:format(webp):quality(75)`} 
+                    alt={blok.img.alt || "Slider Image 1"}
+                    width="2000" 
+                    height="857"
+                    loading="lazy" 
+                /> -->
+            {imageSrc && (
+                <img 
+                    src={imageSrc} 
+                    alt={altText}
+                    width="2000"
+                    height="857"
+                    loading="lazy"
+                />
+            )}
+         <div class="overlay"></div>
+        <div class="wrapper-content">
+        <div class="heading"> <Heading>{blok.heading}</Heading></div>
+                <div class="text" set:html={renderedContent} />
+                <div class="btn" >
+                    <Button 
+                    variant="quinary" 
+                    href="/downloads/Formular_Mitglied.pdf" 
+                    download
+                    style="padding-inline: 100px;">
+                        {blok.button_text}
+                </Button>
+                </div>
+        </div>
+        
+    </div>
+</section>
+
+<style>
+    #call-to-action-section {
+        display: flex;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        padding-inline: clamp(1.25rem, 8vw, 10%);
+        width: 100%;
+        color: white;
+    }
+
+    .wrapper {
+        display: flex;
+        min-height: 500px;
+        width: 100%;
+        border-radius: 40px;
+        background-color: #38322B;
+        position: relative; 
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper-content {
+        position: relative; 
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+    
+        width: 100%;
+        max-width: 900px; 
+        
+        padding: 40px;
+        text-align: center;
+        row-gap: 10px;
+        align-items: center;
+        justify-content: center;
+
+        padding-inline: clamp(1.5rem, 10vw, 15%);
+    }
+
+    img {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+
+        object-position: center; 
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(56, 50, 43, 0.8);
+        z-index: 2;
+    }
+
+    .btn {
+        height: fit-content;
+        width: 100%;
+        padding-top: 20px;
+    }
+
+    .btn :global(button), .btn :global(a) {
+        padding-inline: clamp(2rem, 15vw, 100px) !important;
+    }
+
+    .text {
+        color: white;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .text :global(*) {
+        color: white !important;
+    }
+
+    .heading {
+        border-bottom: solid 1px #A38D75;
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* --- Mobile & Tablet Optimization --- */
+    @media (max-width: 767px) {
+        #call-to-action-section {
+            padding-top: 40px;
+            padding-bottom: 0px;
+            padding-inline: 15px; 
+        }
+
+        .wrapper {
+            min-height: 400px; 
+            border-radius: 30px;
+        }
+
+        .wrapper-content {
+            padding-inline: 20px;
+            padding-block: 60px;
+            row-gap: 15px;
+        }
+
+        .text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn :global(button), 
+        .btn :global(a) {
+            padding-inline: 25px !important; 
+            width: 100%;
+            max-width: 300px; 
+            box-sizing: border-box;
+        }
+
+        .heading {
+            width: 100%;
+        }
+    }
+</style>

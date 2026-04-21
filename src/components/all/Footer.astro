@@ -15,9 +15,14 @@ const altText2 = getAltText(blok.map, "Map Image");
 const href1 = formatLink(blok.link_1, "Page Link 1");
 const href2 = formatLink(blok.link_2, "Page Link 2");
 const href3 = formatLink(blok.link_3, "Page Link 3");
+
 const href4 = formatLink(blok.link_4, "Page Link 4");
 const href5 = formatLink(blok.link_5, "Page Link 5");
 const href6 = formatLink(blok.link_6, "Page Link 6");
+
+const href7 = formatLink(blok.link_7, "Page Link 4");
+const href8 = formatLink(blok.link_8, "Page Link 5");
+const href9 = formatLink(blok.link_9, "Page Link 6");
 ---
 <section id="footer" {...storyblokEditable(blok)}>
     <div class="r-1">
@@ -31,7 +36,7 @@ const href6 = formatLink(blok.link_6, "Page Link 6");
                     width="400" 
                     height="400"
                 /> -->
-                {imageSrc2 && (
+                {imageSrc1 && (
                     <img 
                         src={imageSrc1} 
                         alt={altText1} 
@@ -53,13 +58,17 @@ const href6 = formatLink(blok.link_6, "Page Link 6");
                 <a href="/legal">Impressum</a>
             </div> -->
             <div class="links">
-                <a href={href1}>Über uns</a>
-                <a href={href2}>Team</a>
-                <a href={href3}>Community</a>
+                <a href={href1}>{blok.link_1_text}</a>
+                <a href={href2}>{blok.link_2_text}</a>
+                <a href={href3}>{blok.link_3_text}</a>
     
-                <a href={href4}>Kontakt</a>
-                <a href={href5}>Datenschutz</a>
-                <a href={href6}>Impressum</a>
+                <a href={href4}>{blok.link_4_text}</a>
+                <a href={href5}>{blok.link_5_text}</a>
+                <a href={href6}>{blok.link_6_text}</a>
+
+                <a href={href7}>{blok.link_7_text}</a>
+                <a href={href8}>{blok.link_8_text}</a>
+                <a href={href9}>{blok.link_9_text}</a>
             </div>
         </div>
     </div>
@@ -277,6 +286,17 @@ const href6 = formatLink(blok.link_6, "Page Link 6");
         font-size: 1.25rem;
         margin: 0;
         font-family: "PT Sans Caption", sans-serif;
+        text-decoration: none;
+    }
+
+    .addr > a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .contact > a{
+        text-decoration: none;
+        color: white;
     }
 
     .info .contact {
@@ -326,4 +346,6 @@ const href6 = formatLink(blok.link_6, "Page Link 6");
         font-style: italic;
         color: #A38D75;
     }
+
+    
 </style>

@@ -12,7 +12,7 @@ if (!isBlokValid(blok, "Team Section")) return null;
 <section id="team-section" {...storyblokEditable(blok)}>
     <div class="header-area">
         <Tag variant="secondary">{blok.tag_text || "Team"}</Tag>
-        <Heading variant="secondary">{blok.heading}</Heading>
+        <Heading variant="secondary" style="color: #38322B;">{blok.heading}</Heading>
     </div>
 
     {blok.departments?.map((dept) => (
