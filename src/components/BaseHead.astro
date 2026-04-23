@@ -1,6 +1,16 @@
 ---
 const { title, description, ogImage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+let finalOgImage = "";
+
+if (ogImage) {
+  if (ogImage.includes("a.storyblok.com")) {
+    finalOgImage = `${ogImage}/m/1200x630/smart/`;
+  } else {
+    finalOgImage = new URL(ogImage, Astro.url.origin).href;
+  }
+}
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -18,4 +28,4 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 
-{ogImage && <meta property="og:image" content={`${ogImage}/m/1200x630/smart/`} />}
+{finalOgImage && <meta property="og:image" content={finalOgImage} />}

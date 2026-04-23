@@ -29,16 +29,28 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi()
-const storyPath = slug === undefined ? 'home' : slug;
+
+let storyPath = slug === undefined ? 'home' : slug;
+storyPath = storyPath.replace(/\/$/, "").replace(/\.html$/, "");
 
 const isPreview = import.meta.env.STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
 const version = isPreview ? "draft" : "published";
 
-const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
-  version: version,
-});
+// const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
+//   version: version,
+// });
 
-const story = data.story;
+// const story = data.story;
+try {
+  const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
+    version: version,
+  });
+  var story = data.story;
+} catch (e) {
+
+  console.error(`Storyblok 404: Could not find story with slug "${storyPath}"`);
+  throw e; 
+}
 ---
 
 <Layout blok={story.content}>

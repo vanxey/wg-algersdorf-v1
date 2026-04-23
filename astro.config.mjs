@@ -12,8 +12,13 @@ const { STORYBLOK_DELIVERY_API_TOKEN } = loadEnv(
   '',
 );
 
+const isProduction = process.env.CONTEXT === 'production';
+const siteUrl = isProduction 
+  ? 'https://www.wg-algersdorf.org' 
+  : process.env.DEPLOY_PRIME_URL || 'http://localhost:4321';
+
 export default defineConfig({
-  site: 'https://www.wg-algersdorf.org',
+  site: siteUrl,
   integrations: [storyblok({
     accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
     bridge: true,
