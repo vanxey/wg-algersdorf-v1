@@ -26,49 +26,40 @@ if (!isBlokValid(blok, "Social Media Section")) return null;
         ))}
     </div>
 </section>
-<!-- <section id="social-feed-section" {...storyblokEditable(blok)}>
-    <div class="header-area">
-        <Tag variant="secondary">{blok.tag_text || "Social Media"}</Tag>
-        <Heading variant="secondary">{blok.heading || "Immer up to date bleiben:"}</Heading>
-    </div>
 
-    <div class="grid-container">
-        {blok.posts?.map((nestedBlok) => {
-            const platform = nestedBlok.platform?.toLowerCase() || 'instagram';
+<script>
+    function initSocialTouch() {
+        const cards = document.querySelectorAll('.post-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                const isTouch = window.matchMedia("(pointer: coarse)").matches;
+                if (!isTouch) return;
 
-            const imageSrc = getImageUrl(nestedBlok.image, "/m/600x600/smart/filters:format(webp):quality(70)", "Social Media Image");
-            const altText = getAltText(nestedBlok.image, "Social Media Image");
-            const href = formatLink(nestedBlok.link, "Social Media");
-            return (
-                <a href={href} target="_blank" class="post-card" {...storyblokEditable(nestedBlok)}>
-                    <div class="image-wrapper">
-                        {/* <img src={nestedBlok.image?.filename} alt="Social post" loading="lazy" /> */}
-                         {/* <img src={`${nestedBlok.image?.filename}/m/600x600/smart/filters:format(webp):quality(70)`} 
-                                 alt={nestedBlok.name || "Social Media Preview"}
-                                 loading="lazy"
-                                 width="300" 
-                                 height="300"
-                            /> */}
-                            {imageSrc && (
-                                <img 
-                                    src={imageSrc} 
-                                    alt={altText}
-                                    width="300"
-                                    height="300"
-                                    loading="lazy"
-                                />
-                            )}
-                        <div class="hover-overlay">
-                            <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-                                <path d={icons[platform]} />
-                            </svg>
-                        </div>
-                    </div>
-                </a>
-            );
-        })}
-    </div>
-</section> -->
+                const isRevealed = this.classList.contains('is-revealed');
+
+                if (!isRevealed) {
+                    if (this.tagName === 'A') {
+                        e.preventDefault();
+                    }
+
+                    cards.forEach(c => c.classList.remove('is-revealed'));
+
+                    this.classList.add('is-revealed');
+                } 
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!(e.target as Element).closest('.post-card')) {
+                cards.forEach(c => c.classList.remove('is-revealed'));
+            }
+        });
+    }
+
+    initSocialTouch();
+    document.addEventListener('astro:after-swap', initSocialTouch);
+</script>
 
 <style>
     #social-feed-section {

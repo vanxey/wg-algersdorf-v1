@@ -5,14 +5,19 @@ import "../styles/font.css";
 import "../styles/color.css"
 
 const { blok } = Astro.props;
+
+const title = blok?.seo_title || "WG Algersdorfer Straße | Graz";
+const description = blok?.seo_description || "WG Algersdorfer Straße Graz: Ihr Partner für selbstbestimmtes Wohnen und Inklusion. Wir fördern die Selbstständigkeit von Menschen mit Beeinträchtigung.";
+const ogImageSource = blok?.og_image?.filename || "/og-image.jpeg";
 ---
 <!doctype html>
 <html lang="de">
     <head>
         <BaseHead 
-            title={blok?.seo_title || "WG Algersdorfer Straße"} 
-            description={blok?.seo_description || "Modernes Wohnen in Graz."}
-        />
+            title={title} 
+            description={description}
+			ogImage={ogImageSource}
+			/>
         
         <meta name="generator" content={Astro.generator} />
         

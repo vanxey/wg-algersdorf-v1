@@ -38,6 +38,6 @@ const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
 const { story } = data;
 ---
 
-<Layout>
+<Layout blok={story.content}>
   <StoryblokComponent blok={story.content} />
 </Layout>
