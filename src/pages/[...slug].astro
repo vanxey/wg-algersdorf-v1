@@ -41,6 +41,12 @@ const version = isPreview ? "draft" : "published";
 // });
 
 // const story = data.story;
+console.log("--- NETLIFY BUILD DEBUG ---");
+console.log("Path detected:", storyPath);
+console.log("Is Preview Var:", import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW);
+console.log("Requesting Version:", version);
+console.log("---------------------------");
+
 try {
   const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
     version: version,
