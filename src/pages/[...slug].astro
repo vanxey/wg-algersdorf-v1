@@ -62,3 +62,15 @@ try {
 <Layout blok={story.content}>
   <StoryblokComponent blok={story.content} />
 </Layout>
+
+
+<script>
+  window.onload = () => {
+    if (typeof window.StoryblokBridge !== "undefined") {
+      const bridge = new window.StoryblokBridge();
+      bridge.on(["published", "change", "input"], () => {
+        window.location.reload();
+      });
+    }
+  };
+</script>
