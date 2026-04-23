@@ -1,5 +1,5 @@
 ---
-import { useStoryblokApi } from "@storyblok/astro";
+import { useStoryblokApi, useStoryblok } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../layouts/Layout_static_colors.astro";
 
@@ -31,11 +31,15 @@ const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi()
 const storyPath = slug === undefined ? 'home' : slug;
 
+const isPreview = import.meta.env.STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
+const version = isPreview ? "draft" : "published";
+
 const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
-  version: "draft",
+  version: version,
 });
 
-const { story } = data;
+// const { story } = data;
+const story = await useStoryblok(data.story.id, data.story);
 ---
 
 <Layout blok={story.content}>

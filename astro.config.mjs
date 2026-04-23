@@ -16,6 +16,7 @@ export default defineConfig({
   site: 'https://www.wg-algersdorf.org',
   integrations: [storyblok({
     accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
+    bridge: true,
     apiOptions: {
       region: 'eu',
     },
