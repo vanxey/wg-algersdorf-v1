@@ -33,7 +33,7 @@ const storyblokApi = useStoryblokApi()
 let storyPath = slug === undefined ? 'home' : slug;
 storyPath = storyPath.replace(/\/$/, "").replace(/\.html$/, "");
 
-const isPreview = import.meta.env.STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
+const isPreview = import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
 const version = isPreview ? "draft" : "published";
 
 // const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
