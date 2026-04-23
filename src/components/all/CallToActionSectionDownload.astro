@@ -11,6 +11,8 @@ if (!isBlokValid(blok, "Call To Action")) return null;
 const renderedContent = renderSafeRichText(blok.text, "Call To Action Text");
 const imageSrc = getImageUrl(blok.img, "/m/2000x0/smart/filters:format(webp):quality(75)", "Banner Image");
 const altText = getAltText(blok.img, "Banner Image");
+
+const pdf = blok.file || ""
 ---
 <section id="call-to-action-section" {...storyblokEditable(blok)}>
 
@@ -38,7 +40,7 @@ const altText = getAltText(blok.img, "Banner Image");
                 <div class="btn" >
                     <Button 
                     variant="quinary" 
-                    href="/downloads/Formular_Mitglied.pdf" 
+                    href={pdf}
                     download
                     style="padding-inline: 100px;">
                         {blok.button_text}
