@@ -3,6 +3,64 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import Layout from "../layouts/Layout_static_colors.astro";
 
+export const prerender = import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW !== 'true';
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/links/", {
+    version: "draft",
+  });
+  const links = data.links;
+  return Object.keys(links).flatMap((linkKey) => {
+    const slug = links[linkKey].slug;
+    if (slug === 'home') {
+      return [
+        { params: { slug: undefined } },
+        { params: { slug: 'home' } }
+      ];
+    }
+    return { params: { slug } };
+  });
+}
+
+const { slug } = Astro.params;
+const storyblokApi = useStoryblokApi();
+let storyPath = slug === undefined ? 'home' : slug;
+storyPath = storyPath.replace(/\/$/, "").replace(/\.html$/, "");
+
+const isPreview = import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
+const version = isPreview ? "draft" : "published";
+
+try {
+  const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
+    version: version,
+  });
+  var story = data.story;
+} catch (e) {
+  console.error(`Storyblok 404: Could not find story with slug "${storyPath}"`);
+  throw e;
+}
+---
+<Layout blok={story.content}>
+  <StoryblokComponent blok={story.content} />
+</Layout>
+
+<script>
+  window.onload = () => {
+    if (typeof window.StoryblokBridge !== "undefined") {
+      const bridge = new window.StoryblokBridge();
+      bridge.on(["published", "change", "input"], () => {
+        window.location.reload();
+      });
+    }
+  };
+</script>
+
+<!-- ---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../layouts/Layout_static_colors.astro";
+
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
   const { data } = await storyblokApi.get("cdn/links/", {
@@ -27,6 +85,8 @@ export async function getStaticPaths() {
   });
 }
 
+export const prerender = import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW !== 'true';
+
 const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi()
 
@@ -35,6 +95,7 @@ storyPath = storyPath.replace(/\/$/, "").replace(/\.html$/, "");
 
 const isPreview = import.meta.env.PUBLIC_STORYBLOK_IS_PREVIEW === 'true' || import.meta.env.DEV;
 const version = isPreview ? "draft" : "published";
+
 
 // const { data } = await storyblokApi.get(`cdn/stories/${storyPath}`, {
 //   version: version,
@@ -73,4 +134,4 @@ try {
       });
     }
   };
-</script>
+</script> -->

@@ -26,3 +26,6 @@ pnpm-debug.log*
 # Local SSL certificates
 localhost.pem
 localhost-key.pem
+
+# Local Netlify folder
+.netlify

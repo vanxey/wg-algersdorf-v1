@@ -9,11 +9,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^7.0.8",
     "@astrojs/sitemap": "^3.7.2",
-    "@storyblok/astro": "^7.3.8",
-    "astro": "^5.16.16"
+    "@storyblok/astro": "^9.0.4",
+    "astro": "^6.1.9"
   },
   "devDependencies": {
     "vite-plugin-mkcert": "^1.17.9"
+  },
+  "overrides": {
+    "vite": "^7.0.0"
   }
 }

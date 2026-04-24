@@ -1,27 +1,38 @@
 import { defineConfig } from 'astro/config';
 import { storyblok } from '@storyblok/astro';
+import netlify from '@astrojs/netlify'; 
 import { loadEnv } from 'vite';
-import mkcert from 'vite-plugin-mkcert'
-
+import mkcert from 'vite-plugin-mkcert';
 import sitemap from "@astrojs/sitemap";
 
-const env = loadEnv('', process.cwd(), 'STORYBLOK');
-const { STORYBLOK_DELIVERY_API_TOKEN } = loadEnv(
-  import.meta.env.MODE,
-  process.cwd(),
-  '',
-);
+// const env = loadEnv('', process.cwd(), 'STORYBLOK');
+// const { STORYBLOK_DELIVERY_API_TOKEN } = loadEnv(
+//   import.meta.env.MODE,
+//   process.cwd(),
+//   '',
+// );
+const mode = process.env.NODE_ENV || 'development';
+const env = loadEnv(mode, process.cwd(), '');
 
 const isProduction = process.env.CONTEXT === 'production';
+
+const isPreviewEnv = 
+  process.env.CONTEXT === 'branch-deploy' || 
+  process.env.CONTEXT === 'deploy-preview' || 
+  process.env.NODE_ENV === 'development';
+
 const siteUrl = isProduction 
   ? 'https://www.wg-algersdorf.org' 
   : process.env.DEPLOY_PRIME_URL || 'http://localhost:4321';
 
 export default defineConfig({
   site: siteUrl,
+  output: isPreviewEnv ? 'server' : 'static',
+  adapter: isPreviewEnv ? netlify() : undefined,
   integrations: [storyblok({
     accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
-    bridge: true,
+    bridge: isPreviewEnv,
+    livePreview: isPreviewEnv,
     apiOptions: {
       region: 'eu',
     },
@@ -76,7 +87,6 @@ export default defineConfig({
      
     },
   }), sitemap()],
-  output: 'static',
   vite: {
     plugins: [ mkcert() ]
   },
