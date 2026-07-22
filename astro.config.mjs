@@ -22,7 +22,7 @@ const isPreviewEnv =
   process.env.NODE_ENV === 'development';
 
 const siteUrl = isProduction 
-  ? (process.env.URL || 'https://wg-algersdorf.org')
+  ? 'https://wg-algersdorf.org'
   : process.env.DEPLOY_PRIME_URL || 'http://localhost:4321';
 
 export default defineConfig({
