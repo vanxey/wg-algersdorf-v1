@@ -28,11 +28,11 @@ const siteUrl = isProduction
 export default defineConfig({
   site: siteUrl,
   output: isPreviewEnv ? 'server' : 'static',
-  adapter: netlify({
-    // Disable edge middleware caching if enabled
-    edgeMiddleware: false,
-  }),
-  // adapter: isPreviewEnv ? netlify() : undefined,
+  // adapter: netlify({
+  //   // Disable edge middleware caching if enabled
+  //   edgeMiddleware: false,
+  // }),
+  adapter: isPreviewEnv ? netlify() : undefined,
   integrations: [storyblok({
     accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
     bridge: isPreviewEnv,
