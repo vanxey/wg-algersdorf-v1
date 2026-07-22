@@ -22,7 +22,7 @@ const isPreviewEnv =
   process.env.NODE_ENV === 'development';
 
 const siteUrl = isProduction 
-  ? 'https://www.wg-algersdorf.org' 
+  ? (process.env.URL || 'https://wg-algersdorf.org')
   : process.env.DEPLOY_PRIME_URL || 'http://localhost:4321';
 
 export default defineConfig({
@@ -88,6 +88,6 @@ export default defineConfig({
     },
   }), sitemap()],
   vite: {
-    plugins: [ mkcert() ]
+    plugins: mode === 'development' ? [ mkcert() ] : []
   },
 });
